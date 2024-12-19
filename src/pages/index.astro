@@ -1,16 +1,16 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
-import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Content from '~/components/widgets/Content.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
 import Features from '~/components/widgets/Features.astro';
 import Features2 from '~/components/widgets/Features2.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Content from '~/components/widgets/Content.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
 import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import Steps from '~/components/widgets/Steps.astro';
 
 const metadata = {
   title: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
@@ -34,19 +34,11 @@ const metadata = {
     ]}
     image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }}
   >
-    <Fragment slot="title">
-      Free template for <span class="hidden xl:inline">creating websites with</span>
-      <span class="text-accent dark:text-white highlight"> Astro 4.0</span> + Tailwind CSS
-    </Fragment>
+    <Fragment slot="title"> Next Generation Bible App Is Here </Fragment>
 
     <Fragment slot="subtitle">
-      <span class="hidden sm:inline">
-        <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro 4.0
-        + Tailwind CSS.</span
-      >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span>
-      Suitable for Startups, Small Business, SaaS websites, Professional Portfolios, Marketing websites, Landing Pages &
-      Blogs.
+      Step into the presence of God with Aura. Explore Scripturre, reflect deeply, and grow in faith with your personal
+      Bible and prayer guide. Transform your Bible study experience today!
     </Fragment>
   </Hero>
 
@@ -58,45 +50,29 @@ const metadata = {
 
   <Features
     id="features"
-    tagline="Features"
-    title="What you get with AstroWind"
-    subtitle="One of the most professional and comprehensive templates currently on the market. Most starred & forked Astro theme in 2022."
+    tagline="Problems"
+    title="Hitting roadblocks to spiritual growth?"
+    subtitle="Every Christian experiences spiritual roadblocks, Aura ishere to help."
     items={[
       {
-        title: 'Astro + Tailwind CSS Integration',
-        description:
-          'A seamless integration between two great frameworks that offer high productivity, performance and versatility.',
+        title: 'Disconnect from Scripture',
+        description: 'The Bible is rich and overwhelming. Without context, it can be hard to understand.',
         icon: 'tabler:brand-tailwind',
       },
       {
-        title: 'Ready-to-use Components',
-        description:
-          'Widgets made with Tailwind CSS ready to be used in Marketing Websites, SaaS, Blogs, Personal Profiles, Small Business...',
+        title: 'Spiritual Isolation',
+        description: 'Sometimes guilt and awkwardness keep me from sharing prayer needs, causing isolation',
         icon: 'tabler:components',
       },
       {
-        title: 'Best Practices',
-        description:
-          'Creating secure, efficient, and user-friendly websites that deliver exceptional experiences and lasting value.',
+        title: 'Lack of Guidance',
+        description: 'Without direction, sometimes I struggle to pray confidently, and feel distant from God.',
         icon: 'tabler:list-check',
       },
       {
-        title: 'Excellent Page Speed',
-        description:
-          'Having a good page speed impacts organic search ranking, improves user experience (UI/UX) and increase conversion rates.',
+        title: 'Doubt & Uncertainty',
+        description: 'Unanswered prayers create doubt, making believers question if God listens.',
         icon: 'tabler:rocket',
-      },
-      {
-        title: 'Search Engine Optimization (SEO)',
-        description:
-          "SEO lies in its ability to enhance a website's visibility, driving organic traffic and enabling it to reach a wider audience.",
-        icon: 'tabler:arrows-right-left',
-      },
-      {
-        title: 'Open to new ideas and contributions',
-        description:
-          'Embracing a culture that is open to new ideas and contributions is integral fostering innovation, collaboration, and a dynamic user experience.',
-        icon: 'tabler:bulb',
       },
     ]}
   />
@@ -105,33 +81,33 @@ const metadata = {
 
   <Content
     isReversed
-    tagline="Inside template"
-    title="AstroWind's Blueprint: Fun Meets Functionality!"
+    tagline="Features"
+    title="“It’s A Spiritual Companion.”"
+    subtitle="Imagine having someone to discuss challenging questions, 24/7."
     items={[
       {
-        title: 'Built on top of Astro 4.0',
+        title: 'Contextual Exploration',
         description:
-          'Benefiting from the performance and developer-friendly features of this modern static site generator.',
+          'Explore over 840,000 study notes detailing historical, cultural, geographical, and theological backgrounds. Gain a full pictureof Scripture’s redemptive story.',
       },
       {
-        title: 'Styled using Tailwind CSS',
+        title: 'Cross Reference',
         description:
-          'Facilitating rapid design and consistent styling with this highly popular utility-first CSS framework.',
-      },
-      {
-        title: 'Cross-browser compatibility',
-        description:
-          'Ensure your website looks and functions consistently across various web browsers, delivering a seamless experience to all users.',
+          'Trace connections across all 66 books of the Bible-discovering themes, prophecies, and truths that beautifully align to reeveal God’s redemptive plan.',
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      src: '~/assets/images/feature1.png',
       alt: 'Colorful Image',
     }}
   >
     <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Building on modern foundations</h3>
-      Gain a competitive advantage by incorporating industry leading practices
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        In-Depth Contextual Bible Study
+      </h3>
+      Dive deeper into Scripture with Aura’s verse-by-verse insights. The one-click <span class="font-bold"
+        >“Expand”</span
+      > feature reveals the profound richness of God’s Word effortlessly.
     </Fragment>
 
     <Fragment slot="bg">
@@ -145,23 +121,13 @@ const metadata = {
     isAfterContent
     items={[
       {
-        title: 'High level of customization',
-        description: `Tailor the template effortlessly to match your brand's identity and requirements, making your website distinct and saving you time.`,
+        title: 'Less Known Insights',
+        description: `Explore fresh, thought-provoking reflections that uncover bblical truths, hidden context, and deeper meanings-shedding new light on familiar passages to strengthen your understanding of God’s Word`,
       },
       {
-        title: 'Multiple layout possibilities',
+        title: 'Curated Content',
         description:
-          'Explore various layout options to find the structure that best presents your content, enhancing user engagement and navigation.',
-      },
-      {
-        title: 'Fully responsive design',
-        description:
-          "Ensure your website's optimal performance on various devices and screen sizes, providing a consistent and enjoyable user experience.",
-      },
-      {
-        title: 'Integration of media',
-        description:
-          'Seamlessly incorporate images, videos, and multimedia elements that enhance your content and engage visitors effectively.',
+          'Every devotional is thoughtfully crafted by our team, rooted in Scripture, and theologically sound. Designed to draw you closer to God, each reflection inspires meaningful insights and heeartfelt prayer.',
       },
     ]}
     image={{
@@ -169,7 +135,11 @@ const metadata = {
       alt: 'Blueprint Image',
     }}
   >
-    <Fragment slot="content">Ensure your online presence truly represents you.</Fragment>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Daily Rejuvenation</h3>
+      Aura delivers a fresh daily devotional that unpacks Biblical promises or theological insights. With Scripture and guideed
+      prayer woven together, you'll reflect deeply on God’s Word and discover its relevance in your life.
+    </Fragment>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
@@ -183,23 +153,14 @@ const metadata = {
     isAfterContent
     items={[
       {
-        title: 'Enhanced user engagement',
+        title: 'Conversational Prayer Writing Guide',
         description:
-          'Captivate your audience with interactive elements, intuitive navigation, and visually appealing layouts, encouraging longer visits.',
+          'Struggling to find the right words for prayer? Aura’s interactive guide helps you articulate heartfelt, meaningful prayers through a conversational approach, making every prayer authentic and personal.',
       },
       {
-        title: 'Continuous improvement',
+        title: 'Tailored Made Devotionals Just For You',
         description:
-          'Ensure your website stays aligned with the latest trends and technologies through regular updates and enhancements.',
-      },
-      {
-        title: 'Time and resource efficiency',
-        description:
-          'Skip the time-consuming process of building a website from scratch and launch your online presence sooner with AstroWind.',
-      },
-      {
-        title: 'Community support',
-        description: `Join the growing AstroWind community for insights, resources, and assistance, ensuring you're never alone on your web development journey.`,
+          'Receive devotionals carefully customized to your needs, with selected Scripture, reflections, and prayers that speak directly to your circumstances—bringing comfort, clarity, and renewed hope.',
       },
     ]}
     image={{
@@ -207,46 +168,47 @@ const metadata = {
       alt: 'Astronauts Image',
     }}
   >
-    <Fragment slot="content">Designed to foster growth and success.</Fragment>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Personalized Devotionals</h3>
+      Aura delivers a fresh daily devotional that unpacks Biblical promises or theological insights. With Scripture and guideed
+      prayer woven together, you'll reflect deeply on God’s Word and discover its relevance in your life.
+    </Fragment>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
-  <!-- Steps Widget ****************** -->
-
-  <Steps
-    title="Get your dream website up and running in no time with AstroWind."
+  <Content
+    isAfterContent
     items={[
       {
-        title: 'Step 1: <span class="font-medium">Download</span>',
+        title: 'Theologically Rigorous',
         description:
-          "Kickstart with GitHub! Either fork the AstroWind template or simply click 'Use this template'. Your canvas awaits, ready for your digital masterpiece. In just a few clicks, you've already set the foundation.",
-        icon: 'tabler:package',
+          'Every response is grounded in sound biblical doctrine, ensuring clarity, accuracy, and alignment with Scripture. With Aura, you can trust that every insight reflects theological depth and truth.',
       },
       {
-        title: 'Step 2: <span class="font-medium">Add content</span>',
+        title: 'Builds Deeper Understanding',
         description:
-          "Pour your vision into it. Add images, text, and all that jazz to breathe life into your digital space. Remember, it's the content that tells your story, so make it captivating.",
-        icon: 'tabler:letter-case',
-      },
-      {
-        title: 'Step 3: <span class="font-medium">Customize styles</span>',
-        description:
-          'Give it your personal touch. Tailor colors, fonts, and layouts until it feels just right. Your unique flair, amplified by AstroWind! Precision in design ensures a seamless user experience.',
-        icon: 'tabler:paint',
-      },
-      {
-        title: 'Ready!',
-        icon: 'tabler:check',
+          'Aura remembers your prayers and context with memory management, making conversations increasingly relevant, personalized, and insightful over time.',
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
-      alt: 'Steps image',
+      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2194&q=80',
+      alt: 'Blueprint Image',
     }}
-  />
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">24/7 Discussion Partner</h3>
+      Your trusted companion for living out your faith with purpose, joy, and biblical clarity. Whether you’re diving into
+      deeper Bible study, seeking encouragement in tough times, or simply looking for a quiet space to reflect and pray,
+      Aura is here to help you grow closer to God.
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
 
   <!-- Features2 Widget ************** -->
 
@@ -326,39 +288,49 @@ const metadata = {
 
   <FAQs
     title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
+    subtitle="Dive in and get to know a bit more about Aura"
     tagline="FAQs"
     classes={{ container: 'max-w-6xl' }}
     items={[
       {
-        title: 'Why AstroWind?',
+        title: 'Can I trust Al to answer Bible questions?',
         description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
+          "Aura's Al provides biblically grounded answers by adhering strictly to Scripture and Reformed theology, including the Westminster Confession of Faith. While Al offers clarityand guidance, we encourage users to test all insights againsthe Bible and seek wisdom from trusted church leaders.",
       },
       {
-        title: 'What do I need to start?',
+        title: 'What translations of Bible does Aura use?',
         description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
+          'Aura proudly licenses the New American Standard Biblle (NASB) as our exclusive translation. Renowned for its unmatched accuracy to the original Hebrew, Aramaic, and Greek texts, the NASB is trusted by millions for its precision and clarity-making it ideal for in-depth study.',
       },
       {
-        title: 'How to install the Astro + Tailwind CSS template?',
+        title: 'Why the name Aura?',
         description:
-          "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
+          'In Exodus 34:29-30, Moses’ face radiated with a divineglow after meeting God. “Aura” represents the reflection of His$light, wisdom, and presence that we hope this app brings to your daily life and time in God’s Word.',
       },
       {
-        title: "What's something that you don't understand?",
+        title: 'Can I share my devotionals or prayer reflections with others?',
         description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
+          'Yes! Aura allows you to share our copyrighted devotionals, prayer reflections, and insights with friends, family, or you small group to encourage growth and connection.',
       },
       {
-        title: 'What is something that you would like to try again?',
+        title: 'How does Aura ensure the theological accuracy of its answers?',
         description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
+          'Aura adheres to sound biblical doctrine and Refornhed theology, guided by trusted theological resources and oversight to ensure answers remain biblically faithful.',
       },
       {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
+        title: 'Can Aura replace my church or small group?',
         description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
+          'No. Aura is a tool to enrich your personal faith journey, but it’s not a replacement for the essential fellowship, accountability, and teaching found in your local church community.',
+      },
+      {
+        title: 'What makes Aura different from other Bible study apps?',
+        description:
+          'Aura uniquely combines Al-powered contextual Bible studdy, personalized devotionals, and memory management, delivering a tailored and comprehensive study experiencee unmatched by other apps.',
+      },
+      {
+        title: 'How can I provide feedback or get support?',
+        description:
+          'We value your input! Reach our team anytime at auraprayerapp@gmail.com or use the in-app feedback feature to share thoughts or get help.',
       },
     ]}
   />
