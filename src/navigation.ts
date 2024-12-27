@@ -6,122 +6,38 @@ export const headerData = {
       text: 'Homes',
       links: [
         {
-          text: 'SaaS',
-          href: getPermalink('/homes/saas'),
+          text: 'Problems',
+          href: getPermalink('/#problems'),
         },
         {
-          text: 'Startup',
-          href: getPermalink('/homes/startup'),
-        },
-        {
-          text: 'Mobile App',
-          href: getPermalink('/homes/mobile-app'),
-        },
-        {
-          text: 'Personal',
-          href: getPermalink('/homes/personal'),
-        },
-      ],
-    },
-    {
-      text: 'Pages',
-      links: [
-        {
-          text: 'Features (Anchor Link)',
+          text: 'Features',
           href: getPermalink('/#features'),
         },
         {
-          text: 'Services',
-          href: getPermalink('/services'),
-        },
-        {
-          text: 'Pricing',
-          href: getPermalink('/pricing'),
-        },
-        {
-          text: 'About us',
-          href: getPermalink('/about'),
-        },
-        {
-          text: 'Contact',
-          href: getPermalink('/contact'),
-        },
-        {
-          text: 'Terms',
-          href: getPermalink('/terms'),
-        },
-        {
-          text: 'Privacy policy',
-          href: getPermalink('/privacy'),
+          text: 'FAQs',
+          href: getPermalink('/#faqs'),
         },
       ],
     },
     {
-      text: 'Landing',
-      links: [
-        {
-          text: 'Lead Generation',
-          href: getPermalink('/landing/lead-generation'),
-        },
-        {
-          text: 'Long-form Sales',
-          href: getPermalink('/landing/sales'),
-        },
-        {
-          text: 'Click-Through',
-          href: getPermalink('/landing/click-through'),
-        },
-        {
-          text: 'Product Details (or Services)',
-          href: getPermalink('/landing/product'),
-        },
-        {
-          text: 'Coming Soon or Pre-Launch',
-          href: getPermalink('/landing/pre-launch'),
-        },
-        {
-          text: 'Subscription',
-          href: getPermalink('/landing/subscription'),
-        },
-      ],
+      text: 'About Us',
+      href: 'https://docs.auraofhope.com/about-us',
+      target: '_blank',
     },
     {
-      text: 'Blog',
-      links: [
-        {
-          text: 'Blog List',
-          href: getBlogPermalink(),
-        },
-        {
-          text: 'Article',
-          href: getPermalink(
-            'get-started-website-with-astro-tailwind-css',
-            'post',
-          ),
-        },
-        {
-          text: 'Article (with MDX)',
-          href: getPermalink('markdown-elements-demo-post', 'post'),
-        },
-        {
-          text: 'Category Page',
-          href: getPermalink('tutorials', 'category'),
-        },
-        {
-          text: 'Tag Page',
-          href: getPermalink('astro', 'tag'),
-        },
-      ],
+      text: 'Statement of Faith',
+      href: 'https://docs.auraofhope.com/statement-of-faith',
+      target: '_blank',
     },
     {
-      text: 'Widgets',
-      href: '#',
+      text: 'Contact Us',
+      href: 'mailto:auraprayerapp@gmail.com',
     },
   ],
   actions: [
     {
       text: 'Download',
-      href: 'https://github.com/onwidget/astrowind',
+      href: 'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898',
       target: '_blank',
     },
   ],
@@ -130,8 +46,14 @@ export const headerData = {
 export const footerData = {
   links: [],
   secondaryLinks: [
-    { text: 'Terms', href: getPermalink('/terms') },
-    { text: 'Privacy Policy', href: getPermalink('/privacy') },
+    {
+      text: 'Terms',
+      href: 'https://docs.auraofhope.com/service/terms-and-conditions',
+    },
+    {
+      text: 'Privacy Policy',
+      href: 'https://docs.auraofhope.com/service/privacy-policy',
+    },
   ],
   socialLinks: [],
   footNote: '',

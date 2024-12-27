@@ -1,16 +1,16 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
+import Content from '~/components/widgets/Content.astro';
+import Features from '~/components/widgets/Features.astro';
 import Header from '~/components/widgets/Header.astro';
 import Hero2 from '~/components/widgets/Hero2.astro';
-import Features from '~/components/widgets/Features.astro';
-import Steps2 from '~/components/widgets/Steps2.astro';
-import Content from '~/components/widgets/Content.astro';
 import Pricing from '~/components/widgets/Pricing.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
 
-import { headerData } from '~/navigation';
-import FAQs from '~/components/widgets/FAQs.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import { headerData } from '~/navigation';
 
 const metadata = {
   title: 'SaaS Landing Page',
@@ -136,7 +136,7 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
@@ -166,7 +166,7 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
@@ -197,7 +197,7 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
@@ -226,7 +226,7 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
@@ -303,7 +303,7 @@ const metadata = {
     ]}
   >
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </FAQs>
 
@@ -343,7 +343,7 @@ const metadata = {
     information={`Explore our collection of articles, guides, and tutorials on web development, design trends, and using AstroWind effectively for your projects.`}
   >
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </BlogLatestPosts>
 </Layout>
