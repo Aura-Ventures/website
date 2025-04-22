@@ -1,0 +1,126 @@
+---
+import PrayEllipse from '~/components/ui/PrayEllipse.astro';
+
+interface Props {
+  title?: string;
+  content?: string;
+  buttonText?: string;
+  href?: string;
+}
+
+const { title, content, buttonText, href } = Astro.props;
+
+const handleAnimationFinished = () => {
+  const titleContainer = document.querySelector('.title-container') as HTMLElement;
+  const prayerContainer = document.querySelector('.prayer-container') as HTMLElement;
+  if (!titleContainer || !prayerContainer) return;
+  titleContainer.style.transform = 'scale(0.5)';
+  prayerContainer.style.height = 'calc(100vh - 66px)';
+  prayerContainer.style.transform = 'translateY(0)';
+};
+---
+
+<div class='container'>
+  <div class='title-container' id='title-container'>
+    <div class='title'>{title}</div>
+    <div id='prayer-ellipse' style='display: none;'>
+      <PrayEllipse onAnimationFinished={handleAnimationFinished} shouldAnimate={true} />
+    </div>
+  </div>
+  <div class='prayer-container' id='prayer-container'>
+    <div class='prayer-content'>
+      {content}
+    </div>
+    <div class='btn-container'>
+      <a class='btn' id='prayButton' href={href}>{buttonText}</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('~/assets/images/pray-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  .title-container {
+    flex: 1;
+    position: relative;
+    width: 300px;
+    height: 66px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+  }
+  .title {
+    text-align: center;
+    font-size: 50px;
+    font-family: 'BeautiqueDisplayCondensed', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    color: #333;
+    animation: fadeIn 1s ease-in-out;
+  }
+  #prayer-ellipse {
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  .prayer-container {
+    transform: translateY(100vh);
+    height: 0;
+    overflow-y: scroll;
+    transition: all 0.5s ease-in-out;
+    padding: 20px;
+    width: 100%;
+  }
+  .prayer-content {
+    font-size: 19px;
+    font-family: 'Lora', sans-serif;
+    font-weight: 500;
+    color: #333;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .btn-container {
+    padding: 45px 28px;
+  }
+
+  .btn {
+    font-family: 'Jost', sans-serif;
+    width: 100%;
+    background: #222;
+    color: white;
+    border: none;
+    padding: 14px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const prayerContent = document.querySelector('#prayer-ellipse') as HTMLElement;
+    if (!prayerContent) return;
+
+    prayerContent.style.display = 'block';
+  });
+</script>

@@ -1,0 +1,149 @@
+---
+interface Props {
+  onAnimationFinished?: () => void;
+  shouldAnimate?: boolean;
+}
+
+const { onAnimationFinished, shouldAnimate = true } = Astro.props;
+---
+
+<div
+  class='animation-container'
+  data-callback={onAnimationFinished?.toString()}
+  data-should-animate={String(shouldAnimate)}
+>
+  <svg class='prayer-ellipse' viewBox='0 0 200 100'>
+    <defs>
+      <linearGradient id='ellipseGradient' x1='0%' y1='0%' x2='0%' y2='100%'>
+        <stop offset='0%' style='stop-color:#4F4F4F;stop-opacity:1'></stop>
+        <stop offset='50%' style='stop-color:#4F4F4F;stop-opacity:0'></stop>
+        <stop offset='100%' style='stop-color:#4F4F4F;stop-opacity:1'></stop>
+      </linearGradient>
+    </defs>
+    <ellipse class='ellipse-path' cx='100' cy='50' rx='90' ry='30'></ellipse>
+  </svg>
+  <div class='star'></div>
+</div>
+
+<style>
+  .animation-container {
+    position: relative;
+    width: 100%;
+    height: 200%;
+  }
+
+  .prayer-ellipse {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-186.16deg);
+  }
+
+  .ellipse-path {
+    fill: none;
+    stroke: url(#ellipseGradient);
+    stroke-width: 1;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    /* animation: drawEllipse 1s ease-in-out forwards; */
+  }
+
+  .star {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background-image: url('~/assets/images/sparkle.png');
+    background-size: contain;
+    opacity: 0;
+    /* animation: fadeInStar 0.3s ease-in-out 1s forwards; */
+    left: 15%;
+    bottom: 10%;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes drawEllipse {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fadeInStar {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  // 动画控制逻辑
+  function init() {
+    const container = document.querySelector('.animation-container');
+
+    const ellipse = document.querySelector('.ellipse-path') as SVGElement;
+    const star = document.querySelector('.star') as HTMLElement;
+
+    if (!container || !ellipse || !star) return;
+
+    // 重置动画
+    const resetAnimation = () => {
+      ellipse.style.animation = 'none';
+      star.style.animation = 'none';
+
+      ellipse.style.display = 'none';
+      star.style.display = 'none';
+
+      const shouldAnimate = container.getAttribute('data-should-animate') === 'true';
+
+      if (shouldAnimate) {
+        requestAnimationFrame(() => {
+          ellipse.style.display = 'block';
+          star.style.display = 'block';
+
+          ellipse.style.animation = 'drawEllipse 1s ease-in-out forwards';
+          star.style.animation = 'fadeInStar 0.3s ease-in-out 1s forwards';
+        });
+      } else {
+        // 如果不应该动画，直接设置最终状态
+        ellipse.style.display = 'block';
+        star.style.display = 'block';
+
+        ellipse.style.strokeDashoffset = '0';
+        star.style.opacity = '1';
+
+        // 触发回调
+        const callbackStr = container.getAttribute('data-callback');
+        if (callbackStr) {
+          try {
+            const callback = new Function(`return ${callbackStr}`)();
+            if (typeof callback === 'function') {
+              callback();
+            }
+          } catch (e) {
+            console.error('Failed to execute animation callback:', e);
+          }
+        }
+      }
+    };
+
+    // 监听动画结束
+    star.addEventListener('animationend', () => {
+      const callbackStr = container.getAttribute('data-callback');
+      if (callbackStr) {
+        try {
+          const callback = new Function(`return ${callbackStr}`)();
+          if (typeof callback === 'function') {
+            callback();
+          }
+        } catch (e) {
+          console.error('Failed to execute animation callback:', e);
+        }
+      }
+    });
+
+    // 初始动画
+    resetAnimation();
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    init();
+  });
+</script>

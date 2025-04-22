@@ -9,18 +9,18 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: Aura
+    template: '%s — Aura'
+  description: 'Pray Deeper | Walk Closer'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: Aura
     images:
       - url: '~/assets/images/default.png'
-        width: 1200
-        height: 628
+        width: 214
+        height: 214
     type: website
   twitter:
     handle: '@onwidget'

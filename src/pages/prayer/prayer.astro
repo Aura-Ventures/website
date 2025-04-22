@@ -1,0 +1,57 @@
+---
+import type { MetaData } from '~/types';
+import Layout from '../../layouts/Layout.astro';
+import PrayerPage from '~/components/prayer/PrayerPage.astro';
+
+const metadata: MetaData = {
+  title: 'My Reflection & Prayer',
+};
+
+// const data = [
+//   {
+//     title: 'Reflection',
+//     content: `Heavenly Father, we lift up Kate into Your loving arms, asking for Your divine intervention and healing power to be manifested in her life. Lord, we earnestly pray for her body, that it may respond to treatment positively and that she may be granted strength and resilience to face the days ahead. Surround her with Your peace and fill her with hope that surpasses all understanding.
+// We ask for Your support for her family, especially her young children, as they navigate this uncertain path. Provide them with the love and encouragement they need, and help them to feel Your presence every step of the way. We pray for hearts that are surrendered to Your will, arming them with the assurance that they are never alone.
+// Lord, grant Kate and her family the joy of knowing Your faithfulness in every circumstance. Let their spirit rejoice even in difficult times, as they lean on You for hope and healing. In Jesus' name, we pray. Amen.`,
+//     buttonText: "Let's pray",
+//   },
+//   {
+//     title: 'Prayer',
+//     content: `Heavenly Father, we lift up Kate into Your loving arms, asking for Your divine intervention and healing power to be manifested in her life. Lord, we earnestly pray for her body, that it may respond to treatment positively and that she may be granted strength and resilience to face the days ahead. Surround her with Your peace and fill her with hope that surpasses all understanding.
+// We ask for Your support for her family, especially her young children, as they navigate this uncertain path. Provide them with the love and encouragement they need, and help them to feel Your presence every step of the way. We pray for hearts that are surrendered to Your will, arming them with the assurance that they are never alone.
+// Lord, grant Kate and her family the joy of knowing Your faithfulness in every circumstance. Let their spirit rejoice even in difficult times, as they lean on You for hope and healing. In Jesus' name, we pray. Amen.`,
+//     buttonText: 'Amen',
+//   },
+//   {
+//     title: 'Closing\n Thought',
+//     content: `Heavenly Father, we lift up Kate into Your loving arms, asking for Your divine intervention and healing power to be manifested in her life. Lord, we earnestly pray for her body, that it may respond to treatment positively and that she may be granted strength and resilience to face the days ahead. Surround her with Your peace and fill her with hope that surpasses all understanding.
+// We ask for Your support for her family, especially her young children, as they navigate this uncertain path. Provide them with the love and encouragement they need, and help them to feel Your presence every step of the way. We pray for hearts that are surrendered to Your will, arming them with the assurance that they are never alone.
+// Lord, grant Kate and her family the joy of knowing Your faithfulness in every circumstance. Let their spirit rejoice even in difficult times, as they lean on You for hope and healing. In Jesus' name, we pray. Amen.`,
+//     buttonText: 'Download Aura',
+//   },
+// ];
+
+const data = {
+  title: 'Prayer',
+  content: `Heavenly Father, we lift up Kate into Your loving arms, asking for Your divine intervention and healing power to be manifested in her life. Lord, we earnestly pray for her body, that it may respond to treatment positively and that she may be granted strength and resilience to face the days ahead. Surround her with Your peace and fill her with hope that surpasses all understanding.
+We ask for Your support for her family, especially her young children, as they navigate this uncertain path. Provide them with the love and encouragement they need, and help them to feel Your presence every step of the way. We pray for hearts that are surrendered to Your will, arming them with the assurance that they are never alone.
+Lord, grant Kate and her family the joy of knowing Your faithfulness in every circumstance. Let their spirit rejoice even in difficult times, as they lean on You for hope and healing. In Jesus' name, we pray. Amen.`,
+  buttonText: 'Amen',
+};
+---
+
+<Layout metadata={metadata}>
+  <div id='prayer-container'>
+    <PrayerPage title={data.title} content={data.content} buttonText={data.buttonText} href='/prayer/closing' />
+  </div>
+</Layout>
+
+<style>
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    font-family: 'Jost', sans-serif;
+  }
+</style>
+
+<script></script>
