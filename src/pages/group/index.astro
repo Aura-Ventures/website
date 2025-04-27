@@ -1,0 +1,143 @@
+---
+import type { MetaData } from '~/types';
+import Layout from '../../layouts/Layout.astro';
+
+const metadata: MetaData = {
+  title: 'Group Invitation',
+};
+---
+
+<Layout metadata={metadata}>
+  <main class='container'>
+    <div class='content'>
+      <div class='invitation-box'>
+        <div class='question-mark'>
+          <span>?</span>
+        </div>
+      </div>
+      <h1>Group Invitation Received</h1>
+      <p>You received an invitation to join a group. Please update your app in order to accept the invite!</p>
+      <button class='join-button'>JOIN GROUP</button>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    font-family: 'Jost', sans-serif;
+    background-color: #ffffff;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .content {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
+  }
+
+  .logo {
+    margin-bottom: 40px;
+  }
+
+  .invitation-box {
+    width: 120px;
+    height: 120px;
+    background: #ffffff;
+    border-radius: 20px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .question-mark {
+    width: 50px;
+    height: 50px;
+    background: #e8f4ff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #0066cc;
+  }
+
+  h1 {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #666666;
+    line-height: 1.5;
+    margin-bottom: 30px;
+  }
+
+  .join-button {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    transition: background-color 0.2s ease;
+  }
+
+  .join-button:hover {
+    background-color: #333333;
+  }
+
+  @media (max-width: 480px) {
+    .content {
+      padding: 16px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .invitation-box {
+      width: 100px;
+      height: 100px;
+    }
+  }
+</style>
+
+<script>
+  import { openApp } from '~/utils/applink';
+
+  const joinButton = document.querySelector('.join-button');
+  joinButton?.addEventListener('click', () => {
+    // 获取当前 URL 的搜索参数
+    const searchParams = new URLSearchParams(window.location.search);
+    // 将搜索参数转换为字符串
+    const queryString = searchParams.toString();
+    // 构建完整的路径
+    const path = queryString ? `group?${queryString}` : 'group';
+    // 调用 openApp 函数
+    openApp(path);
+  });
+</script>

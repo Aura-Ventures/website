@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.aura.letspray",
+      "sha256_cert_fingerprints": [
+        "20:6A:8F:BF:04:61:6E:19:90:99:CD:F2:21:B3:A6:06:73:EF:12:5B:47:7F:37:D7:1E:63:C7:F6:B1:46:23:F8"
+      ]
+    }
+  }
+]

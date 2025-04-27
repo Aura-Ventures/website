@@ -19,8 +19,6 @@ metadata:
     site_name: Aura
     images:
       - url: '~/assets/images/default.png'
-        width: 214
-        height: 214
     type: website
   twitter:
     handle: '@onwidget'
