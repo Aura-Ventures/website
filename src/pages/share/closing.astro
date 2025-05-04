@@ -1,0 +1,95 @@
+---
+import type { MetaData } from '~/types';
+import Layout from '../../layouts/Layout.astro';
+import PrayerPage from '~/components/prayer/PrayerPage.astro';
+
+const metadata: MetaData = {
+  title: 'My Reflection & Prayer',
+};
+---
+
+<Layout metadata={metadata}>
+  <div class='page-container'>
+    <PrayerPage title={'Closing\n Thought'} bgTheme='solid' content='' buttonText='Download Aura' href='/' />
+    <div id='closingContent' class='hidden'></div>
+  </div>
+</Layout>
+
+<style>
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    font-family: 'Jost', sans-serif;
+  }
+  .page-container {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family:
+      'Jost',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
+  }
+</style>
+
+<script>
+  import { openApp } from '~/utils/applink';
+  import { decodeShare } from '~/services';
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const ticket = urlParams.get('ticket');
+  let clickHandler: (() => void) | null = null;
+
+  const fetchData = async () => {
+    const data = await decodeShare(ticket as string);
+
+    const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
+    const nameElement = document.getElementById('userName');
+
+    if (avatarElement && data?.shareUser?.avatarUrl) {
+      avatarElement.src = data.shareUser.avatarUrl;
+    }
+
+    if (nameElement && data?.shareUser?.fullName) {
+      nameElement.textContent = data.shareUser.fullName;
+    }
+
+    // 确保在更新内容前清空现有内容
+    const prayerContent = document.querySelector('.prayer-content');
+    if (prayerContent) {
+      prayerContent.textContent = '';
+
+      if (data?.data?.closing) {
+        prayerContent.textContent = data.data.closing;
+      }
+    }
+
+    const prayerButton = document.querySelector('#prayButton');
+    if (prayerButton && ticket) {
+      clickHandler = () => {
+        openApp(`share/devotional?ticket=${ticket}`);
+      };
+      prayerButton.addEventListener('click', clickHandler);
+    }
+  };
+
+  // 在页面加载和页面切换时都执行更新
+  const updateContent = () => {
+    if (ticket) {
+      fetchData();
+    }
+  };
+
+  document.addEventListener('astro:page-load', updateContent);
+  document.addEventListener('astro:after-swap', updateContent);
+
+  document.addEventListener('astro:before-swap', () => {
+    const prayerButton = document.querySelector('#prayButton');
+    if (prayerButton && clickHandler) {
+      prayerButton.removeEventListener('click', clickHandler);
+      clickHandler = null;
+    }
+  });
+</script>

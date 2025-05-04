@@ -1,6 +1,7 @@
 export const openApp = (path = '') => {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const isAndroid = /Android/.test(navigator.userAgent);
+  const isApple = /Macintosh/.test(navigator.userAgent);
   const appStoreUrl = 'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898';
   const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.aura.letspray';
   const appDeepLink = `aura://${path}`;
@@ -9,7 +10,13 @@ export const openApp = (path = '') => {
   const startTime = Date.now();
 
   // 尝试打开应用
-  window.location.href = appDeepLink;
+  if (isIOS || isAndroid) {
+    window.location.href = appDeepLink;
+  }
+
+  if (isApple) {
+    window.location.href = appStoreUrl;
+  }
 
   // 监听页面可见性变化
   document.addEventListener('visibilitychange', function () {

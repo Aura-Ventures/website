@@ -1,0 +1,389 @@
+---
+import type { MetaData } from '~/types';
+import { Icon } from 'astro-icon/components';
+import Layout from '../../layouts/Layout.astro';
+
+const metadata: MetaData = {
+  title: 'My Prayer Request',
+};
+---
+
+<Layout metadata={metadata}>
+  <div class='container'>
+    <div class='card'>
+      <div class='header'>
+        <img class='avatar' id='userAvatar' />
+        <span class='from-text'>From</span>
+        <span class='name' id='userName'></span>
+        <Icon name='tabler:chevron-right' class='w-5 h-5 text-gray-400' />
+        <div class='close-icon' id='closeIcon'>
+          <Icon name='tabler:x' class='w-5 h-5' />
+        </div>
+      </div>
+      <div class='content'>
+        <div class='qr-section'>
+          <img class='qr-code' id='qrCode' />
+          <div class='brand'>
+            <div class='brand-name'>Aura</div>
+            <div class='brand-slogan'>Pray Deeper | Walk Closer</div>
+          </div>
+        </div>
+        <div class='prayer-content-card-container'>
+          <div class='prayer-content-card'>
+            <div class='author-section'>
+              <img class='avatar' id='userAvatar2' />
+              <span class='author-name' id='userName2'></span>
+              <span class='new-badge'>NEW</span>
+            </div>
+
+            <h1 class='prayer-title' id='prayerTitle'></h1>
+            <div class='timestamp' id='prayerTimestamp'></div>
+
+            <p class='prayer-content' id='prayerContent'></p>
+
+            <button class='join-prayer-btn' id='prayerButton'>Join Me In Prayer</button>
+
+            <div class='prayer-stats'>
+              <div class='avatar-group'>
+                <div class='avatar-stack' id='avatarStack'></div>
+              </div>
+              <span class='prayer-count' id='prayerCount'></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    font-family:
+      'Jost',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
+  }
+
+  .card {
+    background: #ece9e2;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #fbfaf3;
+    padding: 16px;
+  }
+
+  .content {
+    padding: 0 16px 16px 16px;
+  }
+
+  .avatar {
+    width: 16px;
+    height: 16px;
+    background: #e2e2e2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .from-text {
+    color: #000;
+    font-size: 14px;
+  }
+
+  .name {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .close-icon {
+    margin-left: auto;
+    background: #c2c1c0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+  }
+
+  .qr-section {
+    background: #ece9e2;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-radius: 8px;
+  }
+
+  .qr-code {
+    width: 55px;
+    height: 55px;
+    background: #fff;
+    border-radius: 4px;
+  }
+
+  .brand {
+    flex: 1;
+    text-align: right;
+  }
+
+  .brand-name {
+    font-family: 'BeautiqueDisplayCondensed', serif;
+    font-weight: 500;
+    color: #222;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  .brand-slogan {
+    color: #4f4f4f;
+    font-size: 14px;
+  }
+
+  .prayer-content-card-container {
+    /* padding: 14px; */
+  }
+
+  .prayer-content-card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    border-radius: 12px;
+    background: white;
+  }
+
+  .author-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .author-avatar {
+    width: 20px;
+    height: 20px;
+    background: #e2e2e2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .author-name {
+    font-weight: 700;
+    font-size: 12px;
+    color: #000;
+  }
+
+  .new-badge {
+    margin-left: auto;
+    background: #bd3a54;
+    color: white;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .prayer-title {
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #4f4f4f;
+  }
+
+  .timestamp {
+    color: #8d8d8d;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .prayer-content {
+    min-height: 100px;
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    color: #4f4f4f;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .join-prayer-btn {
+    font-family: 'Jost', sans-serif;
+    width: 100%;
+    background: #363636;
+    color: white;
+    border: none;
+    padding: 14px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .prayer-stats {
+    display: flex;
+    align-items: center;
+    padding-left: 24px;
+    gap: 8px;
+    border-top: 1px solid #e2e2e2;
+    padding-top: 12px;
+  }
+
+  .avatar-stack {
+    display: flex;
+    margin-right: 8px;
+  }
+
+  :global(.avatar-img) {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: -4px;
+  }
+  .prayer-count {
+    color: #666;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    :global(body.bg-page) {
+      background-color: #ece9e2;
+    }
+
+    .container {
+      padding: 0;
+    }
+
+    .card {
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .qr-section {
+      margin-left: -16px;
+      margin-right: -16px;
+      border-radius: 0;
+    }
+  }
+</style>
+
+<script>
+  import { openApp } from '~/utils/applink';
+  import { decodeShare } from '~/services';
+  import QRCode from 'qrcode';
+  import dayjs from 'dayjs';
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const ticket = urlParams.get('ticket');
+
+  const fetchData = async () => {
+    const data = await decodeShare(ticket as string);
+
+    const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
+    const nameElement = document.getElementById('userName');
+    const qrCodeElement = document.getElementById('qrCode') as HTMLImageElement;
+    const avatarElement2 = document.getElementById('userAvatar2') as HTMLImageElement;
+    const nameElement2 = document.getElementById('userName2');
+    const prayerTitleElement = document.getElementById('prayerTitle');
+    const prayerTimestampElement = document.getElementById('prayerTimestamp');
+    const prayerContentElement = document.getElementById('prayerContent');
+    const avatarStackElement = document.getElementById('avatarStack');
+    const prayerCountElement = document.getElementById('prayerCount');
+
+    if (avatarElement && data?.shareUser?.avatarUrl) {
+      avatarElement.src = data.shareUser.avatarUrl;
+    }
+
+    if (nameElement && data?.shareUser?.fullName) {
+      nameElement.textContent = data.shareUser.fullName;
+    }
+
+    if (avatarElement2 && data?.shareUser?.avatarUrl) {
+      avatarElement2.src = data.shareUser.avatarUrl;
+    }
+
+    if (nameElement2 && data?.shareUser?.fullName) {
+      nameElement2.textContent = data.shareUser.fullName;
+    }
+
+    if (qrCodeElement) {
+      try {
+        const qrCodeDataUrl = await QRCode.toDataURL(window.location.href, {
+          width: 55,
+          margin: 4,
+          color: {
+            dark: '#000000',
+            light: '#ffffff',
+          },
+        });
+        qrCodeElement.src = qrCodeDataUrl;
+      } catch (err) {
+        console.error('generate error:', err);
+      }
+    }
+
+    const prayerRequest = data?.data?.prayerRequests?.[0];
+
+    const title = prayerRequest?.title;
+    const content = prayerRequest?.content;
+    const updatedAt = prayerRequest?.updatedAt;
+    const replies = prayerRequest?.replies;
+    if (prayerTitleElement && title) {
+      prayerTitleElement.textContent = title;
+    }
+
+    if (prayerTimestampElement && updatedAt) {
+      prayerTimestampElement.textContent = dayjs(updatedAt).format('h:mmA MMM D, YYYY');
+    }
+
+    if (prayerContentElement && content) {
+      prayerContentElement.textContent = content;
+    }
+
+    if (avatarStackElement && replies) {
+      avatarStackElement.innerHTML = replies
+        ?.map((item) => `<img class='avatar-img' alt='avatar' src=${item?.user?.avatarUrl} />`)
+        .join('');
+    }
+
+    if (prayerCountElement && replies) {
+      prayerCountElement.textContent = `${replies?.length || 0} people prayed`;
+    }
+  };
+
+  document.addEventListener('astro:page-load', () => {
+    if (ticket) {
+      fetchData();
+    }
+  });
+
+  document.getElementById('prayerButton')?.addEventListener('click', () => {
+    openApp(`share/prayer-request?ticket=${ticket}`);
+  });
+
+  document.getElementById('closeIcon')?.addEventListener('click', () => {
+    window.location.href = '/';
+  });
+</script>

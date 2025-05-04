@@ -1,14 +1,16 @@
 ---
 import PrayEllipse from '~/components/ui/PrayEllipse.astro';
+import { Icon } from 'astro-icon/components';
 
 interface Props {
   title?: string;
   content?: string;
   buttonText?: string;
   href?: string;
+  bgTheme?: 'image' | 'solid';
 }
 
-const { title, content, buttonText, href } = Astro.props;
+const { title, content, bgTheme = 'image', buttonText, href } = Astro.props;
 
 const handleAnimationFinished = () => {
   const titleContainer = document.querySelector('.title-container') as HTMLElement;
@@ -20,7 +22,16 @@ const handleAnimationFinished = () => {
 };
 ---
 
-<div class='container'>
+<div class='container' data-bg-theme={bgTheme}>
+  <div class='header'>
+    <img class='avatar' id='userAvatar' />
+    <span class='from-text'>From</span>
+    <span class='name' id='userName'></span>
+    <Icon name='tabler:chevron-right' class='w-5 h-5 text-gray-400' />
+    <div class='close-icon' id='closeIcon'>
+      <Icon name='tabler:x' class='w-5 h-5' />
+    </div>
+  </div>
   <div class='title-container' id='title-container'>
     <div class='title'>{title}</div>
     <div id='prayer-ellipse' style='display: none;'>
@@ -44,12 +55,70 @@ const handleAnimationFinished = () => {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('~/assets/images/pray-bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
   }
+
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+    background: #fbfaf3;
+    padding: 16px;
+  }
+  .avatar {
+    width: 24px;
+    height: 24px;
+    background: #e2e2e2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .from-text {
+    color: #000;
+    font-size: 14px;
+  }
+
+  .name {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .close-icon {
+    margin-left: auto;
+    background: #c2c1c0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+  }
+
+  .from-text {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .container[data-bg-theme='image'] {
+    background-image: url('~/assets/images/pray-bg.png');
+  }
+
+  .container[data-bg-theme='solid'] {
+    background-color: #ece9e2;
+  }
+
   .title-container {
     flex: 1;
     position: relative;
@@ -122,5 +191,9 @@ const handleAnimationFinished = () => {
     if (!prayerContent) return;
 
     prayerContent.style.display = 'block';
+  });
+
+  document.getElementById('closeIcon')?.addEventListener('click', () => {
+    window.location.href = '/';
   });
 </script>

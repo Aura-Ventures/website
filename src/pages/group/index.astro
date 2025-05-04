@@ -1,5 +1,7 @@
 ---
 import type { MetaData } from '~/types';
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
 import Layout from '../../layouts/Layout.astro';
 
 const metadata: MetaData = {
@@ -9,135 +11,235 @@ const metadata: MetaData = {
 
 <Layout metadata={metadata}>
   <main class='container'>
-    <div class='content'>
-      <div class='invitation-box'>
-        <div class='question-mark'>
-          <span>?</span>
+    <div class='card'>
+      <div class='header'>
+        <img class='avatar' id='userAvatar' />
+        <span class='from-text'>From</span>
+        <span class='name' id='userName'></span>
+        <Icon name='tabler:chevron-right' class='w-5 h-5 text-gray-400' />
+        <div class='close-icon' id='closeIcon'>
+          <Icon name='tabler:x' class='w-5 h-5' />
         </div>
       </div>
-      <h1>Group Invitation Received</h1>
-      <p>You received an invitation to join a group. Please update your app in order to accept the invite!</p>
-      <button class='join-button'>JOIN GROUP</button>
+      <div class='content'>
+        <div class='quote-section'>
+          <Image src='~/assets/images/sparkle-big.png' alt='quote' class='quote-image' width={80} height={80} />
+          <div class='quote-text'>
+            “Iron sharpens iron, and<br />
+            one man sharpens another.”
+          </div>
+          <div class='quote-source'>- Proverbs 27:17 -</div>
+        </div>
+
+        <div class='invitation-text'>
+          You have received an invitation to a small<br /> group on Aura. Please download or<br /> update your Aura in order
+          to join.
+        </div>
+
+        <button class='download-button'>Download Aura</button>
+
+        <div class='footer'>
+          <div class='logo'>Aura</div>
+          <div class='tagline'>Pray Deeper | Walk Closer</div>
+        </div>
+      </div>
     </div>
   </main>
 </Layout>
 
 <style>
-  :global(body) {
-    margin: 0;
-    padding: 0;
-    font-family: 'Jost', sans-serif;
-    background-color: #ffffff;
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    font-family:
+      'Jost',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
   }
 
-  .container {
+  .card {
+    text-align: center;
+    background-color: #ece9e2;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .header {
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    gap: 4px;
+    background: #fbfaf3;
+    padding: 16px;
   }
 
   .content {
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 20px;
-  }
-
-  .logo {
-    margin-bottom: 40px;
-  }
-
-  .invitation-box {
-    width: 120px;
-    height: 120px;
-    background: #ffffff;
-    border-radius: 20px;
-    margin: 30px auto;
+    padding: 0 16px 16px 16px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 
-  .question-mark {
-    width: 50px;
-    height: 50px;
-    background: #e8f4ff;
-    border-radius: 8px;
+  .avatar {
+    width: 24px;
+    height: 24px;
+    background: #e2e2e2;
+    border-radius: 50%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .from-text {
+    color: #000;
+    font-size: 14px;
+  }
+
+  .name {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .close-icon {
+    margin-left: auto;
+    background: #c2c1c0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+  }
+
+  .quote-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 50px 0;
+  }
+
+  .quote-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  .quote-text {
+    font-family: 'BeautiqueDisplayCondensed', serif;
+    color: #141414;
     font-size: 24px;
-    color: #0066cc;
+    font-weight: 700;
+    line-height: 1.4;
   }
 
-  h1 {
-    font-size: 28px;
-    color: #1a1a1a;
-    margin-bottom: 16px;
+  .quote-source {
+    color: #000;
+    font-size: 15px;
   }
 
-  p {
+  .invitation-text {
     font-size: 16px;
-    color: #666666;
-    line-height: 1.5;
-    margin-bottom: 30px;
+    color: #373737;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 20px;
   }
 
-  .join-button {
-    background-color: #000000;
-    color: #ffffff;
-    padding: 16px 32px;
-    border-radius: 8px;
+  .download-button {
+    width: 280px;
+    background-color: #1a1a1a;
+    color: white;
     border: none;
+    border-radius: 8px;
+    padding: 16px 32px;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    width: 100%;
-    max-width: 300px;
-    transition: background-color 0.2s ease;
   }
 
-  .join-button:hover {
-    background-color: #333333;
+  .footer {
+    margin-top: 50px;
+    width: 280px;
+    text-align: right;
+  }
+
+  .logo {
+    font-family: 'BeautiqueDisplayCondensed', serif;
+    font-weight: 500;
+    color: #222;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  .tagline {
+    color: #4f4f4f;
+    font-size: 14px;
   }
 
   @media (max-width: 480px) {
-    .content {
-      padding: 16px;
+    :global(body.bg-page) {
+      background-color: #ece9e2;
     }
 
-    h1 {
-      font-size: 24px;
+    .container {
+      padding: 0;
     }
 
-    p {
-      font-size: 14px;
-    }
-
-    .invitation-box {
-      width: 100px;
-      height: 100px;
+    .card {
+      border-radius: 0;
+      box-shadow: none;
     }
   }
 </style>
 
 <script>
   import { openApp } from '~/utils/applink';
+  import { decodeShare } from '~/services';
 
-  const joinButton = document.querySelector('.join-button');
-  joinButton?.addEventListener('click', () => {
-    // 获取当前 URL 的搜索参数
+  const urlParams = new URLSearchParams(window.location.search);
+  const ticket = urlParams.get('ticket');
+
+  const fetchData = async () => {
+    const data = await decodeShare(ticket as string);
+
+    const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
+    const nameElement = document.getElementById('userName');
+
+    if (avatarElement && data?.shareUser?.avatarUrl) {
+      avatarElement.src = data.shareUser.avatarUrl;
+    }
+
+    if (nameElement && data?.shareUser?.fullName) {
+      nameElement.textContent = data.shareUser.fullName;
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (ticket) {
+      fetchData();
+    }
+  });
+
+  const downloadButton = document.querySelector('.download-button');
+  downloadButton?.addEventListener('click', () => {
     const searchParams = new URLSearchParams(window.location.search);
-    // 将搜索参数转换为字符串
     const queryString = searchParams.toString();
-    // 构建完整的路径
     const path = queryString ? `group?${queryString}` : 'group';
-    // 调用 openApp 函数
     openApp(path);
+  });
+
+  document.getElementById('closeIcon')?.addEventListener('click', () => {
+    window.location.href = '/';
   });
 </script>
