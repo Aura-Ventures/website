@@ -10,7 +10,7 @@ const metadata: MetaData = {
 
 <Layout metadata={metadata}>
   <div class='page-container'>
-    <PrayerPage title='Reflection' content='' buttonText="Let's pray" href='/share/prayer' />
+    <PrayerPage title='Reflection' content='' buttonText="Let's pray" href='/share/prayer' uniqueId='devotional' />
     <div id='reflectionContent' class='hidden'></div>
   </div>
 </Layout>
@@ -45,6 +45,7 @@ const metadata: MetaData = {
 
   const fetchData = async () => {
     const data = await decodeShare(ticket as string);
+    console.log(data);
 
     const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
     const nameElement = document.getElementById('userName');
@@ -58,7 +59,7 @@ const metadata: MetaData = {
     }
 
     // 确保在更新内容前清空现有内容
-    const prayerContent = document.querySelector('.prayer-content');
+    const prayerContent = document.querySelector('.prayer-content[data-page-id="devotional"]');
     if (prayerContent) {
       prayerContent.textContent = '';
 
@@ -67,7 +68,7 @@ const metadata: MetaData = {
       }
     }
 
-    const prayerButton = document.querySelector('#prayButton');
+    const prayerButton = document.querySelector('#prayButton[data-page-id="devotional"]');
     if (prayerButton && ticket) {
       prayerButton.setAttribute('href', `/share/prayer?ticket=${ticket}`);
     }

@@ -8,9 +8,10 @@ interface Props {
   buttonText?: string;
   href?: string;
   bgTheme?: 'image' | 'solid';
+  uniqueId?: string;
 }
 
-const { title, content, bgTheme = 'image', buttonText, href } = Astro.props;
+const { title, content, bgTheme = 'image', buttonText, href, uniqueId } = Astro.props;
 
 const handleAnimationFinished = () => {
   const titleContainer = document.querySelector('.title-container') as HTMLElement;
@@ -39,11 +40,11 @@ const handleAnimationFinished = () => {
     </div>
   </div>
   <div class='prayer-container' id='prayer-container'>
-    <div class='prayer-content'>
+    <div class='prayer-content' data-page-id={uniqueId}>
       {content}
     </div>
     <div class='btn-container'>
-      <a class='btn' id='prayButton' href={href}>{buttonText}</a>
+      <a class='btn' id='prayButton' href={href} data-page-id={uniqueId}>{buttonText}</a>
     </div>
   </div>
 </div>

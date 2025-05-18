@@ -2,10 +2,18 @@
 import type { MetaData } from '~/types';
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
+
 import Layout from '../../layouts/Layout.astro';
 
 const metadata: MetaData = {
   title: 'Group Invitation',
+  openGraph: {
+    images: [
+      {
+        url: 'https://static.auraofhope.com/common/group.png',
+      },
+    ],
+  },
 };
 ---
 

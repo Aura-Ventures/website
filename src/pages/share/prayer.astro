@@ -10,7 +10,7 @@ const metadata: MetaData = {
 
 <Layout metadata={metadata}>
   <div class='page-container'>
-    <PrayerPage title='Prayer' content='' buttonText='Amen' href='/share/closing' />
+    <PrayerPage title='Prayer' content='' buttonText='Amen' href='/share/closing' uniqueId='prayer' />
     <div id='prayerContent' class='hidden'></div>
   </div>
 </Layout>
@@ -55,7 +55,7 @@ const metadata: MetaData = {
     }
 
     // 确保在更新内容前清空现有内容
-    const prayerContent = document.querySelector('.prayer-content');
+    const prayerContent = document.querySelector('.prayer-content[data-page-id="prayer"]');
     if (prayerContent) {
       prayerContent.textContent = '';
 
@@ -64,7 +64,7 @@ const metadata: MetaData = {
       }
     }
 
-    const prayerButton = document.querySelector('#prayButton');
+    const prayerButton = document.querySelector('#prayButton[data-page-id="prayer"]');
     if (prayerButton && ticket) {
       prayerButton.setAttribute('href', `/share/closing?ticket=${ticket}`);
     }
