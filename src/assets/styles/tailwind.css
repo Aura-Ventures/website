@@ -112,7 +112,6 @@
   src: url('/fonts/BeautiqueDisplayCondensed-Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
@@ -120,19 +119,25 @@
   src: url('/fonts/BeautiqueDisplay-MediumItalic.otf') format('opentype');
   font-weight: 500;
   font-style: italic;
-  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Lora';
-  src: url('/fonts/Lora-VariableFont_wght.ttf') format('truetype');
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Lora';
-  src: url('/fonts/Lora-Italic-VariableFont_wght.ttf') format('truetype');
+  font-family: 'BeautiqueDisplayCondensed';
+  src: url('/fonts/BeautiqueDisplayCondensed-Italic.otf') format('opentype');
+  font-weight: 400;
   font-style: italic;
-  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LoraMedium';
+  src: url('/fonts/Lora-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'LoraSemiBold';
+  src: url('/fonts/Lora-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
 }

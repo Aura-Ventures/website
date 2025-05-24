@@ -2,17 +2,41 @@
 interface Props {
   onAnimationFinished?: () => void;
   shouldAnimate?: boolean;
+  ellipseSize?: { width: number; height: number };
 }
 
-const { onAnimationFinished, shouldAnimate = true } = Astro.props;
+const { onAnimationFinished, shouldAnimate = true, ellipseSize = { width: 300, height: 66 } } = Astro.props;
+
+// 计算椭圆参数
+const { width, height } = ellipseSize;
+const cx = width / 2;
+const cy = height / 2;
+const rx = (width - 20) / 2;
+const ry = (height - 10) / 2;
+
+// 计算椭圆周长
+const circumference = Math.PI * (3 * (rx + ry) - Math.sqrt((3 * rx + ry) * (rx + 3 * ry)));
+
+// 椭圆旋转角度
+const ellipseRotation = -180 - 6.16;
+const angle = Math.PI * 2 - 0.5;
+
+// 计算星星位置
+const alpha = (ellipseRotation * Math.PI) / 180;
+const sparkleX = cx + rx * Math.cos(angle) * Math.cos(alpha) - ry * Math.sin(angle) * Math.sin(alpha);
+const sparkleY = cy + rx * Math.cos(angle) * Math.sin(alpha) + ry * Math.sin(angle) * Math.cos(alpha);
 ---
 
 <div
   class='animation-container'
   data-callback={onAnimationFinished?.toString()}
   data-should-animate={String(shouldAnimate)}
+  data-ellipse-size={JSON.stringify(ellipseSize)}
+  data-circumference={String(circumference)}
+  data-sparkle-x={String(sparkleX)}
+  data-sparkle-y={String(sparkleY)}
 >
-  <svg class='prayer-ellipse' viewBox='0 0 200 100'>
+  <svg class='prayer-ellipse' viewBox={`0 0 ${width} ${height}`}>
     <defs>
       <linearGradient id='ellipseGradient' x1='0%' y1='0%' x2='0%' y2='100%'>
         <stop offset='0%' style='stop-color:#4F4F4F;stop-opacity:1'></stop>
@@ -20,7 +44,8 @@ const { onAnimationFinished, shouldAnimate = true } = Astro.props;
         <stop offset='100%' style='stop-color:#4F4F4F;stop-opacity:1'></stop>
       </linearGradient>
     </defs>
-    <ellipse class='ellipse-path' cx='100' cy='50' rx='90' ry='30'></ellipse>
+    <ellipse class='ellipse-path' cx={cx} cy={cy} rx={rx} ry={ry} transform={`rotate(${ellipseRotation}, ${cx}, ${cy})`}
+    ></ellipse>
   </svg>
   <div class='star'></div>
 </div>
@@ -29,22 +54,19 @@ const { onAnimationFinished, shouldAnimate = true } = Astro.props;
   .animation-container {
     position: relative;
     width: 100%;
-    height: 200%;
+    height: 100%;
   }
 
   .prayer-ellipse {
     width: 100%;
     height: 100%;
-    transform: rotate(-186.16deg);
   }
 
   .ellipse-path {
     fill: none;
     stroke: url(#ellipseGradient);
     stroke-width: 1;
-    stroke-dasharray: 400;
-    stroke-dashoffset: 400;
-    /* animation: drawEllipse 1s ease-in-out forwards; */
+    opacity: 0;
   }
 
   .star {
@@ -54,10 +76,6 @@ const { onAnimationFinished, shouldAnimate = true } = Astro.props;
     background-image: url('~/assets/images/sparkle.png');
     background-size: contain;
     opacity: 0;
-    /* animation: fadeInStar 0.3s ease-in-out 1s forwards; */
-    left: 15%;
-    bottom: 10%;
-    transform: translate(-50%, -50%);
   }
 
   @keyframes drawEllipse {
@@ -77,57 +95,28 @@ const { onAnimationFinished, shouldAnimate = true } = Astro.props;
   // 动画控制逻辑
   function init() {
     const container = document.querySelector('.animation-container');
-
     const ellipse = document.querySelector('.ellipse-path') as SVGElement;
     const star = document.querySelector('.star') as HTMLElement;
 
     if (!container || !ellipse || !star) return;
 
-    // 重置动画
-    const resetAnimation = () => {
-      ellipse.style.animation = 'none';
-      star.style.animation = 'none';
+    // 获取参数
+    const shouldAnimate = container.getAttribute('data-should-animate') === 'true';
+    const circumference = parseFloat(container.getAttribute('data-circumference') || '400');
+    const sparkleX = parseFloat(container.getAttribute('data-sparkle-x') || '30');
+    const sparkleY = parseFloat(container.getAttribute('data-sparkle-y') || '70');
 
-      ellipse.style.display = 'none';
-      star.style.display = 'none';
+    // 设置星星位置
+    star.style.left = `${sparkleX - 13}px`;
+    star.style.top = `${sparkleY - 13}px`;
 
-      const shouldAnimate = container.getAttribute('data-should-animate') === 'true';
+    // 设置椭圆初始状态
+    ellipse.style.strokeDasharray = `${circumference} ${circumference}`;
+    ellipse.style.strokeDashoffset = String(circumference);
 
-      if (shouldAnimate) {
-        requestAnimationFrame(() => {
-          ellipse.style.display = 'block';
-          star.style.display = 'block';
-
-          ellipse.style.animation = 'drawEllipse 1s ease-in-out forwards';
-          star.style.animation = 'fadeInStar 0.3s ease-in-out 1s forwards';
-        });
-      } else {
-        // 如果不应该动画，直接设置最终状态
-        ellipse.style.display = 'block';
-        star.style.display = 'block';
-
-        ellipse.style.strokeDashoffset = '0';
-        star.style.opacity = '1';
-
-        // 触发回调
-        const callbackStr = container.getAttribute('data-callback');
-        if (callbackStr) {
-          try {
-            const callback = new Function(`return ${callbackStr}`)();
-            if (typeof callback === 'function') {
-              callback();
-            }
-          } catch (e) {
-            console.error('Failed to execute animation callback:', e);
-          }
-        }
-      }
-    };
-
-    // 监听动画结束
-    star.addEventListener('animationend', () => {
+    const executeCallback = () => {
       const callbackStr = container.getAttribute('data-callback');
-      if (callbackStr) {
+      if (callbackStr && callbackStr !== 'undefined') {
         try {
           const callback = new Function(`return ${callbackStr}`)();
           if (typeof callback === 'function') {
@@ -137,13 +126,44 @@ const { onAnimationFinished, shouldAnimate = true } = Astro.props;
           console.error('Failed to execute animation callback:', e);
         }
       }
-    });
+    };
 
-    // 初始动画
-    resetAnimation();
+    if (!shouldAnimate) {
+      // 如果不需要动画，直接设置最终状态
+      ellipse.style.opacity = '1';
+      ellipse.style.strokeDashoffset = '0';
+      star.style.opacity = '1';
+      executeCallback();
+      return;
+    }
+
+    // 开始动画序列
+    const startAnimation = () => {
+      // 重置状态
+      ellipse.style.opacity = '1';
+      ellipse.style.strokeDashoffset = String(circumference);
+      star.style.opacity = '0';
+
+      // 椭圆描边动画 - 1秒
+      ellipse.style.animation = 'drawEllipse 1s ease-in-out forwards';
+
+      // 等待椭圆动画完成后的300ms，然后开始星星动画
+      setTimeout(() => {
+        star.style.animation = 'fadeInStar 0.3s ease-in-out forwards';
+
+        // 星星动画完成后触发回调
+        setTimeout(() => {
+          executeCallback();
+        }, 300);
+      }, 1300); // 1000ms椭圆动画 + 300ms等待
+    };
+
+    startAnimation();
   }
 
   document.addEventListener('astro:page-load', () => {
-    init();
+    setTimeout(() => {
+      init();
+    }, 1000);
   });
 </script>

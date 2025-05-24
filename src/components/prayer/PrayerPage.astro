@@ -17,8 +17,8 @@ const handleAnimationFinished = () => {
   const titleContainer = document.querySelector('.title-container') as HTMLElement;
   const prayerContainer = document.querySelector('.prayer-container') as HTMLElement;
   if (!titleContainer || !prayerContainer) return;
-  titleContainer.style.transform = 'scale(0.5)';
-  prayerContainer.style.height = 'calc(100vh - 66px)';
+  titleContainer.style.transform = 'scale(0.64)';
+  prayerContainer.style.height = 'calc(100dvh - 122px)';
   prayerContainer.style.transform = 'translateY(0)';
 };
 ---
@@ -29,9 +29,6 @@ const handleAnimationFinished = () => {
     <span class='from-text'>From</span>
     <span class='name' id='userName'></span>
     <Icon name='tabler:chevron-right' class='w-5 h-5 text-gray-400' />
-    <div class='close-icon' id='closeIcon'>
-      <Icon name='tabler:x' class='w-5 h-5' />
-    </div>
   </div>
   <div class='title-container' id='title-container'>
     <div class='title'>{title}</div>
@@ -40,6 +37,7 @@ const handleAnimationFinished = () => {
     </div>
   </div>
   <div class='prayer-container' id='prayer-container'>
+    <div class='prayer-content-title' data-page-id={uniqueId}></div>
     <div class='prayer-content' data-page-id={uniqueId}>
       {content}
     </div>
@@ -55,7 +53,7 @@ const handleAnimationFinished = () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100dvh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -64,6 +62,7 @@ const handleAnimationFinished = () => {
 
   .header {
     display: flex;
+    align-self: flex-start;
     align-items: center;
     width: 100%;
     gap: 8px;
@@ -134,10 +133,13 @@ const handleAnimationFinished = () => {
     text-align: center;
     font-size: 50px;
     font-family: 'BeautiqueDisplayCondensed', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     font-style: italic;
-    color: #333;
-    animation: fadeIn 1s ease-in-out;
+    letter-spacing: 1.28px;
+    text-transform: capitalize;
+    color: #000;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
   }
   #prayer-ellipse {
     position: absolute;
@@ -145,7 +147,7 @@ const handleAnimationFinished = () => {
     right: 0;
   }
   .prayer-container {
-    transform: translateY(100vh);
+    transform: translateY(100dvh);
     height: 0;
     overflow-y: scroll;
     transition: all 0.5s ease-in-out;
@@ -153,15 +155,29 @@ const handleAnimationFinished = () => {
     width: 100%;
   }
   .prayer-content {
-    font-size: 19px;
-    font-family: 'Lora', sans-serif;
-    font-weight: 500;
-    color: #333;
+    font-size: 20px;
+    line-height: 30px;
+    font-family: 'LoraMedium', sans-serif;
+    color: #000;
+    word-break: normal;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
+  .prayer-content-title {
+    font-family: 'LoraSemiBold', sans-serif;
+    font-size: 25px;
+    margin-bottom: 24px;
+    color: #000;
+    display: none;
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
 
