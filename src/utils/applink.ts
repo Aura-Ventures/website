@@ -31,7 +31,7 @@ function handleIOSDeepLink(scheme: string, fallbackUrl: string) {
     setTimeout(() => {
       console.log('应用未安装，跳转到App Store');
       window.location.href = fallbackUrl;
-    }, 1000);
+    }, 2500);
   } catch {
     console.log('iOS深度链接失败，跳转到App Store');
     window.location.href = fallbackUrl;
