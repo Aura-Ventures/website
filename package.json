@@ -9,8 +9,12 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "PUBLIC_DEPLOY_ENV=qa astro dev",
+    "start:qa": "PUBLIC_DEPLOY_ENV=qa astro dev",
+    "start:prod": "PUBLIC_DEPLOY_ENV=prod astro dev",
     "build": "astro build",
+    "build:qa": "PUBLIC_DEPLOY_ENV=qa astro build",
+    "build:prod": "PUBLIC_DEPLOY_ENV=prod astro build",
     "preview": "astro preview",
     "astro": "astro",
     "check": "npm run check:astro && npm run check:eslint && npm run check:prettier",
