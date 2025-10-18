@@ -149,3 +149,24 @@
   font-style: normal;
   font-weight: 600;
 }
+
+@font-face {
+  font-family: 'LoraItalic';
+  src: url('/fonts/Lora-Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NunitoSansSemiBold';
+  src: url('/fonts/NunitoSans-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'NunitoSans';
+  src: url('/fonts/NunitoSans-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}

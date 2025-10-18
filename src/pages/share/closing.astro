@@ -1,7 +1,7 @@
 ---
 import type { MetaData } from '~/types';
 import Layout from '../../layouts/Layout.astro';
-import PrayerPage from '~/components/prayer/PrayerPage.astro';
+import ClosingPage from '~/components/prayer/Closing.astro';
 
 const metadata: MetaData = {
   title: 'My Reflection & Prayer',
@@ -10,8 +10,7 @@ const metadata: MetaData = {
 
 <Layout metadata={metadata}>
   <div class='page-container'>
-    <PrayerPage title={'Closing'} bgTheme='solid' content='' buttonText='Download Aura' href='' uniqueId='closing' />
-    <div id='closingContent' class='hidden'></div>
+    <ClosingPage />
   </div>
 </Layout>
 
@@ -46,7 +45,9 @@ const metadata: MetaData = {
     const data = await decodeShare(ticket as string);
 
     const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
-    const nameElement = document.getElementById('userName');
+    const nameElement = document.getElementById('userName') as HTMLSpanElement;
+    const closingBody = document.querySelector('#closingBody') as HTMLDivElement;
+    const closingButton = document.querySelector('#closingButton') as HTMLAnchorElement;
 
     if (avatarElement && data?.shareUser?.avatarUrl) {
       avatarElement.src = data.shareUser.avatarUrl;
@@ -56,29 +57,18 @@ const metadata: MetaData = {
       nameElement.textContent = data.shareUser.fullName;
     }
 
-    // 确保在更新内容前清空现有内容
-    const prayerContent = document.querySelector('.prayer-content[data-page-id="closing"]');
-
-    if (prayerContent) {
-      prayerContent.textContent = '';
-
+    if (closingBody) {
+      closingBody.textContent = '';
       if (data?.data?.closing) {
-        prayerContent.textContent = data.data.closing;
+        closingBody.textContent = data.data.closing;
       }
     }
 
-    const prayerContentTitle = document.querySelector('.prayer-content-title[data-page-id="prayer"]') as HTMLDivElement;
-    if (prayerContentTitle) {
-      prayerContentTitle.textContent = '';
-      prayerContentTitle.style.display = 'none';
-    }
-
-    const prayerButton = document.querySelector('#prayButton[data-page-id="closing"]');
-    if (prayerButton && ticket) {
+    if (closingButton && ticket) {
       clickHandler = () => {
         openApp(`share/devotional?ticket=${ticket}`);
       };
-      prayerButton.addEventListener('click', clickHandler);
+      closingButton.addEventListener('click', clickHandler);
     }
   };
 
@@ -93,9 +83,9 @@ const metadata: MetaData = {
   document.addEventListener('astro:after-swap', updateContent);
 
   document.addEventListener('astro:before-swap', () => {
-    const prayerButton = document.querySelector('#prayButton[data-page-id="closing"]');
-    if (prayerButton && clickHandler) {
-      prayerButton.removeEventListener('click', clickHandler);
+    const closingButton = document.querySelector('#closingButton') as HTMLAnchorElement;
+    if (closingButton && clickHandler) {
+      closingButton.removeEventListener('click', clickHandler);
       clickHandler = null;
     }
   });
