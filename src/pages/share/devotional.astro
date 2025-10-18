@@ -1,7 +1,7 @@
 ---
 import type { MetaData } from '~/types';
 import Layout from '../../layouts/Layout.astro';
-import PrayerPage from '~/components/prayer/PrayerPage.astro';
+import ReflectionPage from '~/components/prayer/Reflection.astro';
 
 const metadata: MetaData = {
   title: 'My Reflection & Prayer',
@@ -10,8 +10,7 @@ const metadata: MetaData = {
 
 <Layout metadata={metadata}>
   <div class='page-container'>
-    <PrayerPage title='Reflection' content='' buttonText="Let's pray" href='/share/prayer' uniqueId='devotional' />
-    <div id='reflectionContent' class='hidden'></div>
+    <ReflectionPage />
   </div>
 </Layout>
 
@@ -38,6 +37,7 @@ const metadata: MetaData = {
 </style>
 
 <script>
+  import dayjs from 'dayjs';
   import { decodeShare } from '~/services';
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -48,7 +48,15 @@ const metadata: MetaData = {
     console.log(data);
 
     const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
-    const nameElement = document.getElementById('userName');
+    const nameElement = document.getElementById('userName') as HTMLSpanElement;
+    const reflectionCover = document.querySelector('#reflectionCover') as HTMLImageElement;
+    const reflectionDate = document.querySelector('#reflectionDate') as HTMLDivElement;
+    const reflectionTitle = document.querySelector('#reflectionTitle') as HTMLHeadingElement;
+    const reflectionVerse = document.querySelector('#reflectionVerse') as HTMLDivElement;
+    const reflectionVerseText = document.querySelector('#reflectionVerseText') as HTMLDivElement;
+    const reflectionVerseMarker = document.querySelector('#reflectionVerseMarker') as HTMLDivElement;
+    const reflectionBody = document.querySelector('#reflectionBody') as HTMLDivElement;
+    const reflectionButton = document.querySelector('#reflectionButton') as HTMLAnchorElement;
 
     if (avatarElement && data?.shareUser?.avatarUrl) {
       avatarElement.src = data.shareUser.avatarUrl;
@@ -58,32 +66,50 @@ const metadata: MetaData = {
       nameElement.textContent = data.shareUser.fullName;
     }
 
-    // 确保在更新内容前清空现有内容
-    const prayerContent = document.querySelector('.prayer-content[data-page-id="devotional"]');
-
-    if (prayerContent) {
-      prayerContent.textContent = '';
-
-      if (data?.data?.reflection) {
-        prayerContent.textContent = data.data.reflection;
+    if (reflectionCover) {
+      reflectionCover.src = '';
+      if (data?.data?.coverUrl) {
+        reflectionCover.src = data?.data?.coverUrl;
       }
     }
 
-    const prayerContentTitle = document.querySelector(
-      '.prayer-content-title[data-page-id="devotional"]'
-    ) as HTMLDivElement;
-    if (prayerContentTitle) {
-      prayerContentTitle.textContent = '';
-      prayerContentTitle.style.display = 'none';
+    if (reflectionDate) {
+      reflectionDate.textContent = '';
+
+      if (data?.data?.displayDate) {
+        reflectionDate.textContent = dayjs(data.data.displayDate).format('MMM D, YYYY');
+      } else if (data?.data?.createdAt) {
+        reflectionDate.textContent = dayjs(data.data.createdAt).format('MMM D, YYYY');
+      }
+    }
+
+    if (reflectionTitle) {
+      reflectionTitle.textContent = '';
       if (data?.data?.title) {
-        prayerContentTitle.textContent = data.data.title;
-        prayerContentTitle.style.display = 'block';
+        reflectionTitle.textContent = data.data.title;
       }
     }
 
-    const prayerButton = document.querySelector('#prayButton[data-page-id="devotional"]');
-    if (prayerButton && ticket) {
-      prayerButton.setAttribute('href', `/share/prayer?ticket=${ticket}`);
+    if (reflectionVerse && reflectionVerseText && reflectionVerseMarker) {
+      reflectionVerseText.textContent = '';
+      reflectionVerseMarker.textContent = '';
+      reflectionVerse.style.display = 'none';
+      if (data?.data?.verse) {
+        reflectionVerseText.textContent = data.data.verse;
+        reflectionVerseMarker.textContent = data.data.verseMarker;
+        reflectionVerse.style.display = 'block';
+      }
+    }
+
+    if (reflectionBody) {
+      reflectionBody.textContent = '';
+      if (data?.data?.reflection) {
+        reflectionBody.textContent = data.data.reflection;
+      }
+    }
+
+    if (reflectionButton && ticket) {
+      reflectionButton.setAttribute('href', `/share/prayer?ticket=${ticket}`);
     }
   };
 

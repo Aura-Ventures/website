@@ -1,7 +1,7 @@
 ---
 import type { MetaData } from '~/types';
 import Layout from '../../layouts/Layout.astro';
-import PrayerPage from '~/components/prayer/PrayerPage.astro';
+import PrayerPage from '~/components/prayer/Prayer.astro';
 
 const metadata: MetaData = {
   title: 'My Reflection & Prayer',
@@ -10,8 +10,7 @@ const metadata: MetaData = {
 
 <Layout metadata={metadata}>
   <div class='page-container'>
-    <PrayerPage title='Prayer' content='' buttonText='Amen' href='/share/closing' uniqueId='prayer' />
-    <div id='prayerContent' class='hidden'></div>
+    <PrayerPage />
   </div>
 </Layout>
 
@@ -42,9 +41,12 @@ const metadata: MetaData = {
 
   const fetchData = async () => {
     const data = await decodeShare(ticket as string);
+    console.log(data);
 
     const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
-    const nameElement = document.getElementById('userName');
+    const nameElement = document.getElementById('userName') as HTMLSpanElement;
+    const prayerBody = document.querySelector('#prayerBody') as HTMLDivElement;
+    const prayerButton = document.querySelector('#prayerButton') as HTMLAnchorElement;
 
     if (avatarElement && data?.shareUser?.avatarUrl) {
       avatarElement.src = data.shareUser.avatarUrl;
@@ -54,24 +56,13 @@ const metadata: MetaData = {
       nameElement.textContent = data.shareUser.fullName;
     }
 
-    // 确保在更新内容前清空现有内容
-    const prayerContent = document.querySelector('.prayer-content[data-page-id="prayer"]');
-
-    if (prayerContent) {
-      prayerContent.textContent = '';
-
+    if (prayerBody) {
+      prayerBody.textContent = '';
       if (data?.data?.prayer) {
-        prayerContent.textContent = data.data.prayer;
+        prayerBody.textContent = data.data.prayer;
       }
     }
 
-    const prayerContentTitle = document.querySelector('.prayer-content-title[data-page-id="prayer"]') as HTMLDivElement;
-    if (prayerContentTitle) {
-      prayerContentTitle.textContent = '';
-      prayerContentTitle.style.display = 'none';
-    }
-
-    const prayerButton = document.querySelector('#prayButton[data-page-id="prayer"]');
     if (prayerButton && ticket) {
       prayerButton.setAttribute('href', `/share/closing?ticket=${ticket}`);
     }
