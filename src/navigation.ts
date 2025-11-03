@@ -32,7 +32,7 @@ export const headerData = {
     {
       text: 'Contact Us',
       // href: 'mailto:auraprayerapp@gmail.com',
-      href: 'support@auraofhope.com',
+      href: 'mailto:support@auraofhope.com',
     },
   ],
   actions: [
