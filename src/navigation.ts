@@ -31,7 +31,8 @@ export const headerData = {
     },
     {
       text: 'Contact Us',
-      href: 'mailto:auraprayerapp@gmail.com',
+      // href: 'mailto:auraprayerapp@gmail.com',
+      href: 'support@auraofhope.com',
     },
   ],
   actions: [

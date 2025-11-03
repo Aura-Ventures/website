@@ -21,7 +21,7 @@ const {
   items && (
     <div
       class={twMerge(
-        `grid mx-auto gap-8 md:gap-y-12 ${
+        `grid mx-auto  md:gap-y-12 ${
           columns === 4
             ? 'lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2'
             : columns === 3
@@ -34,12 +34,14 @@ const {
       )}
     >
       {items.map(({ title, description, image, callToAction, classes: itemClasses = {} }) => (
-        <div class='intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade'>
-          <div class={twMerge('flex flex-row max-w-md', panelClass, itemClasses?.panel)}>
-            <div class='flex justify-center p-2'>
-              {image && <Image src={image.src} alt={image.alt} width={150} height={150} />}
+        <div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          <div class={twMerge('flex flex-row max-w-md gap-4 items-stretch', panelClass, itemClasses?.panel)}>
+            <div class="flex justify-center items-center flex-shrink-0 w-[150px]">
+              {image && (
+                <Image src={image.src} alt={image.alt} width={150} height={150} class="w-full h-full object-contain" />
+              )}
             </div>
-            <div class='mt-0.5'>
+            <div class="flex-1 flex flex-col">
               {title && (
                 <h3 class={twMerge('text-xl font-medium font-heading', titleClass, itemClasses?.title)}>{title}</h3>
               )}
@@ -51,7 +53,7 @@ const {
               )}
               {callToAction && (
                 <div class={twMerge(`${title || description ? 'mt-3' : ''}`, actionClass, itemClasses?.actionClass)}>
-                  <Button variant='link' {...callToAction} />
+                  <Button variant="link" {...callToAction} />
                 </div>
               )}
             </div>
