@@ -36,7 +36,7 @@ const {
       {items.map(({ title, description, image, callToAction, classes: itemClasses = {} }) => (
         <div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
           <div class={twMerge('flex flex-row max-w-md gap-4 items-stretch', panelClass, itemClasses?.panel)}>
-            <div class="flex justify-center items-center flex-shrink-0 w-[150px]">
+            <div class="flex justify-center items-center flex-shrink-0">
               {image && (
                 <Image src={image.src} alt={image.alt} width={150} height={150} class="w-full h-full object-contain" />
               )}
