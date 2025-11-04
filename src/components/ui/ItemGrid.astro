@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+// import { Icon } from 'astro-icon/components';
 import { twMerge } from 'tailwind-merge';
 import Image from '~/components/common/Image.astro';
 import type { ItemGrid as Props } from '~/types';
@@ -7,14 +7,14 @@ import Button from './Button.astro';
 import titleIcon from '~/assets/icons/Item-grid-icon.svg';
 import titleIconDark from '~/assets/icons/Item-grid-icon-dark.svg';
 
-const { items = [], columns, defaultIcon = '', classes = {} } = Astro.props;
+const { items = [], columns, classes = {} } = Astro.props;
 
 const {
   container: containerClass = '',
   panel: panelClass = 'gap-4 ',
   title: titleClass = '',
   description: descriptionClass = '',
-  icon: defaultIconClass = '',
+  // icon: defaultIconClass = '',
   action: actionClass = '',
 } = classes;
 ---
