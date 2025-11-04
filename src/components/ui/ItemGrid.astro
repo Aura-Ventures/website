@@ -40,7 +40,13 @@ const {
           <div class={twMerge('flex flex-row max-w-md  items-stretch', panelClass, itemClasses?.panel)}>
             <div class="flex justify-center items-center flex-shrink-0">
               {image && (
-                <Image src={image.src} alt={image.alt} width={150} height={150} class="w-full h-full object-contain" />
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={150}
+                  height={150}
+                  class="w-full h-full object-contain rounded-md"
+                />
               )}
             </div>
             <div class="flex-1 flex flex-col">
