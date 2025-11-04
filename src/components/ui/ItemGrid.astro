@@ -4,15 +4,17 @@ import { twMerge } from 'tailwind-merge';
 import Image from '~/components/common/Image.astro';
 import type { ItemGrid as Props } from '~/types';
 import Button from './Button.astro';
+import titleIcon from '~/assets/icons/Item-grid-icon.svg';
+import titleIconDark from '~/assets/icons/Item-grid-icon-dark.svg';
 
 const { items = [], columns, defaultIcon = '', classes = {} } = Astro.props;
 
 const {
   container: containerClass = '',
-  panel: panelClass = '',
+  panel: panelClass = 'gap-4 ',
   title: titleClass = '',
   description: descriptionClass = '',
-  icon: defaultIconClass = 'text-primary',
+  icon: defaultIconClass = '',
   action: actionClass = '',
 } = classes;
 ---
@@ -33,9 +35,9 @@ const {
         containerClass
       )}
     >
-      {items.map(({ title, description, image, callToAction, classes: itemClasses = {} }) => (
+      {items.map(({ title, description, image, callToAction, showTitleIcon = false, classes: itemClasses = {} }) => (
         <div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-          <div class={twMerge('flex flex-row max-w-md gap-4 items-stretch', panelClass, itemClasses?.panel)}>
+          <div class={twMerge('flex flex-row max-w-md  items-stretch', panelClass, itemClasses?.panel)}>
             <div class="flex justify-center items-center flex-shrink-0">
               {image && (
                 <Image src={image.src} alt={image.alt} width={150} height={150} class="w-full h-full object-contain" />
@@ -43,13 +45,24 @@ const {
             </div>
             <div class="flex-1 flex flex-col">
               {title && (
-                <h3 class={twMerge('text-xl font-medium font-heading', titleClass, itemClasses?.title)}>{title}</h3>
+                <div class="flex items-center gap-[15px]">
+                  {showTitleIcon && (
+                    <>
+                      <img src={titleIcon.src} alt="check icon" class="w-6 h-6 flex-shrink-0 dark:hidden" />
+                      <img src={titleIconDark.src} alt="check icon" class="w-6 h-6 flex-shrink-0 hidden dark:block" />
+                    </>
+                  )}
+                  <h3 class={twMerge('text-xl font-medium font-heading', titleClass, itemClasses?.title)}>{title}</h3>
+                </div>
               )}
               {description && (
-                <p
-                  class={twMerge(`${title ? 'mt-3' : ''} text-muted`, descriptionClass, itemClasses?.description)}
-                  set:html={description}
-                />
+                <div class="flex items-center gap-[15px]">
+                  {showTitleIcon && <div class="w-6 h-6 flex-shrink-0" />}
+                  <p
+                    class={twMerge(`${title ? 'mt-3' : ''} text-muted`, descriptionClass, itemClasses?.description)}
+                    set:html={description}
+                  />
+                </div>
               )}
               {callToAction && (
                 <div class={twMerge(`${title || description ? 'mt-3' : ''}`, actionClass, itemClasses?.actionClass)}>
