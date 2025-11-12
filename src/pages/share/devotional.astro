@@ -2,16 +2,63 @@
 import type { MetaData } from '~/types';
 import Layout from '../../layouts/Layout.astro';
 import ReflectionPage from '~/components/prayer/Reflection.astro';
+import { decodeShare } from '~/services';
+import dayjs from 'dayjs';
 
-const metadata: MetaData = {
+// 标记此页面为 SSR 模式
+export const prerender = false;
+
+// 定义分享数据的类型
+interface ShareData {
+  data?: {
+    title?: string;
+    reflection?: string;
+    verse?: string;
+    coverUrl?: string;
+    displayDate?: string;
+    createdAt?: string;
+    verseMarker?: string;
+  };
+  shareUser?: {
+    avatarUrl?: string;
+    fullName?: string;
+  };
+}
+
+// 在服务端获取数据
+const ticket = Astro.url.searchParams.get('ticket');
+let shareData: ShareData | null = null;
+let metadata: MetaData = {
   title: 'My Reflection & Prayer',
 };
+
+if (ticket) {
+  try {
+    shareData = await decodeShare(ticket);
+    if (shareData?.data?.title) {
+      const formattedDate = shareData.data.displayDate ? dayjs(shareData.data.displayDate).format('MMMD') : '';
+      metadata = {
+        title: formattedDate ? `${formattedDate} - ${shareData.data.title}` : shareData.data.title,
+      };
+    }
+  } catch (error) {
+    console.error('Failed to fetch share data:', error);
+  }
+}
 ---
 
 <Layout metadata={metadata}>
-  <div class='page-container'>
+  <div class="page-container">
     <ReflectionPage />
   </div>
+  <!-- 将服务端数据传递给客户端 -->
+  {
+    shareData && (
+      <script define:vars={{ shareData, ticket }}>
+        window.__SHARE_DATA__ = shareData; window.__TICKET__ = ticket;
+      </script>
+    )
+  }
 </Layout>
 
 <style>
@@ -40,12 +87,46 @@ const metadata: MetaData = {
   import dayjs from 'dayjs';
   import { decodeShare } from '~/services';
 
+  // 定义分享数据的类型（客户端）
+  interface ShareData {
+    data?: {
+      title?: string;
+      reflection?: string;
+      verse?: string;
+      coverUrl?: string;
+      displayDate?: string;
+      createdAt?: string;
+      verseMarker?: string;
+    };
+    shareUser?: {
+      avatarUrl?: string;
+      fullName?: string;
+    };
+  }
+
+  // 扩展 Window 接口
+  interface WindowWithShareData extends Window {
+    __SHARE_DATA__?: ShareData;
+    __TICKET__?: string;
+  }
+
+  // 优先使用服务端传递的数据，如果没有则从 URL 获取 ticket 并请求
   const urlParams = new URLSearchParams(window.location.search);
-  const ticket = urlParams.get('ticket');
+  const ticketFromUrl = urlParams.get('ticket');
+  const serverData = (window as WindowWithShareData).__SHARE_DATA__;
+  const serverTicket = (window as WindowWithShareData).__TICKET__;
+  const ticket = serverTicket || ticketFromUrl;
 
   const fetchData = async () => {
-    const data = await decodeShare(ticket as string);
-    console.log(data);
+    // 优先使用服务端数据
+    let data = serverData;
+
+    // 如果没有服务端数据，则从 API 获取
+    if (!data && ticket) {
+      data = await decodeShare(ticket);
+    }
+
+    if (!data) return;
 
     const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
     const nameElement = document.getElementById('userName') as HTMLSpanElement;
@@ -96,7 +177,7 @@ const metadata: MetaData = {
       reflectionVerse.style.display = 'none';
       if (data?.data?.verse) {
         reflectionVerseText.textContent = data.data.verse;
-        reflectionVerseMarker.textContent = data.data.verseMarker;
+        reflectionVerseMarker.textContent = data.data.verseMarker || '';
         reflectionVerse.style.display = 'block';
       }
     }
@@ -109,7 +190,7 @@ const metadata: MetaData = {
     }
 
     if (reflectionButton && ticket) {
-      reflectionButton.setAttribute('href', `/share/prayer?ticket=${ticket}`);
+      reflectionButton.setAttribute('href', `/share/prayer?ticket=${ticket || ''}`);
     }
   };
 
@@ -120,6 +201,10 @@ const metadata: MetaData = {
     }
   };
 
+  // 立即执行一次（页面首次加载）
+  updateContent();
+
+  // 监听 Astro 页面事件
   document.addEventListener('astro:page-load', updateContent);
   document.addEventListener('astro:after-swap', updateContent);
 </script>

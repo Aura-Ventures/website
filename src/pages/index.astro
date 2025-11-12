@@ -1,16 +1,16 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+// import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+// import CallToAction from '~/components/widgets/CallToAction.astro';
 import Content from '~/components/widgets/Content.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import Features from '~/components/widgets/Features.astro';
-import Features2 from '~/components/widgets/Features2.astro';
+// import Features2 from '~/components/widgets/Features2.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Note from '~/components/widgets/Note.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import Steps from '~/components/widgets/Steps.astro';
+// import Stats from '~/components/widgets/Stats.astro';
+// import Steps from '~/components/widgets/Steps.astro';
 
 const metadata = {
   title: 'Aura',
@@ -25,9 +25,9 @@ const metadata = {
     actions={[{ text: 'Learn more', href: '#problems' }]}
     image={{ src: '~/assets/images/hero-image.png', alt: 'Aura Hero Image' }}
   >
-    <Fragment slot='title'> Next Generation Bible App Is Here </Fragment>
+    <Fragment slot="title"> Next Generation Bible App Is Here </Fragment>
 
-    <Fragment slot='subtitle'>
+    <Fragment slot="subtitle">
       Step into the presence of God with Aura. Explore Scripture, reflect deeply, and grow in faith with your personal
       Bible and prayer guide. Transform your Bible study experience today!
     </Fragment>
@@ -40,10 +40,10 @@ const metadata = {
   <!-- Features Widget *************** -->
 
   <Features
-    id='problems'
-    tagline='Problems'
-    title='Hitting roadblocks to spiritual growth?'
-    subtitle='Every Christian experiences spiritual roadblocks, Aura ishere to help.'
+    id="problems"
+    tagline="Problems"
+    title="Hitting roadblocks to spiritual growth?"
+    subtitle="Every Christian experiences spiritual roadblocks, Aura ishere to help."
     items={[
       {
         title: 'Disconnect from Scripture',
@@ -116,17 +116,19 @@ const metadata = {
 
   <Content
     isReversed
-    id='features'
-    tagline='Features'
-    title='“It’s A Spiritual Companion.”'
-    subtitle='Imagine having someone to discuss challenging questions, 24/7.'
+    id="features"
+    tagline="Features"
+    title="“Aura helps me walk closer with the Lord.”"
+    subtitle="A Bible study partner by your side, 24/7."
     items={[
       {
+        showTitleIcon: true,
         title: 'Contextual Exploration',
         description:
           'Explore over 840,000 study notes detailing historical, cultural, geographical, and theological backgrounds. Gain a full pictureof Scripture’s redemptive story.',
       },
       {
+        showTitleIcon: true,
         title: 'Cross Reference',
         description:
           'Trace connections across all 66 books of the Bible-discovering themes, prophecies, and truths that beautifully align to reeveal God’s redemptive plan.',
@@ -137,17 +139,17 @@ const metadata = {
       alt: 'Colorful Image',
     }}
   >
-    <Fragment slot='content'>
-      <h3 class='text-2xl font-medium font-heading tracking-tight dark:text-white sm:text-3xl mb-2'>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-medium font-heading tracking-tight dark:text-white sm:text-3xl mb-2">
         In-Depth Contextual Bible Study
       </h3>
-      Dive deeper into Scripture with Aura’s verse-by-verse insights. The one-click <span class='font-bold'
-        >“Expand”</span
+      Dive deeper into Scripture with Aura’s verse-by-verse insights. The one-click <span class="font-bold"
+        >“Exegesis”</span
       > feature reveals the profound richness of God’s Word effortlessly.
     </Fragment>
 
-    <Fragment slot='bg'>
-      <div class='absolute inset-0 bg-slate-100 dark:bg-transparent'></div>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
@@ -157,10 +159,12 @@ const metadata = {
     isAfterContent
     items={[
       {
+        showTitleIcon: true,
         title: 'Less Known Insights',
         description: `Explore fresh, thought-provoking reflections that uncover bblical truths, hidden context, and deeper meanings-shedding new light on familiar passages to strengthen your understanding of God’s Word`,
       },
       {
+        showTitleIcon: true,
         title: 'Curated Content',
         description:
           'Every devotional is thoughtfully crafted by our team, rooted in Scripture, and theologically sound. Designed to draw you closer to God, each reflection inspires meaningful insights and heeartfelt prayer.',
@@ -171,16 +175,16 @@ const metadata = {
       alt: 'Blueprint Image',
     }}
   >
-    <Fragment slot='content'>
-      <h3 class='text-2xl font-medium font-heading tracking-tight dark:text-white sm:text-3xl mb-2'>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-medium font-heading tracking-tight dark:text-white sm:text-3xl mb-2">
         Daily Rejuvenation
       </h3>
       Aura delivers a fresh daily devotional that unpacks Biblical promises or theological insights. With Scripture and guideed
       prayer woven together, you'll reflect deeply on God’s Word and discover its relevance in your life.
     </Fragment>
 
-    <Fragment slot='bg'>
-      <div class='absolute inset-0 bg-slate-100 dark:bg-transparent'></div>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
@@ -191,11 +195,13 @@ const metadata = {
     isAfterContent
     items={[
       {
+        showTitleIcon: true,
         title: 'Conversational Prayer Writing Guide',
         description:
           'Struggling to find the right words for prayer? Aura’s interactive guide helps you articulate heartfelt, meaningful prayers through a conversational approach, making every prayer authentic and personal.',
       },
       {
+        showTitleIcon: true,
         title: 'Tailored Made Devotionals Just For You',
         description:
           'Receive devotionals carefully customized to your needs, with selected Scripture, reflections, and prayers that speak directly to your circumstances—bringing comfort, clarity, and renewed hope.',
@@ -206,16 +212,16 @@ const metadata = {
       alt: 'Astronauts Image',
     }}
   >
-    <Fragment slot='content'>
-      <h3 class='text-2xl font-medium font-heading tracking-tight dark:text-white sm:text-3xl mb-2'>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-medium font-heading tracking-tight dark:text-white sm:text-3xl mb-2">
         Personalized Devotionals
       </h3>
       Aura delivers a fresh daily devotional that unpacks Biblical promises or theological insights. With Scripture and guideed
       prayer woven together, you'll reflect deeply on God’s Word and discover its relevance in your life.
     </Fragment>
 
-    <Fragment slot='bg'>
-      <div class='absolute inset-0 bg-slate-100 dark:bg-transparent'></div>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
@@ -223,11 +229,13 @@ const metadata = {
     isAfterContent
     items={[
       {
+        showTitleIcon: true,
         title: 'Theologically Rigorous',
         description:
           'Every response is grounded in sound biblical doctrine, ensuring clarity, accuracy, and alignment with Scripture. With Aura, you can trust that every insight reflects theological depth and truth.',
       },
       {
+        showTitleIcon: true,
         title: 'Builds Deeper Understanding',
         description:
           'Aura remembers your prayers and context with memory management, making conversations increasingly relevant, personalized, and insightful over time.',
@@ -238,8 +246,8 @@ const metadata = {
       alt: 'Blueprint Image',
     }}
   >
-    <Fragment slot='content'>
-      <h3 class='text-2xl font-medium font-heading tracking-tight dark:text-white sm:text-3xl mb-2'>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-medium font-heading tracking-tight dark:text-white sm:text-3xl mb-2">
         24/7 Discussion Partner
       </h3>
       Your trusted companion for living out your faith with purpose, joy, and biblical clarity. Whether you’re diving into
@@ -247,8 +255,8 @@ const metadata = {
       Aura is here to help you grow closer to God.
     </Fragment>
 
-    <Fragment slot='bg'>
-      <div class='absolute inset-0 bg-slate-100 dark:bg-transparent'></div>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-slate-100 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
@@ -265,36 +273,36 @@ const metadata = {
   <!-- FAQs Widget ******************* -->
 
   <FAQs
-    id='faqs'
-    title='Frequently Asked Questions'
-    subtitle='Dive in and get to know a bit more about Aura'
-    tagline='FAQs'
+    id="faqs"
+    title="Frequently Asked Questions"
+    subtitle="Dive in and get to know a bit more about Aura"
+    tagline="FAQs"
     classes={{ container: 'max-w-6xl' }}
     items={[
       {
         title: 'Can I trust Al to answer Bible questions?',
         description:
-          "Aura's Al provides biblically grounded answers by adhering strictly to Scripture and Reformed theology, including the Westminster Confession of Faith. While Al offers clarityand guidance, we encourage users to test all insights againsthe Bible and seek wisdom from trusted church leaders.",
+          'Aura’s AI provides biblically grounded answers by adhering strictly to Scripture and Reformed theology, including the Westminster Confession of Faith. While AI offers clarity and guidance, we encourage users to test all insights against the Bible and seek wisdom from trusted church leaders.',
       },
       {
         title: 'What translations of Bible does Aura use?',
         description:
-          'Aura proudly licenses the New American Standard Biblle (NASB) as our exclusive translation. Renowned for its unmatched accuracy to the original Hebrew, Aramaic, and Greek texts, the NASB is trusted by millions for its precision and clarity-making it ideal for in-depth study.',
+          'Aura proudly licenses the New American Standard Bible (NASB) as our exclusive translation. Renowned for its unmatched accuracy to the original Hebrew, Aramaic, and Greek texts, the NASB is trusted by millions for its precision and clarity—making it ideal for in-depth study.',
       },
       {
         title: 'Why the name Aura?',
         description:
-          'In Exodus 34:29-30, Moses’ face radiated with a divineglow after meeting God. “Aura” represents the reflection of His$light, wisdom, and presence that we hope this app brings to your daily life and time in God’s Word.',
+          'In Exodus 34:29-30, Moses’ face radiated with a divine glow after meeting God. “Aura” represents the reflection of His light, wisdom, and presence that we hope this app brings to your daily life and time in God’s Word.',
       },
       {
         title: 'Can I share my devotionals or prayer reflections with others?',
         description:
-          'Yes! Aura allows you to share our copyrighted devotionals, prayer reflections, and insights with friends, family, or you small group to encourage growth and connection.',
+          'Yes! Aura allows you to share our copyrighted devotionals, prayer reflections, and insights with friends, family, or your small group to encourage growth and connection.',
       },
       {
         title: 'How does Aura ensure the theological accuracy of its answers?',
         description:
-          'Aura adheres to sound biblical doctrine and Refornhed theology, guided by trusted theological resources and oversight to ensure answers remain biblically faithful.',
+          'Aura adheres to sound biblical doctrine and Reformed theology, guided by trusted theological resources and oversight to ensure answers remain biblically faithful.',
       },
       {
         title: 'Can Aura replace my church or small group?',
@@ -304,12 +312,12 @@ const metadata = {
       {
         title: 'What makes Aura different from other Bible study apps?',
         description:
-          'Aura uniquely combines Al-powered contextual Bible studdy, personalized devotionals, and memory management, delivering a tailored and comprehensive study experiencee unmatched by other apps.',
+          'Aura uniquely combines AI-powered contextual Bible study, personalized devotionals, and memory management, delivering a tailored and comprehensive study experience unmatched by other apps.',
       },
       {
         title: 'How can I provide feedback or get support?',
         description:
-          'We value your input! Reach our team anytime at auraprayerapp@gmail.com or use the in-app feedback feature to share thoughts or get help.',
+          'We value your input! Reach our team anytime at support@auraofhope.com or use the in-app feedback feature to share thoughts or get help.',
       },
     ]}
   />

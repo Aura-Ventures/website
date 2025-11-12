@@ -1,4 +1,4 @@
-import { getAsset, getBlogPermalink, getPermalink } from './utils/permalinks'
+import { getPermalink } from './utils/permalinks'
 
 export const headerData = {
   links: [
@@ -31,7 +31,8 @@ export const headerData = {
     },
     {
       text: 'Contact Us',
-      href: 'mailto:auraprayerapp@gmail.com',
+      // href: 'mailto:auraprayerapp@gmail.com',
+      href: 'mailto:support@auraofhope.com',
     },
   ],
   actions: [
