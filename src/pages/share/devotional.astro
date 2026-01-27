@@ -39,9 +39,11 @@ const metadata: MetaData = {
 <script>
   import dayjs from 'dayjs';
   import { decodeShare } from '~/services';
+  import { openApp } from '~/utils/applink';
 
   const urlParams = new URLSearchParams(window.location.search);
   const ticket = urlParams.get('ticket');
+  let clickHandler: (() => void) | null = null;
 
   const fetchData = async () => {
     const data = await decodeShare(ticket as string);
@@ -108,8 +110,17 @@ const metadata: MetaData = {
       }
     }
 
-    if (reflectionButton && ticket) {
-      reflectionButton.setAttribute('href', `/share/prayer?ticket=${ticket}`);
+    if (reflectionButton) {
+      // 移除之前的事件监听器
+      if (clickHandler) {
+        reflectionButton.removeEventListener('click', clickHandler);
+      }
+      // 移除 href 属性，改为点击事件
+      reflectionButton.removeAttribute('href');
+      clickHandler = () => {
+        openApp('');
+      };
+      reflectionButton.addEventListener('click', clickHandler);
     }
   };
 
@@ -122,4 +133,12 @@ const metadata: MetaData = {
 
   document.addEventListener('astro:page-load', updateContent);
   document.addEventListener('astro:after-swap', updateContent);
+
+  document.addEventListener('astro:before-swap', () => {
+    const reflectionButton = document.querySelector('#reflectionButton') as HTMLAnchorElement;
+    if (reflectionButton && clickHandler) {
+      reflectionButton.removeEventListener('click', clickHandler);
+      clickHandler = null;
+    }
+  });
 </script>
