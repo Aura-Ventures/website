@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import badgeIcon from '~/assets/icons/a.png';
 import msgIcon from '~/assets/icons/msg.png';
 import heart from '~/assets/icons/heart.png';
 import steakIcon from '~/assets/icons/fi.png';
@@ -418,7 +417,7 @@ const { bgTheme = 'image' } = Astro.props;
     }
   </style>
 
-  <script define:vars={{ heartSrc: heart.src, msgSrc: msgIcon.src, steakSrc: steakIcon.src }}>
+  <script is:inline define:vars={{ heartSrc: heart.src, msgSrc: msgIcon.src, steakSrc: steakIcon.src }}>
     window.__CLOSING_ICONS__ = { heart: heartSrc, msg: msgSrc, steak: steakSrc };
   </script>
   <script>

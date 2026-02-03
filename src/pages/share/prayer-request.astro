@@ -364,7 +364,7 @@ const metadata: MetaData = {
 
     if (avatarStackElement && replies) {
       avatarStackElement.innerHTML = replies
-        ?.map((item) => `<img class='avatar-img' alt='avatar' src=${item?.user?.avatarUrl} />`)
+        ?.map((item: { user?: { avatarUrl?: string } }) => `<img class='avatar-img' alt='avatar' src=${item?.user?.avatarUrl} />`)
         .join('');
     }
 

@@ -55,7 +55,7 @@ if (ticket) {
   <!-- 将服务端数据传递给客户端 -->
   {
     shareData && (
-      <script define:vars={{ shareData, ticket }}>
+      <script is:inline define:vars={{ shareData, ticket }}>
         window.__SHARE_DATA__ = shareData; window.__TICKET__ = ticket;
       </script>
     )
