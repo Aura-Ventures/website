@@ -2,16 +2,64 @@
 import type { MetaData } from '~/types';
 import Layout from '../../layouts/Layout.astro';
 import ReflectionPage from '~/components/prayer/Reflection.astro';
+import { decodeShare, type DevotionalComment } from '~/services';
+import dayjs from 'dayjs';
 
-const metadata: MetaData = {
+// 标记此页面为 SSR 模式
+export const prerender = false;
+
+// 定义分享数据的类型
+interface ShareData {
+  data?: {
+    title?: string;
+    reflection?: string;
+    verse?: string;
+    coverUrl?: string;
+    displayDate?: string;
+    createdAt?: string;
+    verseMarker?: string;
+    comments?: DevotionalComment[];
+  };
+  shareUser?: {
+    avatarUrl?: string;
+    fullName?: string;
+  };
+}
+
+// 在服务端获取数据
+const ticket = Astro.url.searchParams.get('ticket');
+let shareData: ShareData | null = null;
+let metadata: MetaData = {
   title: 'My Reflection & Prayer',
 };
+
+if (ticket) {
+  try {
+    shareData = await decodeShare(ticket);
+    if (shareData?.data?.title) {
+      const formattedDate = shareData.data.displayDate ? dayjs(shareData.data.displayDate).format('MMMD') : '';
+      metadata = {
+        title: formattedDate ? `${formattedDate} - ${shareData.data.title}` : shareData.data.title,
+      };
+    }
+  } catch (error) {
+    console.error('Failed to fetch share data:', error);
+  }
+}
 ---
 
 <Layout metadata={metadata}>
-  <div class='page-container'>
+  <div class="page-container">
     <ReflectionPage />
   </div>
+  <!-- 将服务端数据传递给客户端 -->
+  {
+    shareData && (
+      <script define:vars={{ shareData, ticket }}>
+        window.__SHARE_DATA__ = shareData; window.__TICKET__ = ticket;
+      </script>
+    )
+  }
 </Layout>
 
 <style>
@@ -38,16 +86,52 @@ const metadata: MetaData = {
 
 <script>
   import dayjs from 'dayjs';
-  import { decodeShare } from '~/services';
-  import { openApp } from '~/utils/applink';
+  import { decodeShare, type DecodeShareData } from '~/services';
 
+  // 定义分享数据的类型（客户端）
+  interface ShareData {
+    data?: {
+      title?: string;
+      reflection?: string;
+      verse?: string;
+      coverUrl?: string;
+      displayDate?: string;
+      createdAt?: string;
+      verseMarker?: string;
+      reflectionContent?: string;
+    };
+    shareUser?: {
+      avatarUrl?: string;
+      fullName?: string;
+    };
+  }
+
+  // 扩展 Window 接口
+  interface WindowWithShareData extends Window {
+    __SHARE_DATA__?: ShareData;
+    __TICKET__?: string;
+  }
+
+  // 优先使用服务端传递的数据，如果没有则从 URL 获取 ticket 并请求
   const urlParams = new URLSearchParams(window.location.search);
-  const ticket = urlParams.get('ticket');
-  let clickHandler: (() => void) | null = null;
+  const ticketFromUrl = urlParams.get('ticket');
+  const serverData = (window as WindowWithShareData).__SHARE_DATA__;
+  const serverTicket = (window as WindowWithShareData).__TICKET__;
+  const ticket = serverTicket || ticketFromUrl;
 
   const fetchData = async () => {
-    const data = await decodeShare(ticket as string);
-    console.log(data);
+    // 优先使用服务端数据（服务端为 ShareData，接口为 DecodeShareData，结构兼容）
+    let data: ShareData | DecodeShareData | null | undefined = serverData;
+
+    // 如果没有服务端数据，则从 API 获取
+    if (!data && ticket) {
+      data = await decodeShare(ticket);
+    }
+
+    if (!data) return;
+
+    // 接口与服务端结构一致，统一按 ShareData 使用
+    const d = data as ShareData;
 
     const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
     const nameElement = document.getElementById('userName') as HTMLSpanElement;
@@ -60,35 +144,35 @@ const metadata: MetaData = {
     const reflectionBody = document.querySelector('#reflectionBody') as HTMLDivElement;
     const reflectionButton = document.querySelector('#reflectionButton') as HTMLAnchorElement;
 
-    if (avatarElement && data?.shareUser?.avatarUrl) {
-      avatarElement.src = data.shareUser.avatarUrl;
+    if (avatarElement && d?.shareUser?.avatarUrl) {
+      avatarElement.src = d.shareUser.avatarUrl;
     }
 
-    if (nameElement && data?.shareUser?.fullName) {
-      nameElement.textContent = data.shareUser.fullName;
+    if (nameElement && d?.shareUser?.fullName) {
+      nameElement.textContent = d.shareUser.fullName;
     }
 
     if (reflectionCover) {
       reflectionCover.src = '';
-      if (data?.data?.coverUrl) {
-        reflectionCover.src = data?.data?.coverUrl;
+      if (d?.data?.coverUrl) {
+        reflectionCover.src = d.data.coverUrl;
       }
     }
 
     if (reflectionDate) {
       reflectionDate.textContent = '';
 
-      if (data?.data?.displayDate) {
-        reflectionDate.textContent = dayjs(data.data.displayDate).format('MMM D, YYYY');
-      } else if (data?.data?.createdAt) {
-        reflectionDate.textContent = dayjs(data.data.createdAt).format('MMM D, YYYY');
+      if (d?.data?.displayDate) {
+        reflectionDate.textContent = dayjs(d.data.displayDate).format('MMM D, YYYY');
+      } else if (d?.data?.createdAt) {
+        reflectionDate.textContent = dayjs(d.data.createdAt).format('MMM D, YYYY');
       }
     }
 
     if (reflectionTitle) {
       reflectionTitle.textContent = '';
-      if (data?.data?.title) {
-        reflectionTitle.textContent = data.data.title;
+      if (d?.data?.title) {
+        reflectionTitle.textContent = d.data.title;
       }
     }
 
@@ -96,31 +180,22 @@ const metadata: MetaData = {
       reflectionVerseText.textContent = '';
       reflectionVerseMarker.textContent = '';
       reflectionVerse.style.display = 'none';
-      if (data?.data?.verse) {
-        reflectionVerseText.textContent = data.data.verse;
-        reflectionVerseMarker.textContent = data.data.verseMarker;
+      if (d?.data?.verse) {
+        reflectionVerseText.textContent = d.data.verse;
+        reflectionVerseMarker.textContent = d.data.verseMarker || '';
         reflectionVerse.style.display = 'block';
       }
     }
 
     if (reflectionBody) {
       reflectionBody.textContent = '';
-      if (data?.data?.reflection) {
-        reflectionBody.textContent = data.data.reflection;
+      if (d?.data?.reflectionContent) {
+        reflectionBody.textContent = d.data.reflectionContent;
       }
     }
 
-    if (reflectionButton) {
-      // 移除之前的事件监听器
-      if (clickHandler) {
-        reflectionButton.removeEventListener('click', clickHandler);
-      }
-      // 移除 href 属性，改为点击事件
-      reflectionButton.removeAttribute('href');
-      clickHandler = () => {
-        openApp('');
-      };
-      reflectionButton.addEventListener('click', clickHandler);
+    if (reflectionButton && ticket) {
+      reflectionButton.setAttribute('href', `/share/prayer?ticket=${ticket || ''}`);
     }
   };
 
@@ -131,14 +206,10 @@ const metadata: MetaData = {
     }
   };
 
+  // 立即执行一次（页面首次加载）
+  updateContent();
+
+  // 监听 Astro 页面事件
   document.addEventListener('astro:page-load', updateContent);
   document.addEventListener('astro:after-swap', updateContent);
-
-  document.addEventListener('astro:before-swap', () => {
-    const reflectionButton = document.querySelector('#reflectionButton') as HTMLAnchorElement;
-    if (reflectionButton && clickHandler) {
-      reflectionButton.removeEventListener('click', clickHandler);
-      clickHandler = null;
-    }
-  });
 </script>
