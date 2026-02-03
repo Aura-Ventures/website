@@ -58,8 +58,8 @@ const metadata: MetaData = {
 
     if (prayerBody) {
       prayerBody.textContent = '';
-      if (data?.data?.prayer) {
-        prayerBody.textContent = data.data.prayer;
+      if (data?.data?.prayer != null) {
+        prayerBody.textContent = String(data.data.prayer);
       }
     }
 

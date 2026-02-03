@@ -1,8 +1,8 @@
-// const BASE_URL = 'http://10.1.16.94:9416';
+const BASE_URL = 'http://10.1.16.94:9416';
 
 const DEPLOY_ENV = import.meta.env.PUBLIC_DEPLOY_ENV || 'prod';
 
-const BASE_URL = DEPLOY_ENV === 'prod' ? 'https://api.auraofhope.com' : 'https://lets-pray-qa.zeabur.app';
+// const BASE_URL = DEPLOY_ENV === 'prod' ? 'https://api.auraofhope.com' : 'https://lets-pray-qa.zeabur.app';
 
 export interface User {
   id?: number;
