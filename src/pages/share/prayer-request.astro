@@ -9,45 +9,45 @@ const metadata: MetaData = {
 ---
 
 <Layout metadata={metadata}>
-  <div class='container'>
-    <div class='card'>
-      <div class='header'>
-        <img class='avatar' id='userAvatar' />
-        <span class='from-text'>From</span>
-        <span class='name' id='userName'></span>
-        <Icon name='tabler:chevron-right' class='w-5 h-5 text-gray-400' />
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <img class="avatar" id="userAvatar" />
+        <span class="from-text">From</span>
+        <span class="name" id="userName"></span>
+        <Icon name="tabler:chevron-right" class="w-5 h-5 text-gray-400" />
         <!-- <div class='close-icon' id='closeIcon'>
           <Icon name='tabler:x' class='w-5 h-5' />
         </div> -->
       </div>
-      <div class='content'>
-        <div class='qr-section'>
-          <img class='qr-code' id='qrCode' />
-          <div class='brand'>
-            <div class='brand-name'>Aura</div>
-            <div class='brand-slogan'>Pray Deeper | Walk Closer</div>
+      <div class="content">
+        <div class="qr-section">
+          <img class="qr-code" id="qrCode" />
+          <div class="brand">
+            <div class="brand-name">Aura</div>
+            <div class="brand-slogan">Pray Deeper | Walk Closer</div>
           </div>
         </div>
-        <div class='prayer-content-card-container'>
-          <div class='prayer-content-card'>
-            <div class='author-section'>
-              <img class='avatar' id='userAvatar2' />
-              <span class='author-name' id='userName2'></span>
-              <span class='new-badge'>NEW</span>
+        <div class="prayer-content-card-container">
+          <div class="prayer-content-card">
+            <div class="author-section">
+              <img class="avatar" id="userAvatar2" />
+              <span class="author-name" id="userName2"></span>
+              <span class="new-badge">NEW</span>
             </div>
 
-            <h1 class='prayer-title' id='prayerTitle'></h1>
-            <div class='timestamp' id='prayerTimestamp'></div>
+            <h1 class="prayer-title" id="prayerTitle"></h1>
+            <div class="timestamp" id="prayerTimestamp"></div>
 
-            <p class='prayer-content' id='prayerContent'></p>
+            <p class="prayer-content" id="prayerContent"></p>
 
-            <button class='join-prayer-btn' id='prayerButton'>Join Me In Prayer</button>
+            <button class="join-prayer-btn" id="prayerButton">Join Me In Prayer</button>
 
-            <div class='prayer-stats'>
-              <div class='avatar-group'>
-                <div class='avatar-stack' id='avatarStack'></div>
+            <div class="prayer-stats">
+              <div class="avatar-group">
+                <div class="avatar-stack" id="avatarStack"></div>
               </div>
-              <span class='prayer-count' id='prayerCount'></span>
+              <span class="prayer-count" id="prayerCount"></span>
             </div>
           </div>
         </div>
@@ -364,7 +364,10 @@ const metadata: MetaData = {
 
     if (avatarStackElement && replies) {
       avatarStackElement.innerHTML = replies
-        ?.map((item: { user?: { avatarUrl?: string } }) => `<img class='avatar-img' alt='avatar' src=${item?.user?.avatarUrl} />`)
+        ?.map(
+          (item: { user?: { avatarUrl?: string } }) =>
+            `<img class='avatar-img' alt='avatar' src=${item?.user?.avatarUrl} />`
+        )
         .join('');
     }
 

@@ -28,7 +28,7 @@ const sparkleY = cy + rx * Math.cos(angle) * Math.sin(alpha) + ry * Math.sin(ang
 ---
 
 <div
-  class='animation-container'
+  class="animation-container"
   data-callback={onAnimationFinished?.toString()}
   data-should-animate={String(shouldAnimate)}
   data-ellipse-size={JSON.stringify(ellipseSize)}
@@ -36,18 +36,18 @@ const sparkleY = cy + rx * Math.cos(angle) * Math.sin(alpha) + ry * Math.sin(ang
   data-sparkle-x={String(sparkleX)}
   data-sparkle-y={String(sparkleY)}
 >
-  <svg class='prayer-ellipse' viewBox={`0 0 ${width} ${height}`}>
+  <svg class="prayer-ellipse" viewBox={`0 0 ${width} ${height}`}>
     <defs>
-      <linearGradient id='ellipseGradient' x1='0%' y1='0%' x2='0%' y2='100%'>
-        <stop offset='0%' style='stop-color:#4F4F4F;stop-opacity:1'></stop>
-        <stop offset='50%' style='stop-color:#4F4F4F;stop-opacity:0'></stop>
-        <stop offset='100%' style='stop-color:#4F4F4F;stop-opacity:1'></stop>
+      <linearGradient id="ellipseGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#4F4F4F;stop-opacity:1"></stop>
+        <stop offset="50%" style="stop-color:#4F4F4F;stop-opacity:0"></stop>
+        <stop offset="100%" style="stop-color:#4F4F4F;stop-opacity:1"></stop>
       </linearGradient>
     </defs>
-    <ellipse class='ellipse-path' cx={cx} cy={cy} rx={rx} ry={ry} transform={`rotate(${ellipseRotation}, ${cx}, ${cy})`}
+    <ellipse class="ellipse-path" cx={cx} cy={cy} rx={rx} ry={ry} transform={`rotate(${ellipseRotation}, ${cx}, ${cy})`}
     ></ellipse>
   </svg>
-  <div class='star'></div>
+  <div class="star"></div>
 </div>
 
 <style>

@@ -23,26 +23,26 @@ const handleAnimationFinished = () => {
 };
 ---
 
-<div class='container' data-bg-theme={bgTheme}>
-  <div class='header'>
-    <img class='avatar' id='userAvatar' />
-    <span class='from-text'>From</span>
-    <span class='name' id='userName'></span>
-    <Icon name='tabler:chevron-right' class='w-5 h-5 text-gray-400' />
+<div class="container" data-bg-theme={bgTheme}>
+  <div class="header">
+    <img class="avatar" id="userAvatar" />
+    <span class="from-text">From</span>
+    <span class="name" id="userName"></span>
+    <Icon name="tabler:chevron-right" class="w-5 h-5 text-gray-400" />
   </div>
-  <div class='title-container' id='title-container'>
-    <div class='title'>{title}</div>
-    <div id='prayer-ellipse' style='display: none;'>
+  <div class="title-container" id="title-container">
+    <div class="title">{title}</div>
+    <div id="prayer-ellipse" style="display: none;">
       <PrayEllipse onAnimationFinished={handleAnimationFinished} shouldAnimate={true} />
     </div>
   </div>
-  <div class='prayer-container' id='prayer-container'>
-    <div class='prayer-content-title' data-page-id={uniqueId}></div>
-    <div class='prayer-content' data-page-id={uniqueId}>
+  <div class="prayer-container" id="prayer-container">
+    <div class="prayer-content-title" data-page-id={uniqueId}></div>
+    <div class="prayer-content" data-page-id={uniqueId}>
       {content}
     </div>
-    <div class='btn-container'>
-      <a class='btn' id='prayButton' href={href} data-page-id={uniqueId}>{buttonText}</a>
+    <div class="btn-container">
+      <a class="btn" id="prayButton" href={href} data-page-id={uniqueId}>{buttonText}</a>
     </div>
   </div>
 </div>
