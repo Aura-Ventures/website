@@ -1,4 +1,4 @@
-import { getPermalink } from './utils/permalinks'
+import { getPermalink } from './utils/permalinks';
 
 export const headerData = {
   links: [
@@ -42,7 +42,7 @@ export const headerData = {
       target: '_blank',
     },
   ],
-}
+};
 
 export const footerData = {
   links: [],
@@ -58,4 +58,4 @@ export const footerData = {
   ],
   socialLinks: [],
   footNote: '',
-}
+};

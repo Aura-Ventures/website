@@ -1,14 +1,14 @@
 export interface Citation {
-    bookName: string;
-    chapter: number;
-    ranges: number[][];
-    fullText: string; 
-    startIndex: number;
-    endIndex: number;
-  }
-  
+  bookName: string;
+  chapter: number;
+  ranges: number[][];
+  fullText: string;
+  startIndex: number;
+  endIndex: number;
+}
+
 export function parseAllCitations(text: string): Citation[] {
-  const normalizedText = text.replace(/[–—]/g, '-'); 
+  const normalizedText = text.replace(/[–—]/g, '-');
   // const pattern =
   //   /\b(?<book>(?:[1-3]\s)?[A-Za-z]+(?:\s(?:of|and|the|[A-Za-z]+))*)\s+(?<chapter>\d+):(?<ranges>\d+(?:-\d+)?(?:\s*,\s*\d+(?:-\d+)?)*)/g;
   // const pattern =
@@ -28,7 +28,7 @@ export function parseAllCitations(text: string): Citation[] {
     const parsedRanges = ranges
       .split(/[,\s]/)
       .filter(Boolean)
-      .map(range => {
+      .map((range) => {
         const [start, end] = range.split('-').map(Number);
         return [start, end || start];
       });
@@ -45,4 +45,3 @@ export function parseAllCitations(text: string): Citation[] {
 
   return citations;
 }
-

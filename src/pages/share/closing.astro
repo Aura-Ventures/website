@@ -8,7 +8,7 @@ const metadata: MetaData = {
 ---
 
 <Layout metadata={metadata}>
-  <div class='page-container'>
+  <div class="page-container">
     <ClosingPage />
   </div>
 </Layout>
@@ -45,7 +45,8 @@ const metadata: MetaData = {
   const ticket = urlParams.get('ticket');
   let clickHandler: (() => void) | null = null;
 
-  const icons = () => (window as { __CLOSING_ICONS__?: { heart: string; msg: string; steak: string } }).__CLOSING_ICONS__;
+  const icons = () =>
+    (window as { __CLOSING_ICONS__?: { heart: string; msg: string; steak: string } }).__CLOSING_ICONS__;
 
   function formatCommentTime(createdAt: string): string {
     return dayjs(createdAt).fromNow();
@@ -63,7 +64,7 @@ const metadata: MetaData = {
     const replies = comment.repliesCount ?? 0;
     const content = escapeHtml(comment.content);
     const steaks = comment.user?.steaks ?? 0;
-    
+
     return `
       <div class="comment-item">
         <div class="comment-avatar-container">
