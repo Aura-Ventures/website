@@ -1,0 +1,368 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import type { MetaData } from '~/types';
+
+const metadata: MetaData = {
+  title: 'Biblical Exegesis',
+  openGraph: {
+    images: [{ url: '~/assets/images/exegesisShare.png' }],
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <div class='page-container'>
+    <div class='header'>
+      <img class='avatar' id='userAvatar' />
+      <span class='from-text'>From</span>
+      <span class='name' id='userName'></span>
+      <Icon name='tabler:chevron-right' class='w-5 h-5 text-gray-400' />
+    </div>
+
+    <div class='content-scroll'>
+      <div class='verse-card'>
+        <div id='verseBookCover' class='verse-book-cover'/>
+        <div class='verse-content-wrap'>
+          <div class='verse-text' id='verseText'></div>
+          <div class='verse-ref' id='verseRef'></div>
+        </div>
+       
+      </div>
+
+      <!-- 下半部分：经文注释卡片 -->
+      <div class='exegesis-card'>
+        <h2 class='exegesis-title'>Full Context Behind The Passage</h2>
+        <div class='exegesis-Content' id='exegesisContent'></div>
+      </div>
+    </div>
+
+    <footer class='footer'>
+      <a class='cta-button' id='ctaButton' href='#'>Download Aura Bible</a>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+.page-container {
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family:
+    'Jost',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  background: #f2f1ef;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fbfaf3;
+  padding: 16px;
+  flex-shrink: 0;
+}
+.avatar {
+  width: 24px;
+  height: 24px;
+  background: #e2e2e2;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.from-text {
+  color: #666;
+  font-size: 14px;
+}
+.name {
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+}
+.content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 上半部分：经文卡片 */
+.verse-card {
+  display: flex;
+  gap: 24px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #fff;
+  align-items: flex-start;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.verse-book-cover {
+  width: 48px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.verse-book-cover:not(:has(.book-cover)) .verse-icon-fallback {
+  width: 54px;
+  height: 72px;
+  border-radius: 8px;
+  background: #e8e0d5;
+  color: #5c4d3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lora', serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+.verse-book-cover :global(.book-cover) {
+  position: relative;
+  width: 48px;
+  height: 56px;
+}
+.verse-book-cover :global(.book-cover__image) {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.verse-book-cover :global(.book-cover__title) {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  font-size: 20px;
+  line-height: 1.15;
+  font-family: 'BeautiqueDisplayBold', 'BeautiqueDisplayCondensed', serif;
+  font-weight: 700;
+  color: #2c1f11;
+  opacity: 0.66;
+}
+.verse-content-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.verse-text {
+  color: #2c1f11;
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 17px;
+  line-height: 140%;
+}
+.verse-ref {
+  color: rgba(44, 31, 17, 0.5);
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 130%;
+  letter-spacing: 0;
+}
+.verse-menu-btn {
+  padding: 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.verse-menu-icon {
+  color: #999;
+  width: 20px;
+  height: 20px;
+}
+
+/* 下半部分：经文注释卡片 */
+.exegesis-card {
+  padding: 24px;
+  border-radius: 24px;
+  background: #fff;
+  gap:16;
+}
+.exegesis-title {
+  margin: 0 0 16px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600; 
+  font-size: 17px;
+  line-height: 140%;
+  color: #2c1f11;
+}
+.exegesis-Content {
+  font-size: 16px;
+  line-height: 1.4; 
+  color: #2c1f11;
+  font-family: 'Nunito Sans', sans-serif;
+  letter-spacing: -0.16px;
+}
+
+.exegesis-Content :global(p) {
+  margin: 0 0 12px;
+}
+.exegesis-Content :global(p:last-child) {
+  margin-bottom: 0;
+}
+.exegesis-Content :global(h2),
+.exegesis-Content :global(h3),
+.exegesis-Content :global(h4),
+.exegesis-Content :global(h5),
+.exegesis-Content :global(h6) {
+  margin: 1em 0 0.5em;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+.exegesis-Content :global(strong) {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+}
+.exegesis-Content :global(em) {
+  font-family: 'Nunito Sans', sans-serif;
+  font-style: italic;
+}
+.exegesis-Content :global(a) {
+  color: #f78376;
+  text-decoration: underline;
+  pointer-events: none;
+  cursor: default;
+}
+.exegesis-Content :global(ul),
+.exegesis-Content :global(ol) {
+  margin: 0 0 12px;
+  padding-left: 1.25em;
+}
+.exegesis-Content :global(ul) {
+  list-style-type: disc; 
+}
+.exegesis-Content :global(ol) {
+  list-style-type: decimal; 
+}
+
+.footer {
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(239, 239, 239, 0) 0%, #efefef 100%);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+}
+.cta-button {
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 999px;
+  background: #19130d;
+  color: #fff;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.cta-button:hover {
+  opacity: 0.9;
+}
+</style>
+<script>
+  import { decodeShare } from '~/services';
+  import { getBookCoverSrc } from '~/utils/bible';
+  import { parseAllCitations } from '~/utils/citation';
+  import { marked } from 'marked';
+  const urlParams = new URLSearchParams(window.location.search);
+  const ticket = urlParams.get('ticket');
+  let ctaClickBound = false;
+
+  const APP_STORE_URL =
+    'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898';
+  const PLAY_STORE_URL =
+    'https://play.google.com/store/apps/details?id=com.aura.letspray';
+
+  /** citation 含多个空格，bookId = 最后一个空格前面的所有内容 */
+  function getBookIdFromCitation(citation: string): string {
+    const s = citation.trim();
+    const lastSpace = s.lastIndexOf(' ');
+    return lastSpace >= 0 ? s.slice(0, lastSpace).trim() : s;
+  }
+
+  const fetchData = async () => {
+    if (!ticket) return;
+    const data = await decodeShare(ticket);
+    if (!data) return;
+    const d = data.data as Record<string, unknown> | undefined;
+    const avatarEl = document.getElementById('userAvatar') as HTMLImageElement | null;
+    const nameEl = document.getElementById('userName') as HTMLSpanElement | null;
+    const verseTextEl = document.getElementById('verseText') as HTMLDivElement | null;
+    const verseRefEl = document.getElementById('verseRef') as HTMLDivElement | null;
+    const verseBookCoverEl = document.getElementById('verseBookCover') as HTMLDivElement | null;
+    const exegesisContentEl = document.getElementById('exegesisContent') as HTMLDivElement | null;
+
+    if (avatarEl && data.shareUser?.avatarUrl) avatarEl.src = data.shareUser.avatarUrl;
+    if (nameEl && data.shareUser?.fullName) nameEl.textContent = data.shareUser.fullName;
+
+    const verseText = (d?.verseText as string) ?? '';
+    const citation = (d?.citation as string) ?? '';
+    const verseRef = citation;
+    if (verseTextEl) verseTextEl.textContent = verseText;
+    if (verseRefEl) verseRefEl.textContent = verseRef;
+
+    const bookId = citation ? getBookIdFromCitation(citation) : '';
+    const coverSrc = bookId ? getBookCoverSrc(bookId) : undefined;
+    const firstNonDigitNonEmptyChar = bookId.match(/[^0-9\s]/)?.[0] ?? '';
+    const displayTitle = firstNonDigitNonEmptyChar;
+    const esc = (x: string) => x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+    if (verseBookCoverEl && coverSrc) {
+      verseBookCoverEl.innerHTML = `<div class="book-cover"><img class="book-cover__image" src="${coverSrc}" width="54" height="64" /><span class="book-cover__title">${esc(displayTitle)}</span></div>`;
+    }
+
+    const content = (d?.content as string) ?? '';
+    if (exegesisContentEl) {
+      const citations = parseAllCitations(content);
+      const textWithLinks = content
+        .split('')
+        .map((char, index) => {
+          const start = citations.find(c => index === c.startIndex);
+          const end = citations.find(c => index === c.endIndex - 1);
+
+          if (start) {
+            return `[${char}`;
+          } else if (end) {
+            return `${char}](${encodeURIComponent(JSON.stringify(end))})`;
+          }
+          return char;
+        })
+        .join('');
+
+      exegesisContentEl.innerHTML = marked.parse(textWithLinks, { async: false }) as string;
+    }
+  };
+
+  const updateContent = () => {
+    if (ticket) fetchData();
+    const ctaButton = document.getElementById('ctaButton') as HTMLAnchorElement | null;
+    if (ctaButton && ticket && !ctaClickBound) {
+      ctaClickBound = true;
+      ctaButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const userAgent = navigator.userAgent;
+        const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+        const isAndroid = /Android/.test(userAgent);
+
+        if (isIOS) {
+          window.location.href = APP_STORE_URL;
+        } else if (isAndroid) {
+          window.location.href = PLAY_STORE_URL;
+        }
+      });
+    }
+  };
+  document.addEventListener('astro:page-load', updateContent);
+</script>
