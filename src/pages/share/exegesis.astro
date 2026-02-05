@@ -5,6 +5,7 @@ import type { MetaData } from '~/types';
 
 const metadata: MetaData = {
   title: 'Biblical Exegesis',
+  description: 'Biblical Exegesis',
   openGraph: {
     images: [{ url: '~/assets/images/exegesisShare.png' }],
   },
@@ -45,9 +46,11 @@ const metadata: MetaData = {
   .page-container {
     max-width: 600px;
     margin: 0 auto;
-    min-height: 100dvh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    position: relative;
     font-family:
       'Jost',
       -apple-system,
@@ -84,7 +87,7 @@ const metadata: MetaData = {
   .content-scroll {
     flex: 1;
     overflow-y: auto;
-    padding: 16px;
+    padding: 16px 16px 100px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -243,10 +246,13 @@ const metadata: MetaData = {
   }
 
   .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 16px;
     background: linear-gradient(180deg, rgba(239, 239, 239, 0) 0%, #efefef 100%);
     backdrop-filter: blur(12px);
-    flex-shrink: 0;
   }
   .cta-button {
     display: block;
