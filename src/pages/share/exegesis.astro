@@ -354,8 +354,10 @@ const metadata: MetaData = {
         const userAgent = navigator.userAgent;
         const isIOS = /iPad|iPhone|iPod/.test(userAgent);
         const isAndroid = /Android/.test(userAgent);
+        const isMac = /Macintosh/.test(userAgent);
 
-        if (isIOS) {
+        if (isIOS || isMac) {
+          // iOS (包括 iPad) 和 Mac 用户跳转到 App Store
           window.location.href = APP_STORE_URL;
         } else if (isAndroid) {
           window.location.href = PLAY_STORE_URL;
