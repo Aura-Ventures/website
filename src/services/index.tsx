@@ -1,8 +1,6 @@
-// const BASE_URL = 'http://10.1.16.94:9416';
-
-const DEPLOY_ENV = import.meta.env.PUBLIC_DEPLOY_ENV || 'prod';
-
-const BASE_URL = DEPLOY_ENV === 'prod' ? 'https://api.auraofhope.com' : 'https://lets-pray-qa.zeabur.app';
+// API Configuration from environment variables
+const API_BASE_URL = import.meta.env.PUBLIC_API_BASE_URL || 'https://api.auraofhope.com';
+const APP_VERSION = import.meta.env.PUBLIC_APP_VERSION; // 设置为 "2.8.0" 访问 stage 环境
 
 export interface User {
   id?: number;
@@ -40,10 +38,11 @@ export interface DecodeShareData {
 export const decodeShare = async (ticket: string): Promise<DecodeShareData | null> => {
   if (!ticket) return null;
   try {
-    const response = await fetch(`${BASE_URL}/public/ticket`, {
+    const response = await fetch(`${API_BASE_URL}/public/ticket`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...(APP_VERSION && { 'X-App-Version': APP_VERSION }),
       },
       body: JSON.stringify({ ticket }),
     });
