@@ -1,16 +1,16 @@
 ---
 import type { MetaData } from '~/types';
+import Layout from '~/layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
-
-import Layout from '../../layouts/Layout.astro';
+import invitationBg from '~/assets/images/fellowship/Invitationbg.png';
 
 const metadata: MetaData = {
   title: 'Group Invitation',
   openGraph: {
     images: [
       {
-        url: 'https://static.auraofhope.com/common/group.png',
+        url: '~/assets/images/fellowship/bg.png',
       },
     ],
   },
@@ -18,48 +18,65 @@ const metadata: MetaData = {
 ---
 
 <Layout metadata={metadata}>
-  <main class="container">
-    <div class="card">
-      <div class="header">
-        <img class="avatar" id="userAvatar" />
-        <span class="from-text">From</span>
-        <span class="name" id="userName"></span>
-        <Icon name="tabler:chevron-right" class="w-5 h-5 text-gray-400" />
-        <!-- <div class='close-icon' id='closeIcon'>
-          <Icon name='tabler:x' class='w-5 h-5' />
-        </div> -->
-      </div>
-      <div class="content">
-        <div class="quote-section">
-          <Image src="~/assets/images/sparkle-big.png" alt="quote" class="quote-image" width={80} height={80} />
-          <div class="quote-text">
-            “Iron sharpens iron, and<br />
-            one man sharpens another.”
+  <main class="invite" style={`background-image: url(${invitationBg.src});`}>
+    <div class="invite__surface" role="presentation" aria-hidden="true"></div>
+
+    <section class="invite__card" aria-label="Invitation">
+      <header class="invite__top">
+        <div class="invite__from">
+          <div class="invite__avatar" aria-hidden="true">
+            <img id="fromAvatar" alt="" />
+            <span id="fromInitials" class="invite__initials">HC</span>
           </div>
-          <div class="quote-source">- Proverbs 27:17 -</div>
+          <div class="invite__fromText">
+            <span class="invite__fromLabel">From</span>
+            <span id="fromName" class="invite__fromName"></span>
+          </div>
+          <Icon name="tabler:chevron-right" class="invite__chev" aria-hidden="true" />
         </div>
 
-        <div class="invitation-text">
-          You have received an invitation to a small<br /> group on Aura. Please download or<br /> update your Aura in order
-          to join.
+        <a class="invite__close" href="/" aria-label="Close invitation">
+          <Icon name="tabler:x" class="invite__closeIcon" aria-hidden="true" />
+        </a>
+      </header>
+
+      <div class="invite__content">
+        <h1 class="invite__title">Your have been invited</h1>
+        <div class="invite__sub">
+          <span id="subFromName"></span> invites you to join
+        </div>
+        <div id="groupName" class="invite__group"></div>
+
+        <div class="invite__illustration" aria-hidden="true">
+          <Image
+            src="~/assets/images/fellowship/group.png"
+            alt=""
+            class="invite__illImg"
+            width={156.293}
+            height={156.293}
+            loading="lazy"
+          />
         </div>
 
-        <button class="download-button">Download Aura</button>
+        <p class="invite__desc">
+          This is an invitation to join a small group on Aura App. Please download or update your Aura App in order to join.
+        </p>
 
-        <div class="footer">
-          <div class="logo">Aura</div>
-          <div class="tagline">Pray Deeper | Walk Closer</div>
-        </div>
+        <button id="acceptBtn" class="invite__btn" type="button">Accept Invitation</button>
+
+        <footer class="invite__brand" aria-label="Aura">
+          <div class="invite__logo">Aura</div>
+          <div class="invite__tagline">Pray Deeper | Walk Closer</div>
+        </footer>
       </div>
-    </div>
+    </section>
   </main>
 </Layout>
 
 <style>
-  .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 16px;
+  :global(body) {
+    margin: 0;
+    padding: 0;
     font-family:
       'Jost',
       -apple-system,
@@ -69,144 +86,268 @@ const metadata: MetaData = {
       sans-serif;
   }
 
-  .card {
-    text-align: center;
-    background-color: #ece9e2;
-    border-radius: 12px;
+  :global(body.bg-page) {
+    background: #e8e5de;
+  }
+
+  .invite {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: 14px;
+    position: relative;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 
-  .header {
+  .invite__surface {
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(320px 320px at 15% 25%, rgba(255, 198, 182, 0.75), rgba(255, 198, 182, 0) 65%),
+      radial-gradient(360px 360px at 85% 30%, rgba(255, 213, 164, 0.75), rgba(255, 213, 164, 0) 62%),
+      radial-gradient(420px 420px at 50% 65%, rgba(255, 205, 178, 0.5), rgba(255, 205, 178, 0) 70%);
+    filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .invite__card {
+    width: min(420px, 100%);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.08),
+      0 6px 16px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .invite__top {
     display: flex;
     align-items: center;
-    gap: 4px;
-    background: #fbfaf3;
-    padding: 16px;
+    justify-content: space-between;
+    padding: 14px 14px 10px 14px;
+    background: rgba(251, 250, 243, 0.65);
   }
 
-  .content {
-    padding: 0 16px 16px 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .avatar {
-    width: 24px;
-    height: 24px;
-    background: #e2e2e2;
-    border-radius: 50%;
+  .invite__from {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 12px;
+    gap: 10px;
+    min-width: 0;
   }
 
-  .from-text {
-    color: #000;
-    font-size: 14px;
+  .invite__avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+    flex: none;
   }
 
-  .name {
-    color: #000;
-    font-size: 14px;
-    font-weight: 500;
+  .invite__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
   }
 
-  .close-icon {
-    margin-left: auto;
-    background: #c2c1c0;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 20px;
-    line-height: 20px;
-    cursor: pointer;
-  }
-
-  .quote-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin: 50px 0;
-  }
-
-  .quote-image {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-  }
-
-  .quote-text {
-    font-family: 'BeautiqueDisplayCondensed', serif;
-    color: #141414;
-    font-size: 24px;
+  .invite__initials {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
     font-weight: 700;
-    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.55);
   }
 
-  .quote-source {
-    color: #000;
-    font-size: 15px;
+  .invite__fromText {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    min-width: 0;
   }
 
-  .invitation-text {
+  .invite__fromLabel {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.78);
+    white-space: nowrap;
+  }
+
+  .invite__fromName {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.92);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  .invite__chev {
+    width: 20px;
+    height: 20px;
+    color: rgba(0, 0, 0, 0.35);
+  }
+
+  .invite__close {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.18);
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+  }
+
+  .invite__closeIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .invite__content {
+    padding: 26px 22px 22px 22px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .invite__title {
+    font-family:
+      'Lora',
+      'LoraMedium',
+      serif;
+    font-size: 28px;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    color: rgba(29, 18, 10, 0.96);
+    margin: 0;
+  }
+
+  .invite__sub {
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
     font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    color: rgba(60, 60, 67, 0.6);
+  }
+
+  .invite__group {
+    margin-top: 4px;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: normal;
+    color: rgba(60, 60, 67, 0.6);
+  }
+
+  .invite__illustration {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .invite__illSvg,
+  .invite__illImg {
+    width: 156.293px;
+    height: 156.293px;
+    aspect-ratio: 1 / 1;
+    margin-inline: auto;
+    display: block;
+  }
+
+  .invite__desc {
+    margin-top: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 16.768px;
+    font-weight: 400;
+    line-height: normal;
     color: #373737;
-    max-width: 400px;
-    margin: 0 auto;
-    margin-bottom: 20px;
+    max-width: 320px;
   }
 
-  .download-button {
-    width: 280px;
-    background-color: #1a1a1a;
-    color: white;
+  .invite__btn {
+    margin-top: 16px;
+    width: 100%;
+    height: 52px;
+    border-radius: 16px;
     border: none;
-    border-radius: 8px;
-    padding: 16px 32px;
-    font-size: 16px;
-    font-weight: 500;
     cursor: pointer;
+    color: rgba(255, 255, 255, 0.95);
+    background: #f78376;
+    font-family: 'NunitoSans', 'Nunito Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
   }
 
-  .footer {
-    margin-top: 50px;
-    width: 280px;
+  .invite__btn:active {
+    transform: translateY(1px);
+  }
+
+  .invite__brand {
+    margin-top: 22px;
+    width: 100%;
+    max-width: 340px;
     text-align: right;
   }
 
-  .logo {
+  .invite__logo {
     font-family: 'BeautiqueDisplayCondensed', serif;
+    font-size: 23.055px;
     font-weight: 500;
-    color: #222;
-    font-size: 24px;
-    margin-bottom: 4px;
+    line-height: 29.343px;
+    letter-spacing: 0.922px;
+    text-transform: capitalize;
+    text-align: right;
+    color: #222222;
   }
 
-  .tagline {
+  .invite__tagline {
+    margin-top: 4px;
+    text-align: right;
+    font-family: 'Jost', sans-serif;
+    font-size: 15.72px;
+    font-weight: 400;
+    line-height: 20.959px;
     color: #4f4f4f;
-    font-size: 14px;
   }
 
   @media (max-width: 480px) {
-    :global(body.bg-page) {
-      background-color: #ece9e2;
-    }
-
-    .container {
+    .invite {
       padding: 0;
     }
-
-    .card {
+    .invite__card {
+      width: 100%;
+      min-height: 100svh;
       border-radius: 0;
       box-shadow: none;
+      border: none;
+      background: transparent;
+      backdrop-filter: none;
+    }
+    .invite__top {
+      padding: 16px 16px 8px 16px;
+      background: transparent;
+    }
+    .invite__content {
+      padding: 18px 20px 22px 20px;
     }
   }
 </style>
@@ -219,17 +360,29 @@ const metadata: MetaData = {
   const ticket = urlParams.get('ticket');
 
   const fetchData = async () => {
+    if (!ticket) return;
     const data = await decodeShare(ticket as string);
-
-    const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
-    const nameElement = document.getElementById('userName');
+    const avatarElement = document.getElementById('fromAvatar') as HTMLImageElement | null;
+    const nameElement = document.getElementById('fromName');
+    const subNameElement = document.getElementById('subFromName');
+    const groupElement = document.getElementById('groupName');
 
     if (avatarElement && data?.shareUser?.avatarUrl) {
       avatarElement.src = data.shareUser.avatarUrl;
+      (avatarElement as HTMLImageElement).style.display = 'block';
     }
 
     if (nameElement && data?.shareUser?.fullName) {
       nameElement.textContent = data.shareUser.fullName;
+    }
+
+    if (subNameElement && data?.shareUser?.fullName) {
+      subNameElement.textContent = data.shareUser.fullName;
+    }
+
+    const groupNameFromData = (data as any)?.data?.name;
+    if (groupElement && groupNameFromData) {
+      groupElement.textContent = String(groupNameFromData);
     }
   };
 
@@ -237,17 +390,13 @@ const metadata: MetaData = {
     if (ticket) {
       fetchData();
     }
-  });
 
-  const downloadButton = document.querySelector('.download-button');
-  downloadButton?.addEventListener('click', () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const queryString = searchParams.toString();
-    const path = queryString ? `group?${queryString}` : 'group';
-    openApp(path);
-  });
-
-  document.getElementById('closeIcon')?.addEventListener('click', () => {
-    window.location.href = '/';
+    const btn = document.getElementById('acceptBtn');
+    btn?.addEventListener('click', () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const queryString = searchParams.toString();
+      const path = queryString ? `group?${queryString}` : 'group';
+      openApp(path);
+    });
   });
 </script>
