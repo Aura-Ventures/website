@@ -19,54 +19,56 @@ const metadata: MetaData = {
 
 <Layout metadata={metadata}>
   <main class="invite" style={`background-image: url(${invitationBg.src});`}>
-    <div class="invite__surface" role="presentation" aria-hidden="true"></div>
+    <div class="invite-surface" role="presentation" aria-hidden="true"></div>
 
-    <section class="invite__card" aria-label="Invitation">
-      <header class="invite__top">
-        <div class="invite__from">
-          <div class="invite__avatar" aria-hidden="true">
+    <section class="invite-card" aria-label="Invitation">
+      <header class="invite-top">
+        <div class="invite-from">
+          <div class="invite-avatar" aria-hidden="true">
             <img id="fromAvatar" alt="" />
-            <span id="fromInitials" class="invite__initials">HC</span>
+            <span id="fromInitials" class="invite-initials">HC</span>
           </div>
-          <div class="invite__fromText">
-            <span class="invite__fromLabel">From</span>
-            <span id="fromName" class="invite__fromName"></span>
+          <div class="invite-from-text">
+            <span class="invite-from-label">From</span>
+            <span id="fromName" class="invite-from-name"></span>
           </div>
-          <Icon name="tabler:chevron-right" class="invite__chev" aria-hidden="true" />
+          <Icon name="tabler:chevron-right" class="invite-chev" aria-hidden="true" />
         </div>
 
-        <a class="invite__close" href="/" aria-label="Close invitation">
-          <Icon name="tabler:x" class="invite__closeIcon" aria-hidden="true" />
+        <a class="invite-close" href="/" aria-label="Close invitation">
+          <Icon name="tabler:x" class="invite-close-icon" aria-hidden="true" />
         </a>
       </header>
 
-      <div class="invite__content">
-        <h1 class="invite__title">Your have been invited</h1>
-        <div class="invite__sub">
+      <div class="invite-content">
+        <h1 class="invite-title">Your have been invited</h1>
+        <div class="invite-sub">
           <span id="subFromName"></span> invites you to join
         </div>
-        <div id="groupName" class="invite__group"></div>
+        <div id="groupName" class="invite-group"></div>
 
-        <div class="invite__illustration" aria-hidden="true">
+        <div class="invite-illustration" aria-hidden="true">
           <Image
             src="~/assets/images/fellowship/group.png"
             alt=""
-            class="invite__illImg"
+            class="invite-ill-img"
             width={156.293}
             height={156.293}
             loading="lazy"
           />
         </div>
 
-        <p class="invite__desc">
+        <p class="invite-desc">
           This is an invitation to join a small group on Aura App. Please download or update your Aura App in order to join.
         </p>
 
-        <button id="acceptBtn" class="invite__btn" type="button">Accept Invitation</button>
+        <div class="invite-btn-content">
+          <button id="acceptBtn" class="invite-btn" type="button">Accept Invitation</button>
+        </div>
 
-        <footer class="invite__brand" aria-label="Aura">
-          <div class="invite__logo">Aura</div>
-          <div class="invite__tagline">Pray Deeper | Walk Closer</div>
+        <footer class="invite-brand" aria-label="Aura">
+          <div class="invite-logo">Aura</div>
+          <div class="invite-tagline">Pray Deeper | Walk Closer</div>
         </footer>
       </div>
     </section>
@@ -91,7 +93,6 @@ const metadata: MetaData = {
   }
 
   .invite {
-    min-height: 100svh;
     display: grid;
     place-items: center;
     padding: 14px;
@@ -102,7 +103,7 @@ const metadata: MetaData = {
     background-repeat: no-repeat;
   }
 
-  .invite__surface {
+  .invite-surface {
     position: absolute;
     inset: -20%;
     background:
@@ -113,8 +114,7 @@ const metadata: MetaData = {
     pointer-events: none;
   }
 
-  .invite__card {
-    width: min(420px, 100%);
+  .invite-card {
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.3);
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -126,7 +126,7 @@ const metadata: MetaData = {
     position: relative;
   }
 
-  .invite__top {
+  .invite-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -134,14 +134,14 @@ const metadata: MetaData = {
     background: rgba(251, 250, 243, 0.65);
   }
 
-  .invite__from {
+  .invite-from {
     display: flex;
     align-items: center;
     gap: 10px;
     min-width: 0;
   }
 
-  .invite__avatar {
+  .invite-avatar {
     width: 26px;
     height: 26px;
     border-radius: 999px;
@@ -151,14 +151,14 @@ const metadata: MetaData = {
     flex: none;
   }
 
-  .invite__avatar img {
+  .invite-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: none;
   }
 
-  .invite__initials {
+  .invite-initials {
     position: absolute;
     inset: 0;
     display: grid;
@@ -168,36 +168,35 @@ const metadata: MetaData = {
     color: rgba(0, 0, 0, 0.55);
   }
 
-  .invite__fromText {
+  .invite-from-text {
     display: inline-flex;
     align-items: baseline;
     gap: 6px;
     min-width: 0;
   }
 
-  .invite__fromLabel {
+  .invite-from-label {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.78);
     white-space: nowrap;
   }
 
-  .invite__fromName {
+  .invite-from-name {
     font-size: 14px;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.92);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 160px;
   }
 
-  .invite__chev {
+  .invite-chev {
     width: 20px;
     height: 20px;
     color: rgba(0, 0, 0, 0.35);
   }
 
-  .invite__close {
+  .invite-close {
     width: 28px;
     height: 28px;
     border-radius: 999px;
@@ -208,20 +207,20 @@ const metadata: MetaData = {
     text-decoration: none;
   }
 
-  .invite__closeIcon {
+  .invite-close-icon {
     width: 16px;
     height: 16px;
   }
 
-  .invite__content {
-    padding: 26px 22px 22px 22px;
+  .invite-content {
+    padding: 26px 9px 22px 9px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .invite__title {
+  .invite-title {
     font-family:
       'Lora',
       'LoraMedium',
@@ -231,10 +230,11 @@ const metadata: MetaData = {
     letter-spacing: -0.015em;
     color: rgba(29, 18, 10, 0.96);
     margin: 0;
+    padding: 0 32px 16px 32px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   }
 
-  .invite__sub {
-    margin-top: 10px;
+  .invite-sub {
     text-align: center;
     font-family: 'Jost', sans-serif;
     font-size: 16px;
@@ -243,7 +243,7 @@ const metadata: MetaData = {
     color: rgba(60, 60, 67, 0.6);
   }
 
-  .invite__group {
+  .invite-group {
     margin-top: 4px;
     text-align: center;
     font-family: 'Jost', sans-serif;
@@ -253,13 +253,12 @@ const metadata: MetaData = {
     color: rgba(60, 60, 67, 0.6);
   }
 
-  .invite__illustration {
-    margin-top: 24px;
+  .invite-illustration {
     width: 100%;
   }
 
-  .invite__illSvg,
-  .invite__illImg {
+  .invite-ill-svg,
+  .invite-ill-img {
     width: 156.293px;
     height: 156.293px;
     aspect-ratio: 1 / 1;
@@ -267,8 +266,8 @@ const metadata: MetaData = {
     display: block;
   }
 
-  .invite__desc {
-    margin-top: 12px;
+  .invite-desc {
+    margin-top: 31px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -279,9 +278,12 @@ const metadata: MetaData = {
     color: #373737;
     max-width: 320px;
   }
-
-  .invite__btn {
-    margin-top: 16px;
+  .invite-btn-content {
+    margin-top: 31px;
+    width: 100%;
+    padding: 0 7px;
+  }
+  .invite-btn {
     width: 100%;
     height: 52px;
     border-radius: 16px;
@@ -297,18 +299,18 @@ const metadata: MetaData = {
     letter-spacing: -0.01em;
   }
 
-  .invite__btn:active {
+  .invite-btn:active {
     transform: translateY(1px);
   }
 
-  .invite__brand {
-    margin-top: 22px;
+  .invite-brand {
+    margin-top: 55px;
     width: 100%;
-    max-width: 340px;
+    padding: 0 16px;
     text-align: right;
   }
 
-  .invite__logo {
+  .invite-logo {
     font-family: 'BeautiqueDisplayCondensed', serif;
     font-size: 23.055px;
     font-weight: 500;
@@ -319,7 +321,7 @@ const metadata: MetaData = {
     color: #222222;
   }
 
-  .invite__tagline {
+  .invite-tagline {
     margin-top: 4px;
     text-align: right;
     font-family: 'Jost', sans-serif;
@@ -329,27 +331,6 @@ const metadata: MetaData = {
     color: #4f4f4f;
   }
 
-  @media (max-width: 480px) {
-    .invite {
-      padding: 0;
-    }
-    .invite__card {
-      width: 100%;
-      min-height: 100svh;
-      border-radius: 0;
-      box-shadow: none;
-      border: none;
-      background: transparent;
-      backdrop-filter: none;
-    }
-    .invite__top {
-      padding: 16px 16px 8px 16px;
-      background: transparent;
-    }
-    .invite__content {
-      padding: 18px 20px 22px 20px;
-    }
-  }
 </style>
 
 <script>
@@ -393,9 +374,7 @@ const metadata: MetaData = {
 
     const btn = document.getElementById('acceptBtn');
     btn?.addEventListener('click', () => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const queryString = searchParams.toString();
-      const path = queryString ? `group?${queryString}` : 'group';
+      const path = ticket ? `/share/group?ticket=${ticket}` : '/share/group';
       openApp(path);
     });
   });
