@@ -18,10 +18,8 @@ const metadata: MetaData = {
 ---
 
 <Layout metadata={metadata}>
-  <main class="invite" style={`background-image: url(${invitationBg.src});`}>
-    <div class="invite-surface" role="presentation" aria-hidden="true"></div>
-
-    <section class="invite-card" aria-label="Invitation">
+  <main class="invite" >
+    <section class="invite-card" aria-label="Invitation" >
       <header class="invite-top">
         <div class="invite-from">
           <div class="invite-avatar" aria-hidden="true">
@@ -40,7 +38,7 @@ const metadata: MetaData = {
         </a>
       </header>
 
-      <div class="invite-content">
+      <div class="invite-content" style={`background-image: url(${invitationBg.src});`}>
         <h1 class="invite-title">Your have been invited</h1>
         <div class="invite-sub">
           <span id="subFromName"></span> invites you to join
@@ -91,37 +89,11 @@ const metadata: MetaData = {
   :global(body.bg-page) {
     background: #e8e5de;
   }
-
-  .invite {
-    display: grid;
-    place-items: center;
-    padding: 14px;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+  .invite{
+    max-width: 600px;
+    margin: 0 auto;
   }
-
-  .invite-surface {
-    position: absolute;
-    inset: -20%;
-    background:
-      radial-gradient(320px 320px at 15% 25%, rgba(255, 198, 182, 0.75), rgba(255, 198, 182, 0) 65%),
-      radial-gradient(360px 360px at 85% 30%, rgba(255, 213, 164, 0.75), rgba(255, 213, 164, 0) 62%),
-      radial-gradient(420px 420px at 50% 65%, rgba(255, 205, 178, 0.5), rgba(255, 205, 178, 0) 70%);
-    filter: blur(10px);
-    pointer-events: none;
-  }
-
   .invite-card {
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    box-shadow:
-      0 24px 60px rgba(0, 0, 0, 0.08),
-      0 6px 16px rgba(0, 0, 0, 0.06);
-    backdrop-filter: blur(10px);
     overflow: hidden;
     position: relative;
   }
@@ -218,9 +190,13 @@ const metadata: MetaData = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 
   .invite-title {
+    width: 100%;
     font-family:
       'Lora',
       'LoraMedium',
@@ -229,7 +205,7 @@ const metadata: MetaData = {
     line-height: 1.3;
     letter-spacing: -0.015em;
     color: rgba(29, 18, 10, 0.96);
-    margin: 0;
+    margin-top: 35px;
     padding: 0 32px 16px 32px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   }
