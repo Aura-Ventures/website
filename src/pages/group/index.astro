@@ -61,7 +61,7 @@ const metadata: MetaData = {
         </p>
 
         <div class="invite-btn-content">
-          <button id="acceptBtn" class="invite-btn" type="button">Accept Invitation</button>
+          <a id="acceptLink" class="invite-btn" href="#">Accept Invitation</a>
         </div>
 
         <footer class="invite-brand" aria-label="Aura">
@@ -260,6 +260,9 @@ const metadata: MetaData = {
     padding: 0 7px;
   }
   .invite-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 52px;
     border-radius: 16px;
@@ -273,6 +276,7 @@ const metadata: MetaData = {
     font-weight: 600;
     line-height: 1.4;
     letter-spacing: -0.01em;
+    text-decoration: none;
   }
 
   .invite-btn:active {
@@ -310,7 +314,6 @@ const metadata: MetaData = {
 </style>
 
 <script>
-  import { openApp } from '~/utils/applink';
   import { decodeShare } from '~/services';
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -323,6 +326,7 @@ const metadata: MetaData = {
     const nameElement = document.getElementById('fromName');
     const subNameElement = document.getElementById('subFromName');
     const groupElement = document.getElementById('groupName');
+    const acceptLinkElement = document.getElementById('acceptLink') as HTMLAnchorElement | null;
 
     if (avatarElement && data?.shareUser?.avatarUrl) {
       avatarElement.src = data.shareUser.avatarUrl;
@@ -341,17 +345,16 @@ const metadata: MetaData = {
     if (groupElement && groupNameFromData) {
       groupElement.textContent = String(groupNameFromData);
     }
+
+    const fissionUrl = (data as any)?.fissionUrl;
+    if (acceptLinkElement && typeof fissionUrl === 'string' && fissionUrl.trim()) {
+      acceptLinkElement.href = fissionUrl;
+    }
   };
 
   document.addEventListener('DOMContentLoaded', () => {
     if (ticket) {
       fetchData();
     }
-
-    const btn = document.getElementById('acceptBtn');
-    btn?.addEventListener('click', () => {
-      const path = ticket ? `/share/group?ticket=${ticket}` : '/share/group';
-      openApp(path);
-    });
   });
 </script>
