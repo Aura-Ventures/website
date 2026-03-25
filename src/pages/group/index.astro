@@ -39,7 +39,7 @@ const metadata: MetaData = {
       </header>
 
       <div class="invite-content" style={`background-image: url(${invitationBg.src});`}>
-        <h1 class="invite-title">Your have been invited</h1>
+        <h1 class="invite-title">You have been invited</h1>
         <div class="invite-sub">
           <span id="subFromName"></span> invites you to join
         </div>
@@ -346,7 +346,7 @@ const metadata: MetaData = {
       groupElement.textContent = String(groupNameFromData);
     }
 
-    const fissionUrl = (data as any)?.fissionUrl;
+    const fissionUrl = (data as any)?.data?.fissionUrl;
     if (acceptLinkElement && typeof fissionUrl === 'string' && fissionUrl.trim()) {
       acceptLinkElement.href = fissionUrl;
     }
