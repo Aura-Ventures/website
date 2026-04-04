@@ -1,0 +1,21 @@
+---
+/* `_body.html`: underscore = not a route, only raw-imported here */
+import pageHtml from './_body.html?raw';
+import groupImg from '~/assets/images/fellowship/group.png';
+import ogShareImg from '~/assets/images/fellowship/bg.png';
+import { SITE } from 'astrowind:config';
+import { getCanonical } from '~/utils/permalinks';
+
+// Raw HTML is not processed by Vite; `src/assets` must be imported for a real URL.
+const ogUrl = String(getCanonical('/beta'));
+// Dev: Vite serves imports as `/@fs/...`; only same-origin works. Prod: `/_astro/...` + SITE.site.
+const ogImageBase = import.meta.env.DEV ? Astro.url.origin : SITE.site;
+const ogImage = new URL(ogShareImg.src, ogImageBase).href;
+
+const html = pageHtml
+  .replaceAll('__INVITATION_HERO_IMG__', groupImg.src)
+  .replaceAll('__INVITATION_OG_URL__', ogUrl)
+  .replaceAll('__INVITATION_OG_IMAGE__', ogImage);
+---
+
+<Fragment set:html={html} />

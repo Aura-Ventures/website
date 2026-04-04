@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#e5d5b0" />
+<title>Aura Bible App Beta v2.9.0</title>
+<meta name="description" content="Fellowship Invitation" />
+<link rel="canonical" href="__INVITATION_OG_URL__" />
+<meta property="og:title" content="Fellowship Invitation" />
+<meta property="og:description" content="auraofhope.com" />
+<meta property="og:image" content="__INVITATION_OG_IMAGE__" />
+<meta property="og:url" content="__INVITATION_OG_URL__" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Aura" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Fellowship Invitation" />
+<meta name="twitter:description" content="auraofhope.com" />
+<meta name="twitter:image" content="__INVITATION_OG_IMAGE__" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    /* warm cream gradient matching style ref */
+    background: radial-gradient(ellipse 100% 55% at 50% 0%, #e5d5b0 0%, #ede4d0 35%, #f2ead8 65%, #ede4ce 100%);
+    background-attachment: fixed;
+    color: #1c1611;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  a { color: inherit; }
+
+  /* Other mail links (note/footer): see .email-inline */
+  a.email-inline {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    vertical-align: bottom;
+  }
+
+  a.email-inline .__cf_email__ {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+
+  /* ── NAV ── */
+  nav {
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #1c1611;
+    text-decoration: none;
+    letter-spacing: .01em;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 16px 22px 80px;
+    text-align: center;
+  }
+
+  /* illustration */
+  .hero-img {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 24px;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,.09));
+  }
+
+  /* pill — matches style ref blue pill */
+  .pill {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    padding: 5px 14px;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: 'Lora', serif;
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -.01em;
+    color: #1c1611;
+    margin-bottom: 14px;
+  }
+
+  .lead {
+    font-size: 1.05rem;
+    color: #6b5b45;
+    line-height: 1.8;
+    margin-bottom: 44px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── SECTION ── */
+  .section { text-align: left; margin-bottom: 8px; }
+
+  hr {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,.1);
+    margin: 40px 0;
+  }
+
+  h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1c1611;
+    text-align: left;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: #6b5b45;
+    line-height: 1.75;
+    margin-bottom: 18px;
+    text-align: left;
+  }
+
+  /* ── CARD BASE (frosted) ── */
+  .card {
+    background: rgba(255,255,255,.58);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,.85);
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  }
+
+  /* ── USP FEATURES ── */
+  .usp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 0;
+  }
+
+  .usp-card {
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(255,255,255,.85);
+    box-shadow: 0 1px 5px rgba(0,0,0,.04);
+    text-align: left;
+  }
+
+  .usp-icon {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .usp-card h3 {
+    font-size: .95rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #1c1611;
+  }
+
+  .usp-card p {
+    font-size: .88rem;
+    color: #7a6650;
+    line-height: 1.55;
+  }
+
+  /* ── FELLOWSHIP FEATURES ── */
+  .fellowship-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fi {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(255,255,255,.85);
+    box-shadow: 0 1px 5px rgba(0,0,0,.04);
+    text-align: left;
+  }
+
+  .fi-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  /* plumpy pastel icon backgrounds */
+  .ic-purple { background: #ebe3f8; }
+  .ic-peach  { background: #fde8d8; }
+  .ic-green  { background: #d8f0e4; }
+  .ic-blue   { background: #d8eaf7; }
+  .ic-rose   { background: #fde0e8; }
+
+  .fi-body h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1c1611;
+    margin-bottom: 3px;
+  }
+
+  .fi-body h3 .new-tag {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    background: #2563eb;
+    color: white;
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-left: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+
+  .fi-body p {
+    font-size: .92rem;
+    color: #7a6650;
+    line-height: 1.55;
+  }
+
+  /* ── INSTALL PLATFORM CARDS ── */
+  .platform {
+    padding: 22px 20px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(255,255,255,.85);
+    box-shadow: 0 1px 6px rgba(0,0,0,.05);
+    margin-bottom: 12px;
+    text-align: left;
+  }
+
+  .platform-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .p-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .p-ios { background: #000; }
+  .p-android { background: #34a853; }
+
+  .platform-header h3 { font-size: 1.05rem; font-weight: 500; }
+  .platform-header small { display: block; font-size: .82rem; color: #a0896e; margin-top: 1px; }
+
+  .steps { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+  .steps li {
+    display: flex;
+    gap: 12px;
+    font-size: .95rem;
+    color: #5a4a35;
+    line-height: 1.6;
+    align-items: flex-start;
+  }
+
+  .sn {
+    font-size: .78rem;
+    font-weight: 600;
+    color: #b8a080;
+    min-width: 18px;
+    margin-top: 3px;
+    letter-spacing: .02em;
+    flex-shrink: 0;
+  }
+
+  .steps a { color: #1c1611; text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ── DOWNLOAD BUTTON ── */
+  .dl-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity .15s, transform .15s;
+    color: white;
+  }
+
+  .dl-btn:hover { opacity: .88; transform: translateY(-1px); }
+  .dl-btn.ios { background: #000; }
+  .dl-btn.android { background: #34a853; }
+
+  .note {
+    background: rgba(255,255,255,.45);
+    border-radius: 11px;
+    padding: 12px 15px;
+    font-size: .88rem;
+    color: #8a7560;
+    line-height: 1.6;
+    margin-top: 14px;
+    border: 1px solid rgba(255,255,255,.75);
+    overflow-wrap: anywhere;
+  }
+
+  /* ── FEEDBACK ── */
+  .feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fb-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 15px 18px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.52);
+    border: 1px solid rgba(255,255,255,.85);
+    text-align: left;
+  }
+
+  .fb-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+
+  .fb-item h4 { font-size: 1rem; font-weight: 500; margin-bottom: 3px; }
+  .fb-item p  { font-size: .92rem; color: #7a6650; line-height: 1.55; }
+  .fb-item a  { color: #1c1611; text-decoration: underline; text-underline-offset: 2px; }
+
+  /* Email Us only: flex shrink + optional breaks inside address */
+  .fb-item--email > div {
+    min-width: 0;
+    flex: 1 1 0%;
+  }
+
+  .fb-item--email p {
+    min-width: 0;
+  }
+
+  .fb-item--email a.fb-item-email-link {
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(0,0,0,.08);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: .88rem;
+    color: #b5a080;
+    line-height: 1.8;
+  }
+
+  footer a { color: #b5a080; text-decoration: underline; text-underline-offset: 2px; }
+
+  footer p {
+    overflow-wrap: anywhere;
+    max-width: 100%;
+  }
+
+  .ig-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none !important;
+    color: #b5a080;
+  }
+
+  .ig-link:hover { color: #8a7560; }
+
+  .ig-icon {
+    width: 15px; height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://www.auraofhope.com" class="logo">Aura Bible App</a>
+</nav>
+
+<main>
+
+  <img class="hero-img" src="__INVITATION_HERO_IMG__">
+  <span class="pill">Beta · Invite Only</span>
+
+  <h1>Pray and grow<br><em style="font-style:italic;">together.</em></h1>
+  <p class="lead">We're inviting our small group and church family to be the first to experience Aura v2.9.0 — our new fellowship features. Here's everything you need to get started.</p>
+
+  <!-- ── WHAT IS AURA ── -->
+  <div class="section">
+    <h2>What is Aura?</h2>
+    <p class="section-sub">An AI-powered Bible and prayer app built for depth — not distraction.</p>
+    <div class="usp-grid">
+      <div class="usp-card">
+        <span class="usp-icon">🙏</span>
+        <h3>Personalized Prayer</h3>
+        <p>Uniquely tailored prayers that reflect your life, season, and needs — rooted in Scripture.</p>
+      </div>
+      <div class="usp-card">
+        <span class="usp-icon">📖</span>
+        <h3>Deep Bible Study</h3>
+        <p>Tap any word for original-language insights. Go deeper in the Word every day.</p>
+      </div>
+      <div class="usp-card">
+        <span class="usp-icon">🕯️</span>
+        <h3>Daily Devotionals</h3>
+        <p>Curated reflections walking you through the entire Bible — Old and New Testament.</p>
+      </div>
+      <div class="usp-card">
+        <span class="usp-icon">🎵</span>
+        <h3>Scripture Meditation</h3>
+        <p>Scripture brought to life through serene motion and worship soundtrack — for commutes, walks, and rest.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── NEW IN 2.9.0 ── -->
+  <div class="section">
+    <h2>What's new in v2.9.0</h2>
+    <p class="section-sub">Fellowship features — built so Aura becomes something you do together, not just alone.</p>
+    <div class="fellowship-list">
+
+      <div class="fi">
+        <div class="fi-icon ic-purple">👥</div>
+        <div class="fi-body">
+          <h3>Groups <span class="new-tag">New</span></h3>
+          <p>Create or join a prayer group with your small group or church. Pray together and stay spiritually connected throughout the week.</p>
+        </div>
+      </div>
+
+      <div class="fi">
+        <div class="fi-icon ic-peach">🙏</div>
+        <div class="fi-body">
+          <h3>Shared Prayer Requests <span class="new-tag">New</span></h3>
+          <p>Post prayer requests to your group. Members can pray over them directly inside the app and let you know they did.</p>
+        </div>
+      </div>
+
+      <div class="fi">
+        <div class="fi-icon ic-green">☀️</div>
+        <div class="fi-body">
+          <h3>Daily Group Reflection <span class="new-tag">New</span></h3>
+          <p>Start each day with your group — a shared reflection prompt to open hearts and spark conversation.</p>
+        </div>
+      </div>
+
+      <div class="fi">
+        <div class="fi-icon ic-blue">📸</div>
+        <div class="fi-body">
+          <h3>Sharing Life <span class="new-tag">New</span></h3>
+          <p>Post pictures, YouTube links, or any Spirit-led revelation with your group. Fellowship beyond the Sunday meeting.</p>
+        </div>
+      </div>
+
+      <div class="fi">
+        <div class="fi-icon ic-rose">🎉</div>
+        <div class="fi-body">
+          <h3>Event Invite &amp; RSVP <span class="new-tag">New</span></h3>
+          <p>Announce your next potluck or hike, get a headcount — easy and fast, right inside the group.</p>
+        </div>
+      </div>
+
+      <div class="fi">
+        <div class="fi-icon" style="background:#e8f4e8;">📅</div>
+        <div class="fi-body">
+          <h3>Group Bible Study <span class="new-tag" style="background:#e8720c;">Upcoming</span></h3>
+          <p>Small group leaders can customize and post Bible study plans so your group can use Aura's industry-leading exegesis tool and share comments with each other in real time.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── iOS INSTALL ── -->
+  <div class="section">
+    <h2>Get it on iPhone or iPad</h2>
+    <p class="section-sub">Uses Apple TestFlight — free, safe, and made by Apple.</p>
+  </div>
+
+  <div class="platform">
+    <div class="platform-header">
+      <div class="p-icon p-ios">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      </div>
+      <div>
+        <h3>iPhone &amp; iPad</h3>
+        <small>via Apple TestFlight</small>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><span class="sn">01</span><span>Download <a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank">TestFlight</a> from the App Store — it's free and made by Apple.</span></li>
+      <li><span class="sn">02</span><span>Once TestFlight is installed, come back here and tap the button below.</span></li>
+      <li><span class="sn">03</span><span>Tap <strong>Accept</strong>, then <strong>Install</strong>. Aura will appear on your Home Screen with a small orange dot — that's the beta indicator.</span></li>
+    </ol>
+    <!-- Replace YOUR_TESTFLIGHT_LINK -->
+    <a href="https://testflight.apple.com/join/gyMUtJUR" class="dl-btn ios" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Open in TestFlight →
+    </a>
+    <div class="note">Requires iOS 16 or later. If the beta is full, reach out to Brian and he'll add you manually.</div>
+  </div>
+
+  <hr />
+
+  <!-- ── ANDROID INSTALL ── -->
+  <div class="section">
+    <h2>Get it on Android</h2>
+    <p class="section-sub">Android uses APK sideloading — takes one extra step, but it's straightforward.</p>
+  </div>
+
+  <div class="platform">
+    <div class="platform-header">
+      <div class="p-icon p-android">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zm-2.5-10C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>
+      </div>
+      <div>
+        <h3>Android</h3>
+        <small>via Firebase App Distribution</small>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><span class="sn">01</span><span>On your Android phone, go to <strong>Settings → Apps → Special app access → Install unknown apps</strong> and allow your browser to install apps.</span></li>
+      <li><span class="sn">02</span><span>Tap the button below to open the beta invitation and sign in with your Google account.</span></li>
+      <li><span class="sn">03</span><span>Download and install the Aura APK. The app will appear on your home screen when done.</span></li>
+    </ol>
+    <!-- Replace YOUR_ANDROID_LINK -->
+    <a href="https://play.google.com/store/apps/details?id=com.aura.letspray" class="dl-btn android" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zm-2.5-10C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>
+      Join Android Beta →
+    </a>
+    <div class="note">Requires Android 8.0 or later. Trouble installing? Email <a class="email-inline" href="mailto:support@auraofhope.com"><span class="__cf_email__" data-cfemail="c4b7b1b4b4abb6b084a5b1b6a5aba2acabb4a1eaa7aba9">support@auraofhope.com</span></a></div>
+  </div>
+
+  <hr />
+
+  <!-- ── FEEDBACK ── -->
+  <div class="section">
+    <h2>Share your feedback</h2>
+    <p class="section-sub">You're not just a tester — you're shaping what Aura becomes for everyone. Every reaction matters.</p>
+  </div>
+
+  <div class="feedback-list">
+    <div class="fb-item">
+      <span class="fb-icon">📸</span>
+      <div>
+        <h4>Screenshot &amp; Report</h4>
+        <p>Take a screenshot in-app — TestFlight will automatically prompt you to send it as feedback.</p>
+      </div>
+    </div>
+    <div class="fb-item">
+      <span class="fb-icon">💬</span>
+      <div>
+        <h4>Text Brian directly</h4>
+        <p>The most helpful feedback is raw and unfiltered. Text Brian at <a href="sms:8589058058">858-905-8058</a>.</p>
+      </div>
+    </div>
+    <div class="fb-item fb-item--email">
+      <span class="fb-icon">✉️</span>
+      <div>
+        <h4>Email Us</h4>
+        <p>
+          Send anything to
+          <a class="fb-item-email-link" href="mailto:support@auraofhope.com">support@<wbr>auraofhope<wbr>.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p style="font-family:'Lora',serif;font-size:1rem;color:#8a7560;margin-bottom:6px;">Aura Bible App</p>
+  <p>Beta v2.9.0 · For internal testing only</p>
+  <p style="margin-top:8px;">
+    <a class="email-inline" href="mailto:support@auraofhope.com"><span class="__cf_email__" data-cfemail="2655535656495452664753544749404e4956430845494b">support@auraofhope.com</span></a>
+    &nbsp;·&nbsp;
+    <a href="https://www.instagram.com/aurabibleapp" target="_blank" class="ig-link">
+      <svg class="ig-ico
