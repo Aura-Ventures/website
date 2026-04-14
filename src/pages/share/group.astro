@@ -6,7 +6,7 @@ import Image from '~/components/common/Image.astro';
 import invitationBg from '~/assets/images/fellowship/Invitationbg.png';
 
 const metadata: MetaData = {
-  title: 'Group Invitation',
+  title: 'Fellowship Invitation',
   openGraph: {
     images: [
       {
@@ -399,6 +399,25 @@ const metadata: MetaData = {
   const ticket = urlParams.get('ticket');
   const inviteCodeFromUrl = urlParams.get('inviteCode') ?? '';
 
+  function flashCopyLabel(copyBtn: HTMLButtonElement) {
+    const label = copyBtn.querySelector('#copyText') as HTMLElement | null;
+    if (!label) return;
+    if (!copyBtn.dataset.defaultLabel) {
+      copyBtn.dataset.defaultLabel = (label.textContent ?? 'Copy').trim() || 'Copy';
+    }
+    const defaultLabel = copyBtn.dataset.defaultLabel;
+
+    const prevTimerId = copyBtn.dataset.copyResetTimerId;
+    if (prevTimerId) window.clearTimeout(Number(prevTimerId));
+
+    label.textContent = 'Copied';
+    const timerId = window.setTimeout(() => {
+      label.textContent = defaultLabel;
+      delete copyBtn.dataset.copyResetTimerId;
+    }, 500);
+    copyBtn.dataset.copyResetTimerId = String(timerId);
+  }
+
   function setClipboardHandler(copyBtn: HTMLButtonElement, getText: () => string) {
     copyBtn.addEventListener('click', async () => {
       const text = getText();
@@ -406,15 +425,25 @@ const metadata: MetaData = {
       try {
         await navigator.clipboard.writeText(text);
       } catch {
+        // Fallback for non-secure contexts / older browsers.
+        // Avoid scroll-jumps that can make the address bar "flash" on mobile.
+        const y = window.scrollY;
         const ta = document.createElement('textarea');
         ta.value = text;
         ta.style.position = 'fixed';
         ta.style.opacity = '0';
+        ta.style.top = '0';
+        ta.style.left = '0';
+        ta.setAttribute('readonly', '');
         document.body.appendChild(ta);
+        ta.focus();
         ta.select();
+        ta.setSelectionRange(0, ta.value.length);
         document.execCommand('copy');
         document.body.removeChild(ta);
+        window.scrollTo(0, y);
       }
+      flashCopyLabel(copyBtn);
     });
   }
 
