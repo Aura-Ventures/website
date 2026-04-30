@@ -1,0 +1,504 @@
+---
+import type { MetaData } from '~/types';
+import Layout from '~/layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
+import invitationBg from '~/assets/images/fellowship/Invitationbg.png';
+
+const metadata: MetaData = {
+  title: 'Fellowship Invitation',
+  openGraph: {
+    images: [
+      {
+        url: '~/assets/images/fellowship/bg.png',
+      },
+    ],
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <main class="invite">
+    <section class="invite-card" aria-label="Invitation">
+      <header class="invite-top">
+        <div class="invite-from">
+          <div class="invite-avatar" aria-hidden="true">
+            <img id="fromAvatar" alt="" />
+          </div>
+          <div class="invite-from-text">
+            <span class="invite-from-label">From</span>
+            <span id="fromName" class="invite-from-name"></span>
+          </div>
+        </div>
+
+        <a class="invite-close" href="/" aria-label="Close invitation">
+          <Icon name="tabler:x" class="invite-close-icon" aria-hidden="true" />
+        </a>
+      </header>
+
+      <div class="invite-content" style={`background-image: url(${invitationBg.src});`}>
+        <h1 class="invite-title">You have been invited</h1>
+        <div class="invite-sub"><span id="subFromName"></span> invites you to join</div>
+        <div id="groupName" class="invite-group"></div>
+
+        <div class="invite-illustration" aria-hidden="true">
+          <Image
+            src="~/assets/images/fellowship/group.png"
+            alt=""
+            class="invite-ill-img"
+            width={156.293}
+            height={156.293}
+            loading="lazy"
+          />
+        </div>
+
+        <div class="redeem">
+          <div class="redeem-label">Your Redeem Code</div>
+          <div class="redeem-pill" role="group" aria-label="Redeem code">
+            <span id="redeemCode" class="redeem-code" aria-live="polite"></span>
+            <button id="copyBtn" class="redeem-copy" type="button" aria-label="Copy redeem code">
+              <span id="copyText" class="redeem-copy-text">Copy</span>
+							<Icon name="tabler:copy" class="redeem-copy-icon" aria-hidden="true" />
+            </button>
+          </div>
+          <div class="redeem-help">Download and apply redeem code<br />On the first screen to receive free trial</div>
+        </div>
+
+        <a class="tutorial" href="https://youtu.be/LtliEm2efhU" target="_blank" rel="noopener">Watch a Quick Tutorial</a>
+
+        <div class="stores" aria-label="Download Aura">
+          <div class="stores-badges">
+            <a
+              id="appStoreBadgeLink"
+              class="store-badge"
+              href="#"
+              target="_blank"
+              rel="noopener"
+              aria-label="Download on the App Store"
+            >
+              <Image
+                src="~/assets/images/fellowship/iosStore.png"
+                alt="Download on the App Store"
+                class="store-badge-img"
+                width={150}
+                height={50}
+                loading="lazy"
+              />
+            </a>
+
+            <a
+              id="playStoreBadgeLink"
+              class="store-badge"
+              href="#"
+              target="_blank"
+              rel="noopener"
+              aria-label="Get it on Google Play"
+            >
+              <Image
+                src="~/assets/images/fellowship/playStore.png"
+                alt="Get it on Google Play"
+                class="store-badge-img"
+                width={150}
+                height={50}
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    font-family:
+      'Jost',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
+  }
+
+  :global(body.bg-page) {
+    background: #e8e5de;
+  }
+
+  .invite {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .invite-card {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .invite-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 14px 10px 14px;
+    background: rgba(251, 250, 243, 0.65);
+  }
+
+  .invite-from {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .invite-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+    flex: none;
+  }
+
+  .invite-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+
+  .invite-from-text {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .invite-from-label {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.78);
+    white-space: nowrap;
+  }
+
+  .invite-from-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.92);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .invite-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.18);
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+  }
+
+  .invite-close-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .invite-content {
+    padding: 26px 9px 22px 9px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+
+  .invite-title {
+    width: 100%;
+    font-family:
+      'Lora',
+      'LoraMedium',
+      serif;
+    font-size: 28px;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    color: rgba(29, 18, 10, 0.96);
+    margin-top: 35px;
+    padding: 0 32px 16px 32px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .invite-sub {
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    color: rgba(60, 60, 67, 0.6);
+  }
+
+  .invite-group {
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: normal;
+    color: rgba(60, 60, 67, 0.6);
+  }
+
+  .invite-illustration {
+    width: 100%;
+  }
+
+  .invite-ill-img {
+    width: 156.293px;
+    height: 156.293px;
+    aspect-ratio: 1 / 1;
+    margin-inline: auto;
+    display: block;
+  }
+
+  .redeem {
+    margin-top: 26px;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .redeem-label {
+    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: #2c1f11;
+  }
+
+  .redeem-pill {
+    width: 300px;
+    min-height: 76px;
+    border-radius: 25px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 20px;
+    gap: 10px;
+    box-sizing: border-box;
+  }
+
+  .redeem-code {
+    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: #000000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .redeem-copy {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    background: transparent;
+    color: rgba(0, 0, 0, 0.74);
+    font-family: 'NunitoSans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+		gap: 3px;
+  }
+
+  .redeem-copy:active {
+    transform: translateY(1px);
+  }
+
+  .redeem-copy-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .redeem-help {
+    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: #2C1F11;
+    margin-top: 20px;
+  }
+
+  .tutorial {
+    margin-top: 26px;
+		margin-bottom: 26px;
+    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: #2c1f11;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .stores {
+    margin-top: 16px;
+    display: grid;
+    padding: 0 7px;
+  }
+
+  .stores-badges {
+    width: 100%;
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px;
+    justify-items: center;
+  }
+
+  .store-badge {
+    display: inline-flex;
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+  }
+
+  .store-badge-img {
+    width: 150px;
+    height: 50px;
+    display: block;
+  }
+
+  @media (max-width: 420px) {
+    .stores-badges {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { decodeShare } from '~/services';
+
+  const APP_STORE_URL = 'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898';
+  const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.letspray';
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const ticket = urlParams.get('ticket');
+  const inviteCodeFromUrl = urlParams.get('inviteCode') ?? '';
+
+  function flashCopyLabel(copyBtn: HTMLButtonElement) {
+    const label = copyBtn.querySelector('#copyText') as HTMLElement | null;
+    if (!label) return;
+    if (!copyBtn.dataset.defaultLabel) {
+      copyBtn.dataset.defaultLabel = (label.textContent ?? 'Copy').trim() || 'Copy';
+    }
+    const defaultLabel = copyBtn.dataset.defaultLabel;
+
+    const prevTimerId = copyBtn.dataset.copyResetTimerId;
+    if (prevTimerId) window.clearTimeout(Number(prevTimerId));
+
+    label.textContent = 'Copied';
+    const timerId = window.setTimeout(() => {
+      label.textContent = defaultLabel;
+      delete copyBtn.dataset.copyResetTimerId;
+    }, 500);
+    copyBtn.dataset.copyResetTimerId = String(timerId);
+  }
+
+  function setClipboardHandler(copyBtn: HTMLButtonElement, getText: () => string) {
+    copyBtn.addEventListener('click', async () => {
+      const text = getText();
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // Fallback for non-secure contexts / older browsers.
+        // Avoid scroll-jumps that can make the address bar "flash" on mobile.
+        const y = window.scrollY;
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        ta.style.top = '0';
+        ta.style.left = '0';
+        ta.setAttribute('readonly', '');
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        ta.setSelectionRange(0, ta.value.length);
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        window.scrollTo(0, y);
+      }
+      flashCopyLabel(copyBtn);
+    });
+  }
+
+  function initPage() {
+    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
+    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
+    const appStoreBadgeLink = document.getElementById('appStoreBadgeLink') as HTMLAnchorElement | null;
+    const playStoreBadgeLink = document.getElementById('playStoreBadgeLink') as HTMLAnchorElement | null;
+
+    if (appStoreBadgeLink) appStoreBadgeLink.href = APP_STORE_URL;
+    if (playStoreBadgeLink) playStoreBadgeLink.href = PLAY_STORE_URL;
+
+    if (redeemCodeEl) redeemCodeEl.textContent = inviteCodeFromUrl || '';
+
+    if (copyBtn) {
+      copyBtn.disabled = !(inviteCodeFromUrl || '').trim();
+      if (!copyBtn.dataset.bound) {
+        copyBtn.dataset.bound = '1';
+        setClipboardHandler(copyBtn, () => (redeemCodeEl?.textContent ?? '').trim());
+      }
+    }
+  }
+
+  const fetchData = async () => {
+    if (!ticket) return;
+
+    const avatarElement = document.getElementById('fromAvatar') as HTMLImageElement | null;
+    const nameElement = document.getElementById('fromName');
+    const subNameElement = document.getElementById('subFromName');
+    const groupElement = document.getElementById('groupName');
+
+    const data = await decodeShare(ticket as string);
+    if (!data) return;
+    const d = (data as any)?.data as Record<string, unknown> | undefined;
+
+    const fullName = data?.shareUser?.fullName ?? '';
+    if (nameElement) nameElement.textContent = fullName;
+    if (subNameElement) subNameElement.textContent = fullName;
+
+    if (avatarElement && data?.shareUser?.avatarUrl) {
+      avatarElement.src = data.shareUser.avatarUrl;
+      avatarElement.style.display = 'block';
+    }
+
+    const groupNameFromData = (d as any)?.name;
+    if (groupElement && groupNameFromData) groupElement.textContent = String(groupNameFromData);
+
+    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
+    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
+    const displayedRedeemCode = (inviteCodeFromUrl || '').trim();
+    if (redeemCodeEl) redeemCodeEl.textContent = displayedRedeemCode;
+    if (copyBtn) copyBtn.disabled = !displayedRedeemCode;
+  };
+
+  document.addEventListener('astro:page-load', () => {
+    initPage();
+    if (ticket) fetchData();
+  });
+</script>

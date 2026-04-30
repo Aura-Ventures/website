@@ -1,16 +1,16 @@
 ---
 import type { MetaData } from '~/types';
+import Layout from '~/layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
-
-import Layout from '../../layouts/Layout.astro';
+import invitationBg from '~/assets/images/fellowship/Invitationbg.png';
 
 const metadata: MetaData = {
   title: 'Group Invitation',
   openGraph: {
     images: [
       {
-        url: 'https://static.auraofhope.com/common/group.png',
+        url: '~/assets/images/fellowship/bg.png',
       },
     ],
   },
@@ -18,48 +18,65 @@ const metadata: MetaData = {
 ---
 
 <Layout metadata={metadata}>
-  <main class="container">
-    <div class="card">
-      <div class="header">
-        <img class="avatar" id="userAvatar" />
-        <span class="from-text">From</span>
-        <span class="name" id="userName"></span>
-        <Icon name="tabler:chevron-right" class="w-5 h-5 text-gray-400" />
-        <!-- <div class='close-icon' id='closeIcon'>
-          <Icon name='tabler:x' class='w-5 h-5' />
-        </div> -->
-      </div>
-      <div class="content">
-        <div class="quote-section">
-          <Image src="~/assets/images/sparkle-big.png" alt="quote" class="quote-image" width={80} height={80} />
-          <div class="quote-text">
-            “Iron sharpens iron, and<br />
-            one man sharpens another.”
+  <main class="invite" >
+    <section class="invite-card" aria-label="Invitation" >
+      <header class="invite-top">
+        <div class="invite-from">
+          <div class="invite-avatar" aria-hidden="true">
+            <img id="fromAvatar" alt="" />
+            <span id="fromInitials" class="invite-initials"></span>
           </div>
-          <div class="quote-source">- Proverbs 27:17 -</div>
+          <div class="invite-from-text">
+            <span class="invite-from-label">From</span>
+            <span id="fromName" class="invite-from-name"></span>
+          </div>
+          <Icon name="tabler:chevron-right" class="invite-chev" aria-hidden="true" />
         </div>
 
-        <div class="invitation-text">
-          You have received an invitation to a small<br /> group on Aura. Please download or<br /> update your Aura in order
-          to join.
+        <a class="invite-close" href="/" aria-label="Close invitation">
+          <Icon name="tabler:x" class="invite-close-icon" aria-hidden="true" />
+        </a>
+      </header>
+
+      <div class="invite-content" style={`background-image: url(${invitationBg.src});`}>
+        <h1 class="invite-title">You have been invited</h1>
+        <div class="invite-sub">
+          <span id="subFromName"></span> invites you to join
+        </div>
+        <div id="groupName" class="invite-group"></div>
+
+        <div class="invite-illustration" aria-hidden="true">
+          <Image
+            src="~/assets/images/fellowship/group.png"
+            alt=""
+            class="invite-ill-img"
+            width={156.293}
+            height={156.293}
+            loading="lazy"
+          />
         </div>
 
-        <button class="download-button">Download Aura</button>
+        <p class="invite-desc">
+          This is an invitation to join a small group on Aura App. Please download or update your Aura App in order to join.
+        </p>
 
-        <div class="footer">
-          <div class="logo">Aura</div>
-          <div class="tagline">Pray Deeper | Walk Closer</div>
+        <div class="invite-btn-content">
+          <a id="acceptLink" class="invite-btn" href="#">Accept Invitation</a>
         </div>
+
+        <footer class="invite-brand" aria-label="Aura">
+          <div class="invite-logo">Aura</div>
+          <div class="invite-tagline">Pray Deeper | Walk Closer</div>
+        </footer>
       </div>
-    </div>
+    </section>
   </main>
 </Layout>
 
 <style>
-  .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 16px;
+  :global(body) {
+    margin: 0;
+    padding: 0;
     font-family:
       'Jost',
       -apple-system,
@@ -69,167 +86,269 @@ const metadata: MetaData = {
       sans-serif;
   }
 
-  .card {
-    text-align: center;
-    background-color: #ece9e2;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  :global(body.bg-page) {
+    background: #e8e5de;
   }
-
-  .header {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: #fbfaf3;
-    padding: 16px;
-  }
-
-  .content {
-    padding: 0 16px 16px 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .avatar {
-    width: 24px;
-    height: 24px;
-    background: #e2e2e2;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-  }
-
-  .from-text {
-    color: #000;
-    font-size: 14px;
-  }
-
-  .name {
-    color: #000;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .close-icon {
-    margin-left: auto;
-    background: #c2c1c0;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 20px;
-    line-height: 20px;
-    cursor: pointer;
-  }
-
-  .quote-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin: 50px 0;
-  }
-
-  .quote-image {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-  }
-
-  .quote-text {
-    font-family: 'BeautiqueDisplayCondensed', serif;
-    color: #141414;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1.4;
-  }
-
-  .quote-source {
-    color: #000;
-    font-size: 15px;
-  }
-
-  .invitation-text {
-    font-size: 16px;
-    color: #373737;
-    max-width: 400px;
+  .invite{
+    max-width: 600px;
     margin: 0 auto;
-    margin-bottom: 20px;
+  }
+  .invite-card {
+    overflow: hidden;
+    position: relative;
   }
 
-  .download-button {
-    width: 280px;
-    background-color: #1a1a1a;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 16px 32px;
+  .invite-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 14px 10px 14px;
+    background: rgba(251, 250, 243, 0.65);
+  }
+
+  .invite-from {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .invite-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+    flex: none;
+  }
+
+  .invite-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+
+  .invite-initials {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .invite-from-text {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .invite-from-label {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.78);
+    white-space: nowrap;
+  }
+
+  .invite-from-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.92);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .invite-chev {
+    width: 20px;
+    height: 20px;
+    color: rgba(0, 0, 0, 0.35);
+  }
+
+  .invite-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.18);
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+  }
+
+  .invite-close-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .invite-content {
+    padding: 26px 9px 22px 9px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+
+  .invite-title {
+    width: 100%;
+    font-family:
+      'Lora',
+      'LoraMedium',
+      serif;
+    font-size: 28px;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    color: rgba(29, 18, 10, 0.96);
+    margin-top: 35px;
+    padding: 0 32px 16px 32px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .invite-sub {
+    text-align: center;
+    font-family: 'Jost', sans-serif;
     font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
+    font-weight: 400;
+    line-height: normal;
+    color: rgba(60, 60, 67, 0.6);
   }
 
-  .footer {
-    margin-top: 50px;
-    width: 280px;
+  .invite-group {
+    margin-top: 4px;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: normal;
+    color: rgba(60, 60, 67, 0.6);
+  }
+
+  .invite-illustration {
+    width: 100%;
+  }
+
+  .invite-ill-svg,
+  .invite-ill-img {
+    width: 156.293px;
+    height: 156.293px;
+    aspect-ratio: 1 / 1;
+    margin-inline: auto;
+    display: block;
+  }
+
+  .invite-desc {
+    margin-top: 31px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 16.768px;
+    font-weight: 400;
+    line-height: normal;
+    color: #373737;
+    max-width: 320px;
+  }
+  .invite-btn-content {
+    margin-top: 31px;
+    width: 100%;
+    padding: 0 7px;
+  }
+  .invite-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 52px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.95);
+    background: #f78376;
+    font-family: 'NunitoSans', 'Nunito Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .invite-btn:active {
+    transform: translateY(1px);
+  }
+
+  .invite-brand {
+    margin-top: 55px;
+    width: 100%;
+    padding: 0 16px;
     text-align: right;
   }
 
-  .logo {
+  .invite-logo {
     font-family: 'BeautiqueDisplayCondensed', serif;
+    font-size: 23.055px;
     font-weight: 500;
-    color: #222;
-    font-size: 24px;
-    margin-bottom: 4px;
+    line-height: 29.343px;
+    letter-spacing: 0.922px;
+    text-transform: capitalize;
+    text-align: right;
+    color: #222222;
   }
 
-  .tagline {
+  .invite-tagline {
+    margin-top: 4px;
+    text-align: right;
+    font-family: 'Jost', sans-serif;
+    font-size: 15.72px;
+    font-weight: 400;
+    line-height: 20.959px;
     color: #4f4f4f;
-    font-size: 14px;
   }
 
-  @media (max-width: 480px) {
-    :global(body.bg-page) {
-      background-color: #ece9e2;
-    }
-
-    .container {
-      padding: 0;
-    }
-
-    .card {
-      border-radius: 0;
-      box-shadow: none;
-    }
-  }
 </style>
 
 <script>
-  import { openApp } from '~/utils/applink';
   import { decodeShare } from '~/services';
 
   const urlParams = new URLSearchParams(window.location.search);
   const ticket = urlParams.get('ticket');
 
   const fetchData = async () => {
+    if (!ticket) return;
     const data = await decodeShare(ticket as string);
-
-    const avatarElement = document.getElementById('userAvatar') as HTMLImageElement;
-    const nameElement = document.getElementById('userName');
+    const avatarElement = document.getElementById('fromAvatar') as HTMLImageElement | null;
+    const nameElement = document.getElementById('fromName');
+    const subNameElement = document.getElementById('subFromName');
+    const groupElement = document.getElementById('groupName');
+    const acceptLinkElement = document.getElementById('acceptLink') as HTMLAnchorElement | null;
 
     if (avatarElement && data?.shareUser?.avatarUrl) {
       avatarElement.src = data.shareUser.avatarUrl;
+      (avatarElement as HTMLImageElement).style.display = 'block';
     }
 
     if (nameElement && data?.shareUser?.fullName) {
       nameElement.textContent = data.shareUser.fullName;
+    }
+
+    if (subNameElement && data?.shareUser?.fullName) {
+      subNameElement.textContent = data.shareUser.fullName;
+    }
+
+    const groupNameFromData = (data as any)?.data?.name;
+    if (groupElement && groupNameFromData) {
+      groupElement.textContent = String(groupNameFromData);
+    }
+
+    const fissionUrl = (data as any)?.data?.fissionUrl;
+    if (acceptLinkElement && typeof fissionUrl === 'string' && fissionUrl.trim()) {
+      acceptLinkElement.href = fissionUrl;
     }
   };
 
@@ -237,17 +356,5 @@ const metadata: MetaData = {
     if (ticket) {
       fetchData();
     }
-  });
-
-  const downloadButton = document.querySelector('.download-button');
-  downloadButton?.addEventListener('click', () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const queryString = searchParams.toString();
-    const path = queryString ? `group?${queryString}` : 'group';
-    openApp(path);
-  });
-
-  document.getElementById('closeIcon')?.addEventListener('click', () => {
-    window.location.href = '/';
   });
 </script>
