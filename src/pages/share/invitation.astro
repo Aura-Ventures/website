@@ -45,8 +45,8 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
         </h1>
 
         <p class="invite-desc">
-          <strong id="subFromName"></strong> has been growing closer to God with Aura,
-           and wants you to experience it too. Join through their invite to get a free 14-day Pro membership.
+          <strong id="subFromName"></strong> has been growing closer to God with Aura, and wants you to experience it too.
+          Join through their invite to get a free 14-day Pro membership.
         </p>
 
         <p class="invite-claim">To claim your Aura Pro Membership</p>
@@ -93,9 +93,8 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     <section class="about" aria-label="About Aura">
       <h2 class="about-title">New to Aura?</h2>
       <p class="about-desc">
-        Aura is a Christ-centered Bible and prayer app built to help you pray deeper, understand Scripture in
-        context, and build a daily devotional rhythm - whether you're new to faith or have walked with God for
-        years.
+        Aura is a Christ-centered Bible and prayer app built to help you pray deeper, understand Scripture in context,
+        and build a daily devotional rhythm - whether you're new to faith or have walked with God for years.
       </p>
 
       <div class="showcase" aria-hidden="true">
@@ -635,6 +634,8 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     const avatarElement = document.getElementById('fromAvatar') as HTMLImageElement | null;
     const nameElement = document.getElementById('fromName');
     const subNameElement = document.getElementById('subFromName');
+    const installBtn = document.getElementById('installBtn') as HTMLAnchorElement;
+    const redeemBtn = document.getElementById('redeemBtn') as HTMLAnchorElement;
 
     const data = await decodeShare(ticket as string);
     if (!data) return;
@@ -648,6 +649,9 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
       avatarElement.removeAttribute('hidden');
       avatarElement.style.display = 'block';
     }
+
+    redeemBtn.href = `aura://share/invitation?inviteCode=${data.metadataJson.inviteCode}`;
+    installBtn.href = data.data?.fissionUrl || '';
 
     const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
     const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;

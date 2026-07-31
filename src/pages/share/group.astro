@@ -54,8 +54,8 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
 
         <div class="invite-copy">
           <p class="invite-desc">
-            <strong id="subFromName"></strong> invited you to walk alongside their group — reading Scripture,
-            praying, and growing together in Aura.
+            <strong id="subFromName"></strong> invited you to walk alongside their group — reading Scripture, praying, and
+            growing together in Aura.
           </p>
 
           <a class="join-link" id="joinLink" href="#">Click to Join</a>
@@ -109,9 +109,8 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     <section class="about" aria-label="About Aura">
       <h2 class="about-title">New to Aura?</h2>
       <p class="about-desc">
-        Aura is a Christ-centered Bible and prayer app built to help you pray deeper, understand Scripture in
-        context, and build a daily devotional rhythm - whether you're new to faith or have walked with God for
-        years.
+        Aura is a Christ-centered Bible and prayer app built to help you pray deeper, understand Scripture in context,
+        and build a daily devotional rhythm - whether you're new to faith or have walked with God for years.
       </p>
 
       <div class="showcase" aria-hidden="true">
@@ -610,7 +609,7 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
 </style>
 
 <script>
-  import { decodeShare } from '~/services';
+  import { decodeShare, type DecodeShareData } from '~/services';
 
   const APP_STORE_URL = 'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898';
   const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.letspray';
@@ -694,10 +693,13 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     const nameElement = document.getElementById('fromName');
     const subNameElement = document.getElementById('subFromName');
     const groupElement = document.getElementById('groupName');
+    const installBtn = document.getElementById('installBtn') as HTMLAnchorElement;
+    const redeemBtn = document.getElementById('redeemBtn') as HTMLAnchorElement;
+    const joinBtn = document.getElementById('joinLink') as HTMLAnchorElement;
 
     const data = await decodeShare(ticket as string);
     if (!data) return;
-    const d = (data as any)?.data as Record<string, unknown> | undefined;
+    const d = (data as DecodeShareData)?.data as Record<string, unknown> | undefined;
 
     const fullName = data?.shareUser?.fullName ?? '';
     if (nameElement) nameElement.textContent = fullName;
@@ -709,7 +711,11 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
       avatarElement.style.display = 'block';
     }
 
-    const groupNameFromData = (d as any)?.name;
+    installBtn.href = data.data?.fissionUrl || '';
+    redeemBtn.href = `aura://share/group?inviteCode=${data.metadataJson.inviteCode}`;
+    joinBtn.href = `aura://share/group?inviteCode=${data.metadataJson.inviteCode}`;
+
+    const groupNameFromData = (d as Record<string, unknown>)?.name;
     if (groupElement && groupNameFromData) groupElement.textContent = String(groupNameFromData);
 
     const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
