@@ -6,11 +6,7 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.aura.letspray",
-      "sha256_cert_fingerprints": [
-        "20:6A:8F:BF:04:61:6E:19:90:99:CD:F2:21:B3:A6:06:73:EF:12:5B:47:7F:37:D7:1E:63:C7:F6:B1:46:23:F8",
-        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C",
-        "31:5A:FA:46:C7:9A:CA:69:80:DE:B9:7E:55:18:CB:55:F9:90:90:14:44:06:2C:7E:FB:57:78:2A:C5:0E:37:71"
-      ]
+      "sha256_cert_fingerprints": []
     }
   }
 ]
