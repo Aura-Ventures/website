@@ -609,18 +609,23 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
   }
 
   function initPage() {
-    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
-    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
     const appStoreBadgeLink = document.getElementById('appStoreBadgeLink') as HTMLAnchorElement | null;
     const playStoreBadgeLink = document.getElementById('playStoreBadgeLink') as HTMLAnchorElement | null;
 
     if (appStoreBadgeLink) appStoreBadgeLink.href = APP_STORE_URL;
     if (playStoreBadgeLink) playStoreBadgeLink.href = PLAY_STORE_URL;
 
-    if (redeemCodeEl) redeemCodeEl.textContent = inviteCodeFromUrl || '';
+    if (inviteCodeFromUrl) updateInviteCode(inviteCodeFromUrl);
+  }
+
+  function updateInviteCode(inviteCode: string) {
+    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
+    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
+
+    if (redeemCodeEl) redeemCodeEl.textContent = inviteCode || '';
 
     if (copyBtn) {
-      copyBtn.disabled = !(inviteCodeFromUrl || '').trim();
+      copyBtn.disabled = !(inviteCode || '').trim();
       if (!copyBtn.dataset.bound) {
         copyBtn.dataset.bound = '1';
         setClipboardHandler(copyBtn, () => (redeemCodeEl?.textContent ?? '').trim());
@@ -640,6 +645,7 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     const data = await decodeShare(ticket as string);
     if (!data) return;
 
+    const inviteCode = data.metadataJson.inviteCode;
     const fullName = data?.shareUser?.fullName ?? '';
     if (nameElement) nameElement.textContent = fullName;
     if (subNameElement) subNameElement.textContent = fullName;
@@ -650,14 +656,10 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
       avatarElement.style.display = 'block';
     }
 
-    redeemBtn.href = `aura://share/invitation?inviteCode=${data.metadataJson.inviteCode}`;
+    redeemBtn.href = `aura://share/invitation?inviteCode=${inviteCode}`;
     installBtn.href = data.data?.fissionUrl || '';
 
-    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
-    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
-    const displayedRedeemCode = (inviteCodeFromUrl || '').trim();
-    if (redeemCodeEl) redeemCodeEl.textContent = displayedRedeemCode;
-    if (copyBtn) copyBtn.disabled = !displayedRedeemCode;
+    if (inviteCode) updateInviteCode(inviteCode);
   };
 
   document.addEventListener('astro:page-load', () => {

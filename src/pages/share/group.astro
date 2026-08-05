@@ -63,7 +63,7 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
 
         <div class="invite-offer">
           <p class="invite-offer-text">
-            New to Aura? Join through their invite and you'll unlock 14 days of membership, free.
+            Don't have Aura? Sign up with this invite to unlock 14 days of membership, free.
           </p>
 
           <div class="invite-steps">
@@ -667,18 +667,22 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
   }
 
   function initPage() {
-    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
-    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
     const appStoreBadgeLink = document.getElementById('appStoreBadgeLink') as HTMLAnchorElement | null;
     const playStoreBadgeLink = document.getElementById('playStoreBadgeLink') as HTMLAnchorElement | null;
 
     if (appStoreBadgeLink) appStoreBadgeLink.href = APP_STORE_URL;
     if (playStoreBadgeLink) playStoreBadgeLink.href = PLAY_STORE_URL;
+    if (inviteCodeFromUrl) updateInviteCode(inviteCodeFromUrl);
+  }
 
-    if (redeemCodeEl) redeemCodeEl.textContent = inviteCodeFromUrl || '';
+  function updateInviteCode(inviteCode: string) {
+    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
+    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
+
+    if (redeemCodeEl) redeemCodeEl.textContent = inviteCode || '';
 
     if (copyBtn) {
-      copyBtn.disabled = !(inviteCodeFromUrl || '').trim();
+      copyBtn.disabled = !(inviteCode || '').trim();
       if (!copyBtn.dataset.bound) {
         copyBtn.dataset.bound = '1';
         setClipboardHandler(copyBtn, () => (redeemCodeEl?.textContent ?? '').trim());
@@ -700,6 +704,7 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     const data = await decodeShare(ticket as string);
     if (!data) return;
     const d = (data as DecodeShareData)?.data as Record<string, unknown> | undefined;
+    const inviteCode = data.metadataJson.inviteCode;
 
     const fullName = data?.shareUser?.fullName ?? '';
     if (nameElement) nameElement.textContent = fullName;
@@ -712,17 +717,13 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     }
 
     installBtn.href = data.data?.fissionUrl || '';
-    redeemBtn.href = `aura://share/group?inviteCode=${data.metadataJson.inviteCode}`;
-    joinBtn.href = `aura://share/group?inviteCode=${data.metadataJson.inviteCode}`;
+    redeemBtn.href = `aura://share/group?inviteCode=${inviteCode}`;
+    joinBtn.href = `aura://share/group?inviteCode=${inviteCode}&source=join`;
 
     const groupNameFromData = (d as Record<string, unknown>)?.name;
     if (groupElement && groupNameFromData) groupElement.textContent = String(groupNameFromData);
 
-    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
-    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
-    const displayedRedeemCode = (inviteCodeFromUrl || '').trim();
-    if (redeemCodeEl) redeemCodeEl.textContent = displayedRedeemCode;
-    if (copyBtn) copyBtn.disabled = !displayedRedeemCode;
+    if (inviteCode) updateInviteCode(inviteCode);
   };
 
   document.addEventListener('astro:page-load', () => {
