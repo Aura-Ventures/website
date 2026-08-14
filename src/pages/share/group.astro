@@ -3,10 +3,10 @@ import type { MetaData } from '~/types';
 import Layout from '~/layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
-import invitationBg from '~/assets/images/fellowship/Invitationbg.png';
+import inviteBg from '~/assets/images/bg.png';
 
 const metadata: MetaData = {
-  title: 'Fellowship Invitation',
+  title: 'Group Invitation',
   openGraph: {
     images: [
       {
@@ -15,42 +15,70 @@ const metadata: MetaData = {
     ],
   },
 };
+
+const APP_STORE_URL = 'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898';
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.letspray';
 ---
 
 <Layout metadata={metadata}>
-  <main class="invite">
-    <section class="invite-card" aria-label="Invitation">
-      <header class="invite-top">
-        <div class="invite-from">
-          <div class="invite-avatar" aria-hidden="true">
-            <img id="fromAvatar" alt="" />
-          </div>
-          <div class="invite-from-text">
-            <span class="invite-from-label">From</span>
-            <span id="fromName" class="invite-from-name"></span>
-          </div>
+  <main class="invite" style={`background-image: url(${inviteBg.src});`}>
+    <header class="invite-from-bar">
+      <div class="invite-from">
+        <div class="invite-from-avatar" aria-hidden="true">
+          <img id="fromAvatar" alt="" />
         </div>
+        <div class="invite-from-text">
+          <span class="invite-from-label">From</span>
+          <span id="fromName" class="invite-from-name"></span>
+        </div>
+        <Icon name="tabler:chevron-right" class="invite-from-chevron" aria-hidden="true" />
+      </div>
+    </header>
 
-        <a class="invite-close" href="/" aria-label="Close invitation">
-          <Icon name="tabler:x" class="invite-close-icon" aria-hidden="true" />
-        </a>
-      </header>
-
-      <div class="invite-content" style={`background-image: url(${invitationBg.src});`}>
-        <h1 class="invite-title">You have been invited</h1>
-        <div class="invite-sub"><span id="subFromName"></span> invites you to join</div>
-        <div id="groupName" class="invite-group"></div>
-
-        <div class="invite-illustration" aria-hidden="true">
+    <section class="invite-body" aria-label="Group invitation">
+      <div class="invite-hero">
+        <div class="group-illust" aria-hidden="true">
           <Image
             src="~/assets/images/fellowship/group.png"
             alt=""
-            class="invite-ill-img"
-            width={156.293}
-            height={156.293}
+            class="group-illust-img"
+            width={160}
+            height={160}
             loading="lazy"
           />
         </div>
+
+        <h1 class="invite-title">
+          Join <strong id="groupName"></strong> on Aura.
+        </h1>
+
+        <div class="invite-copy">
+          <p class="invite-desc">
+            <strong id="subFromName"></strong> invited you to walk alongside their group — reading Scripture, praying, and
+            growing together in Aura.
+          </p>
+
+          <a class="join-link" id="joinLink" href="#">Click to Join</a>
+        </div>
+
+        <div class="invite-offer">
+          <p class="invite-offer-text">
+            Don't have Aura? Sign up with this invite to unlock 14 days of membership, free.
+          </p>
+
+          <div class="invite-steps">
+            <a class="btn-primary" id="installBtn" href={APP_STORE_URL} target="_blank" rel="noopener">
+              Step 1: Click Here to Install Aura App
+            </a>
+            <a class="btn-secondary" id="redeemBtn" href="#">Step 2: Click Here to Redeem</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="invite-alt">
+        <p class="invite-alt-text">
+          Alternatively, enter this code in the Aura app when prompted to subscribe or under Settings.
+        </p>
 
         <div class="redeem">
           <div class="redeem-label">Your Redeem Code</div>
@@ -58,55 +86,81 @@ const metadata: MetaData = {
             <span id="redeemCode" class="redeem-code" aria-live="polite"></span>
             <button id="copyBtn" class="redeem-copy" type="button" aria-label="Copy redeem code">
               <span id="copyText" class="redeem-copy-text">Copy</span>
-							<Icon name="tabler:copy" class="redeem-copy-icon" aria-hidden="true" />
+              <Icon name="tabler:copy" class="redeem-copy-icon" aria-hidden="true" />
             </button>
           </div>
-          <div class="redeem-help">Download and apply redeem code<br />On the first screen to receive free trial</div>
         </div>
 
-        <a class="tutorial" href="https://youtu.be/LtliEm2efhU" target="_blank" rel="noopener">Watch a Quick Tutorial</a>
-
-        <div class="stores" aria-label="Download Aura">
-          <div class="stores-badges">
-            <a
-              id="appStoreBadgeLink"
-              class="store-badge"
-              href="#"
-              target="_blank"
-              rel="noopener"
-              aria-label="Download on the App Store"
-            >
-              <Image
-                src="~/assets/images/fellowship/iosStore.png"
-                alt="Download on the App Store"
-                class="store-badge-img"
-                width={150}
-                height={50}
-                loading="lazy"
-              />
-            </a>
-
-            <a
-              id="playStoreBadgeLink"
-              class="store-badge"
-              href="#"
-              target="_blank"
-              rel="noopener"
-              aria-label="Get it on Google Play"
-            >
-              <Image
-                src="~/assets/images/fellowship/playStore.png"
-                alt="Get it on Google Play"
-                class="store-badge-img"
-                width={150}
-                height={50}
-                loading="lazy"
-              />
-            </a>
-          </div>
+        <div class="guide-shots" aria-hidden="true">
+          <Image
+            src="~/assets/images/invitation-img.png"
+            alt=""
+            class="guide-shots-img"
+            width={1116}
+            height={624}
+            loading="lazy"
+          />
         </div>
+
+        <p class="invite-note">The offer must be claimed within 24 hours of registering.</p>
       </div>
     </section>
+
+    <section class="about" aria-label="About Aura">
+      <h2 class="about-title">New to Aura?</h2>
+      <p class="about-desc">
+        Aura is a Christ-centered Bible and prayer app built to help you pray deeper, understand Scripture in context,
+        and build a daily devotional rhythm - whether you're new to faith or have walked with God for years.
+      </p>
+
+      <div class="showcase" aria-hidden="true">
+        <Image
+          src="~/assets/images/invitation-img-2.png"
+          alt=""
+          class="showcase-img"
+          width={1572}
+          height={1679}
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <div class="stores" aria-label="Download Aura">
+      <a
+        id="appStoreBadgeLink"
+        class="store-badge"
+        href={APP_STORE_URL}
+        target="_blank"
+        rel="noopener"
+        aria-label="Download on the App Store"
+      >
+        <Image
+          src="~/assets/images/fellowship/iosStore.png"
+          alt="Download on the App Store"
+          class="store-badge-img"
+          width={150}
+          height={50}
+          loading="lazy"
+        />
+      </a>
+      <a
+        id="playStoreBadgeLink"
+        class="store-badge"
+        href={PLAY_STORE_URL}
+        target="_blank"
+        rel="noopener"
+        aria-label="Get it on Google Play"
+      >
+        <Image
+          src="~/assets/images/fellowship/playStore.png"
+          alt="Get it on Google Play"
+          class="store-badge-img"
+          width={150}
+          height={50}
+          loading="lazy"
+        />
+      </a>
+    </div>
   </main>
 </Layout>
 
@@ -124,25 +178,49 @@ const metadata: MetaData = {
   }
 
   :global(body.bg-page) {
-    background: #e8e5de;
+    background: #edebe4;
   }
 
   .invite {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+    --text-primary: #2c1f11;
+    --text-muted: rgba(44, 31, 17, 0.66);
+    --text-secondary: rgba(60, 60, 67, 0.6);
+    --btn-dark: #19130d;
+    --brand: #f78376;
 
-  .invite-card {
-    overflow: hidden;
     position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #edebe4;
+    background-size: 100% auto;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 
-  .invite-top {
+  .invite::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: -120px;
+    width: 640px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .invite > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .invite-from-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 14px 14px 10px 14px;
-    background: rgba(251, 250, 243, 0.65);
+    height: 50px;
+    padding: 20px 20px 12px;
+    box-sizing: border-box;
+    background: #f9f7f3;
   }
 
   .invite-from {
@@ -152,156 +230,273 @@ const metadata: MetaData = {
     min-width: 0;
   }
 
-  .invite-avatar {
-    width: 26px;
-    height: 26px;
+  .invite-from-avatar {
+    width: 24px;
+    height: 24px;
     border-radius: 999px;
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(44, 31, 17, 0.08);
+    box-sizing: border-box;
     overflow: hidden;
-    position: relative;
     flex: none;
   }
 
-  .invite-avatar img {
+  .invite-from-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+  }
+
+  .invite-from-avatar img:not([src]),
+  .invite-from-avatar img[src=''] {
     display: none;
   }
 
   .invite-from-text {
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
     gap: 6px;
     min-width: 0;
+    font-size: 16px;
+    letter-spacing: -0.16px;
+    color: var(--text-primary);
+    line-height: 1.4;
   }
 
   .invite-from-label {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.78);
-    white-space: nowrap;
+    font-family: 'NunitoSans', 'Nunito Sans', sans-serif;
+    font-weight: 400;
   }
 
   .invite-from-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.92);
+    font-family: 'NunitoSansSemiBold', 'Nunito Sans', sans-serif;
+    font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .invite-close {
-    width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.18);
-    display: grid;
-    place-items: center;
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-  }
-
-  .invite-close-icon {
+  .invite-from-chevron {
     width: 16px;
     height: 16px;
+    color: var(--text-primary);
+    flex: none;
   }
 
-  .invite-content {
-    padding: 26px 9px 22px 9px;
-    text-align: center;
+  .invite-body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    gap: 48px;
+    padding: 0 24px;
+  }
+
+  .invite-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .group-illust {
+    width: 160px;
+    height: 160px;
+    flex: none;
+  }
+
+  .group-illust-img {
+    width: 160px;
+    height: 160px;
+    display: block;
+    object-fit: contain;
   }
 
   .invite-title {
+    margin: 0;
     width: 100%;
-    font-family:
-      'Lora',
-      'LoraMedium',
-      serif;
-    font-size: 28px;
+    font-family: 'Lora', 'LoraMedium', serif;
+    font-size: 22px;
+    font-weight: 400;
     line-height: 1.3;
-    letter-spacing: -0.015em;
-    color: rgba(29, 18, 10, 0.96);
-    margin-top: 35px;
-    padding: 0 32px 16px 32px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    letter-spacing: -0.33px;
+    color: var(--text-primary);
+    text-align: center;
   }
 
-  .invite-sub {
-    text-align: center;
+  .invite-title strong {
+    font-weight: 700;
+  }
+
+  .invite-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .invite-desc {
+    margin: 0;
+    width: 100%;
+    max-width: 345px;
     font-family: 'Jost', sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: normal;
-    color: rgba(60, 60, 67, 0.6);
-  }
-
-  .invite-group {
+    color: var(--text-muted);
     text-align: center;
+  }
+
+  .invite-desc strong {
+    font-weight: 600;
+  }
+
+  .join-link {
     font-family: 'Jost', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 600;
     line-height: normal;
-    color: rgba(60, 60, 67, 0.6);
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
-  .invite-illustration {
-    width: 100%;
-  }
-
-  .invite-ill-img {
-    width: 156.293px;
-    height: 156.293px;
-    aspect-ratio: 1 / 1;
-    margin-inline: auto;
-    display: block;
-  }
-
-  .redeem {
-    margin-top: 26px;
-    width: 100%;
-    max-width: 420px;
+  .invite-offer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .invite-offer-text {
+    margin: 0;
+    max-width: 345px;
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .invite-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 999px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'NunitoSansSemiBold', 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0 16px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-primary,
+  .btn-primary:link,
+  .btn-primary:visited,
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary:focus,
+  .btn-primary:focus-visible {
+    background: var(--btn-dark);
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: -0.16px;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .btn-secondary,
+  .btn-secondary:link,
+  .btn-secondary:visited,
+  .btn-secondary:hover,
+  .btn-secondary:active,
+  .btn-secondary:focus,
+  .btn-secondary:focus-visible {
+    background: #fff;
+    color: var(--text-primary);
+    font-size: 17px;
+    letter-spacing: -0.17px;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .invite-alt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 23px;
+    width: 100%;
+  }
+
+  .invite-alt-text,
+  .invite-note {
+    margin: 0;
+    max-width: 321px;
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .redeem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
   }
 
   .redeem-label {
-    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+    font-family: 'NunitoSansSemiBold', 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 1.4;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.16px;
     color: #2c1f11;
+    text-align: center;
   }
 
   .redeem-pill {
-    width: 300px;
-    min-height: 76px;
-    border-radius: 25px;
-    background: #ffffff;
+    width: 100%;
+    max-width: 345px;
+    height: 64px;
+    border-radius: 20px;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 20px;
+    padding: 0 20px;
     gap: 10px;
     box-sizing: border-box;
   }
 
   .redeem-code {
-    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+    font-family: 'NunitoSansSemiBold', 'Nunito Sans', sans-serif;
     font-size: 20px;
     font-weight: 600;
     line-height: 1.4;
-    letter-spacing: -0.01em;
-    color: #000000;
+    letter-spacing: -0.2px;
+    color: #000;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -311,14 +506,16 @@ const metadata: MetaData = {
     flex: none;
     display: inline-flex;
     align-items: center;
+    gap: 3px;
     border: none;
     background: transparent;
-    color: rgba(0, 0, 0, 0.74);
-    font-family: 'NunitoSans', sans-serif;
+    color: #2c1f11;
+    font-family: 'NunitoSans', 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: 400;
+    line-height: 1.2;
     cursor: pointer;
-		gap: 3px;
+    padding: 0;
   }
 
   .redeem-copy:active {
@@ -330,42 +527,71 @@ const metadata: MetaData = {
     height: 20px;
   }
 
-  .redeem-help {
-    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    text-align: center;
-    color: #2C1F11;
-    margin-top: 20px;
+  .guide-shots {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 0;
   }
 
-  .tutorial {
-    margin-top: 26px;
-		margin-bottom: 26px;
-    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+  .guide-shots-img {
+    width: 100%;
+    max-width: 372px;
+    height: auto;
+    display: block;
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-top: 43px;
+  }
+
+  .about-title {
+    margin: 0;
+    font-family: 'BeautiqueDisplayCondensed', serif;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text-primary);
+    text-align: center;
+  }
+
+  .about-desc {
+    margin: 0;
+    max-width: 345px;
+    padding: 0 24px;
+    font-family: 'Jost', sans-serif;
     font-size: 16px;
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    color: #2c1f11;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .showcase {
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .showcase-img {
+    width: 100%;
+    max-width: 393px;
+    height: auto;
+    display: block;
   }
 
   .stores {
-    margin-top: 16px;
-    display: grid;
-    padding: 0 7px;
-  }
-
-  .stores-badges {
-    width: 100%;
     display: flex;
-    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
     gap: 17px;
-    justify-items: center;
+    padding: 24px 0;
   }
 
   .store-badge {
@@ -380,16 +606,10 @@ const metadata: MetaData = {
     height: 50px;
     display: block;
   }
-
-  @media (max-width: 420px) {
-    .stores-badges {
-      grid-template-columns: 1fr;
-    }
-  }
 </style>
 
 <script>
-  import { decodeShare } from '~/services';
+  import { decodeShare, type DecodeShareData } from '~/services';
 
   const APP_STORE_URL = 'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898';
   const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.letspray';
@@ -447,18 +667,22 @@ const metadata: MetaData = {
   }
 
   function initPage() {
-    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
-    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
     const appStoreBadgeLink = document.getElementById('appStoreBadgeLink') as HTMLAnchorElement | null;
     const playStoreBadgeLink = document.getElementById('playStoreBadgeLink') as HTMLAnchorElement | null;
 
     if (appStoreBadgeLink) appStoreBadgeLink.href = APP_STORE_URL;
     if (playStoreBadgeLink) playStoreBadgeLink.href = PLAY_STORE_URL;
+    if (inviteCodeFromUrl) updateInviteCode(inviteCodeFromUrl);
+  }
 
-    if (redeemCodeEl) redeemCodeEl.textContent = inviteCodeFromUrl || '';
+  function updateInviteCode(inviteCode: string) {
+    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
+    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
+
+    if (redeemCodeEl) redeemCodeEl.textContent = inviteCode || '';
 
     if (copyBtn) {
-      copyBtn.disabled = !(inviteCodeFromUrl || '').trim();
+      copyBtn.disabled = !(inviteCode || '').trim();
       if (!copyBtn.dataset.bound) {
         copyBtn.dataset.bound = '1';
         setClipboardHandler(copyBtn, () => (redeemCodeEl?.textContent ?? '').trim());
@@ -473,10 +697,14 @@ const metadata: MetaData = {
     const nameElement = document.getElementById('fromName');
     const subNameElement = document.getElementById('subFromName');
     const groupElement = document.getElementById('groupName');
+    const installBtn = document.getElementById('installBtn') as HTMLAnchorElement;
+    const redeemBtn = document.getElementById('redeemBtn') as HTMLAnchorElement;
+    const joinBtn = document.getElementById('joinLink') as HTMLAnchorElement;
 
     const data = await decodeShare(ticket as string);
     if (!data) return;
-    const d = (data as any)?.data as Record<string, unknown> | undefined;
+    const d = (data as DecodeShareData)?.data as Record<string, unknown> | undefined;
+    const inviteCode = data.metadataJson.inviteCode;
 
     const fullName = data?.shareUser?.fullName ?? '';
     if (nameElement) nameElement.textContent = fullName;
@@ -484,17 +712,18 @@ const metadata: MetaData = {
 
     if (avatarElement && data?.shareUser?.avatarUrl) {
       avatarElement.src = data.shareUser.avatarUrl;
+      avatarElement.removeAttribute('hidden');
       avatarElement.style.display = 'block';
     }
 
-    const groupNameFromData = (d as any)?.name;
+    installBtn.href = data.data?.fissionUrl || '';
+    redeemBtn.href = `aura://share/group?inviteCode=${inviteCode}`;
+    joinBtn.href = `aura://share/group?inviteCode=${inviteCode}&source=join`;
+
+    const groupNameFromData = (d as Record<string, unknown>)?.name;
     if (groupElement && groupNameFromData) groupElement.textContent = String(groupNameFromData);
 
-    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
-    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
-    const displayedRedeemCode = (inviteCodeFromUrl || '').trim();
-    if (redeemCodeEl) redeemCodeEl.textContent = displayedRedeemCode;
-    if (copyBtn) copyBtn.disabled = !displayedRedeemCode;
+    if (inviteCode) updateInviteCode(inviteCode);
   };
 
   document.addEventListener('astro:page-load', () => {

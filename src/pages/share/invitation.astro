@@ -3,7 +3,7 @@ import type { MetaData } from '~/types';
 import Layout from '~/layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
-import invitationBg from '~/assets/images/fellowship/Invitationbg.png';
+import inviteBg from '~/assets/images/bg.png';
 
 const metadata: MetaData = {
   title: 'Fellowship Invitation',
@@ -15,42 +15,54 @@ const metadata: MetaData = {
     ],
   },
 };
+
+const APP_STORE_URL = 'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898';
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.letspray';
 ---
 
 <Layout metadata={metadata}>
-  <main class="invite">
-    <section class="invite-card" aria-label="Invitation">
-      <header class="invite-top">
-        <div class="invite-from">
+  <main class="invite" style={`background-image: url(${inviteBg.src});`}>
+    <section class="invite-body" aria-label="Invitation">
+      <div class="invite-hero">
+        <div class="invite-avatar-wrap">
           <div class="invite-avatar" aria-hidden="true">
             <img id="fromAvatar" alt="" />
           </div>
-          <div class="invite-from-text">
-            <span class="invite-from-label">From</span>
-            <span id="fromName" class="invite-from-name"></span>
+          <div class="invite-aura-badge" aria-hidden="true">
+            <Image
+              src="~/assets/images/logo-icon.png"
+              alt=""
+              class="invite-aura-badge-img"
+              width={25}
+              height={25}
+              loading="lazy"
+            />
           </div>
         </div>
 
-        <a class="invite-close" href="/" aria-label="Close invitation">
-          <Icon name="tabler:x" class="invite-close-icon" aria-hidden="true" />
-        </a>
-      </header>
+        <h1 class="invite-title">
+          Join <strong id="fromName"></strong> on Aura
+        </h1>
 
-      <div class="invite-content" style={`background-image: url(${invitationBg.src});`}>
-        <div class="invite-title">You have been invited</div>
-        <div class="invite-sub"><span id="subFromName"></span> invites you to join</div>
-        <div class="invite-group">Aura Bible App</div>
+        <p class="invite-desc">
+          <strong id="subFromName"></strong> has been growing closer to God with Aura, and wants you to experience it too.
+          Join through their invite to get a free 14-day Pro membership.
+        </p>
 
-        <div class="invite-illustration" aria-hidden="true">
-          <Image
-            src="~/assets/images/fellowship/group.png"
-            alt=""
-            class="invite-ill-img"
-            width={156.293}
-            height={156.293}
-            loading="lazy"
-          />
+        <p class="invite-claim">To claim your Aura Pro Membership</p>
+
+        <div class="invite-steps">
+          <a class="btn-primary" id="installBtn" href={APP_STORE_URL} target="_blank" rel="noopener">
+            Step 1: Click Here to Install Aura App
+          </a>
+          <a class="btn-secondary" id="redeemBtn" href="#">Step 2: Click Here to Redeem</a>
         </div>
+      </div>
+
+      <div class="invite-alt">
+        <p class="invite-alt-text">
+          Alternatively, enter this code in the Aura app when prompted to subscribe or under Settings.
+        </p>
 
         <div class="redeem">
           <div class="redeem-label">Your Redeem Code</div>
@@ -58,55 +70,81 @@ const metadata: MetaData = {
             <span id="redeemCode" class="redeem-code" aria-live="polite"></span>
             <button id="copyBtn" class="redeem-copy" type="button" aria-label="Copy redeem code">
               <span id="copyText" class="redeem-copy-text">Copy</span>
-							<Icon name="tabler:copy" class="redeem-copy-icon" aria-hidden="true" />
+              <Icon name="tabler:copy" class="redeem-copy-icon" aria-hidden="true" />
             </button>
           </div>
-          <div class="redeem-help">Download and apply redeem code<br />On the first screen to receive free trial</div>
         </div>
 
-        <a class="tutorial" href="https://youtu.be/LtliEm2efhU" target="_blank" rel="noopener">Watch a Quick Tutorial</a>
-
-        <div class="stores" aria-label="Download Aura">
-          <div class="stores-badges">
-            <a
-              id="appStoreBadgeLink"
-              class="store-badge"
-              href="#"
-              target="_blank"
-              rel="noopener"
-              aria-label="Download on the App Store"
-            >
-              <Image
-                src="~/assets/images/fellowship/iosStore.png"
-                alt="Download on the App Store"
-                class="store-badge-img"
-                width={150}
-                height={50}
-                loading="lazy"
-              />
-            </a>
-
-            <a
-              id="playStoreBadgeLink"
-              class="store-badge"
-              href="#"
-              target="_blank"
-              rel="noopener"
-              aria-label="Get it on Google Play"
-            >
-              <Image
-                src="~/assets/images/fellowship/playStore.png"
-                alt="Get it on Google Play"
-                class="store-badge-img"
-                width={150}
-                height={50}
-                loading="lazy"
-              />
-            </a>
-          </div>
+        <div class="guide-shots" aria-hidden="true">
+          <Image
+            src="~/assets/images/invitation-img.png"
+            alt=""
+            class="guide-shots-img"
+            width={1116}
+            height={624}
+            loading="lazy"
+          />
         </div>
+
+        <p class="invite-note">The offer must be claimed within 24 hours of registering.</p>
       </div>
     </section>
+
+    <section class="about" aria-label="About Aura">
+      <h2 class="about-title">New to Aura?</h2>
+      <p class="about-desc">
+        Aura is a Christ-centered Bible and prayer app built to help you pray deeper, understand Scripture in context,
+        and build a daily devotional rhythm - whether you're new to faith or have walked with God for years.
+      </p>
+
+      <div class="showcase" aria-hidden="true">
+        <Image
+          src="~/assets/images/invitation-img-2.png"
+          alt=""
+          class="showcase-img"
+          width={1572}
+          height={1679}
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <div class="stores" aria-label="Download Aura">
+      <a
+        id="appStoreBadgeLink"
+        class="store-badge"
+        href={APP_STORE_URL}
+        target="_blank"
+        rel="noopener"
+        aria-label="Download on the App Store"
+      >
+        <Image
+          src="~/assets/images/fellowship/iosStore.png"
+          alt="Download on the App Store"
+          class="store-badge-img"
+          width={150}
+          height={50}
+          loading="lazy"
+        />
+      </a>
+      <a
+        id="playStoreBadgeLink"
+        class="store-badge"
+        href={PLAY_STORE_URL}
+        target="_blank"
+        rel="noopener"
+        aria-label="Get it on Google Play"
+      >
+        <Image
+          src="~/assets/images/fellowship/playStore.png"
+          alt="Get it on Google Play"
+          class="store-badge-img"
+          width={150}
+          height={50}
+          loading="lazy"
+        />
+      </a>
+    </div>
   </main>
 </Layout>
 
@@ -124,184 +162,283 @@ const metadata: MetaData = {
   }
 
   :global(body.bg-page) {
-    background: #e8e5de;
+    background: #edebe4;
   }
 
   .invite {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+    --text-primary: #2c1f11;
+    --text-muted: rgba(44, 31, 17, 0.66);
+    --text-secondary: rgba(60, 60, 67, 0.6);
+    --btn-dark: #19130d;
+    --brand: #f78376;
 
-  .invite-card {
-    overflow: hidden;
     position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #edebe4;
+    background-size: 100% auto;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 
-  .invite-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 14px 10px 14px;
-    background: rgba(251, 250, 243, 0.65);
+  .invite::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: -120px;
+    width: 640px;
+    /* height: 520px; */
+    pointer-events: none;
+    z-index: 0;
   }
 
-  .invite-from {
+  .invite > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .invite-top-deco,
+  .invite-bottom-deco {
+    width: 100%;
+    background: rgba(44, 31, 17, 0.06);
+    border: 1px dashed rgba(44, 31, 17, 0.18);
+    box-sizing: border-box;
+  }
+
+  .invite-top-deco {
+    height: 97px;
+  }
+
+  .invite-bottom-deco {
+    height: 125px;
+  }
+
+  .invite-body {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    min-width: 0;
+    gap: 48px;
+    padding: 32px 24px 0;
+  }
+
+  .invite-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .invite-avatar-wrap {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex: none;
   }
 
   .invite-avatar {
-    width: 26px;
-    height: 26px;
+    width: 80px;
+    height: 80px;
     border-radius: 999px;
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(44, 31, 17, 0.08);
+    box-sizing: border-box;
     overflow: hidden;
-    position: relative;
-    flex: none;
   }
 
   .invite-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+  }
+
+  .invite-avatar img:not([src]),
+  .invite-avatar img[src=''] {
     display: none;
   }
 
-  .invite-from-text {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 6px;
-    min-width: 0;
-  }
-
-  .invite-from-label {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.78);
-    white-space: nowrap;
-  }
-
-  .invite-from-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.92);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .invite-close {
-    width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.18);
-    display: grid;
-    place-items: center;
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-  }
-
-  .invite-close-icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .invite-content {
-    padding: 26px 9px 22px 9px;
-    text-align: center;
+  .invite-aura-badge {
+    position: absolute;
+    right: -12px;
+    bottom: -4px;
+    width: 33px;
+    height: 33px;
+    border-radius: 10px;
+    background: #ece9e2;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+    padding: 4px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    justify-content: center;
+  }
+
+  .invite-aura-badge-img {
+    width: 25px;
+    height: 25px;
+    display: block;
   }
 
   .invite-title {
+    margin: 0;
     width: 100%;
-    font-family:
-      'Lora',
-      'LoraMedium',
-      serif;
+    font-family: 'Lora', 'LoraMedium', serif;
     font-size: 28px;
+    font-weight: 400;
     line-height: 1.3;
-    letter-spacing: -0.015em;
-    color: rgba(29, 18, 10, 0.96);
-    margin-top: 35px;
-    padding: 0 32px 16px 32px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    letter-spacing: -0.42px;
+    color: var(--text-primary);
+    text-align: center;
   }
 
-  .invite-sub {
-    text-align: center;
+  .invite-title strong {
+    font-weight: 700;
+  }
+
+  .invite-desc {
+    margin: 0;
+    width: 100%;
+    /* max-width: 345px; */
     font-family: 'Jost', sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: normal;
-    color: rgba(60, 60, 67, 0.6);
-  }
-
-  .invite-group {
+    color: var(--text-muted);
     text-align: center;
+  }
+
+  .invite-desc strong {
+    font-weight: 600;
+  }
+
+  .invite-claim {
+    margin: 0;
     font-family: 'Jost', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 400;
     line-height: normal;
-    color: rgba(60, 60, 67, 0.6);
+    color: var(--text-muted);
+    text-align: center;
   }
 
-  .invite-illustration {
+  .invite-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     width: 100%;
   }
 
-  .invite-ill-img {
-    width: 156.293px;
-    height: 156.293px;
-    aspect-ratio: 1 / 1;
-    margin-inline: auto;
-    display: block;
+  .btn-primary,
+  .btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 999px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'NunitoSansSemiBold', 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0 16px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .redeem {
-    margin-top: 26px;
-    width: 100%;
-    max-width: 420px;
+  .btn-primary,
+  .btn-primary:link,
+  .btn-primary:visited,
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary:focus,
+  .btn-primary:focus-visible {
+    background: var(--btn-dark);
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: -0.16px;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .btn-secondary,
+  .btn-secondary:link,
+  .btn-secondary:visited,
+  .btn-secondary:hover,
+  .btn-secondary:active,
+  .btn-secondary:focus,
+  .btn-secondary:focus-visible {
+    background: #fff;
+    color: var(--text-primary);
+    font-size: 17px;
+    letter-spacing: -0.17px;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .invite-alt {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 23px;
+    width: 100%;
+  }
+
+  .invite-alt-text,
+  .invite-note {
+    margin: 0;
+    max-width: 321px;
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .redeem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
   }
 
   .redeem-label {
-    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+    font-family: 'NunitoSansSemiBold', 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 1.4;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.16px;
     color: #2c1f11;
+    text-align: center;
   }
 
   .redeem-pill {
-    width: 300px;
-    min-height: 76px;
-    border-radius: 25px;
-    background: #ffffff;
+    width: 100%;
+    max-width: 345px;
+    height: 64px;
+    border-radius: 20px;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 20px;
+    padding: 0 20px;
     gap: 10px;
     box-sizing: border-box;
   }
 
   .redeem-code {
-    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+    font-family: 'NunitoSansSemiBold', 'Nunito Sans', sans-serif;
     font-size: 20px;
     font-weight: 600;
     line-height: 1.4;
-    letter-spacing: -0.01em;
-    color: #000000;
+    letter-spacing: -0.2px;
+    color: #000;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -311,14 +448,16 @@ const metadata: MetaData = {
     flex: none;
     display: inline-flex;
     align-items: center;
+    gap: 3px;
     border: none;
     background: transparent;
-    color: rgba(0, 0, 0, 0.74);
-    font-family: 'NunitoSans', sans-serif;
+    color: #2c1f11;
+    font-family: 'NunitoSans', 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: 400;
+    line-height: 1.2;
     cursor: pointer;
-		gap: 3px;
+    padding: 0;
   }
 
   .redeem-copy:active {
@@ -330,42 +469,71 @@ const metadata: MetaData = {
     height: 20px;
   }
 
-  .redeem-help {
-    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    text-align: center;
-    color: #2C1F11;
-    margin-top: 20px;
+  .guide-shots {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 0;
   }
 
-  .tutorial {
-    margin-top: 26px;
-		margin-bottom: 26px;
-    font-family: 'NunitoSansSemiBold', 'NunitoSans', sans-serif;
+  .guide-shots-img {
+    width: 100%;
+    max-width: 372px;
+    height: auto;
+    display: block;
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-top: 43px;
+  }
+
+  .about-title {
+    margin: 0;
+    font-family: 'BeautiqueDisplayCondensed', serif;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text-primary);
+    text-align: center;
+  }
+
+  .about-desc {
+    margin: 0;
+    max-width: 345px;
+    padding: 0 24px;
+    font-family: 'Jost', sans-serif;
     font-size: 16px;
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    color: #2c1f11;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .showcase {
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .showcase-img {
+    width: 100%;
+    max-width: 393px;
+    height: auto;
+    display: block;
   }
 
   .stores {
-    margin-top: 16px;
-    display: grid;
-    padding: 0 7px;
-  }
-
-  .stores-badges {
-    width: 100%;
     display: flex;
-    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
     gap: 17px;
-    justify-items: center;
+    padding: 24px 0;
   }
 
   .store-badge {
@@ -379,12 +547,6 @@ const metadata: MetaData = {
     width: 150px;
     height: 50px;
     display: block;
-  }
-
-  @media (max-width: 420px) {
-    .stores-badges {
-      grid-template-columns: 1fr;
-    }
   }
 </style>
 
@@ -447,18 +609,23 @@ const metadata: MetaData = {
   }
 
   function initPage() {
-    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
-    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
     const appStoreBadgeLink = document.getElementById('appStoreBadgeLink') as HTMLAnchorElement | null;
     const playStoreBadgeLink = document.getElementById('playStoreBadgeLink') as HTMLAnchorElement | null;
 
     if (appStoreBadgeLink) appStoreBadgeLink.href = APP_STORE_URL;
     if (playStoreBadgeLink) playStoreBadgeLink.href = PLAY_STORE_URL;
 
-    if (redeemCodeEl) redeemCodeEl.textContent = inviteCodeFromUrl || '';
+    if (inviteCodeFromUrl) updateInviteCode(inviteCodeFromUrl);
+  }
+
+  function updateInviteCode(inviteCode: string) {
+    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
+    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
+
+    if (redeemCodeEl) redeemCodeEl.textContent = inviteCode || '';
 
     if (copyBtn) {
-      copyBtn.disabled = !(inviteCodeFromUrl || '').trim();
+      copyBtn.disabled = !(inviteCode || '').trim();
       if (!copyBtn.dataset.bound) {
         copyBtn.dataset.bound = '1';
         setClipboardHandler(copyBtn, () => (redeemCodeEl?.textContent ?? '').trim());
@@ -472,24 +639,27 @@ const metadata: MetaData = {
     const avatarElement = document.getElementById('fromAvatar') as HTMLImageElement | null;
     const nameElement = document.getElementById('fromName');
     const subNameElement = document.getElementById('subFromName');
+    const installBtn = document.getElementById('installBtn') as HTMLAnchorElement;
+    const redeemBtn = document.getElementById('redeemBtn') as HTMLAnchorElement;
 
     const data = await decodeShare(ticket as string);
     if (!data) return;
 
+    const inviteCode = data.metadataJson.inviteCode;
     const fullName = data?.shareUser?.fullName ?? '';
     if (nameElement) nameElement.textContent = fullName;
     if (subNameElement) subNameElement.textContent = fullName;
 
     if (avatarElement && data?.shareUser?.avatarUrl) {
       avatarElement.src = data.shareUser.avatarUrl;
+      avatarElement.removeAttribute('hidden');
       avatarElement.style.display = 'block';
     }
 
-    const redeemCodeEl = document.getElementById('redeemCode') as HTMLSpanElement | null;
-    const copyBtn = document.getElementById('copyBtn') as HTMLButtonElement | null;
-    const displayedRedeemCode = (inviteCodeFromUrl || '').trim();
-    if (redeemCodeEl) redeemCodeEl.textContent = displayedRedeemCode;
-    if (copyBtn) copyBtn.disabled = !displayedRedeemCode;
+    redeemBtn.href = `aura://share/invitation?inviteCode=${inviteCode}`;
+    installBtn.href = data.data?.fissionUrl || '';
+
+    if (inviteCode) updateInviteCode(inviteCode);
   };
 
   document.addEventListener('astro:page-load', () => {
