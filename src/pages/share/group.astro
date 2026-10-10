@@ -610,7 +610,7 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
 
 <script>
   import { decodeShare, type DecodeShareData } from '~/services';
-  import { bindTrackedClick } from '~/utils/analytics';
+  import { logAnalyticsEvent } from '~/utils/analytics';
 
   const PAGE_NAME = 'share_group';
 
@@ -620,6 +620,24 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
   const urlParams = new URLSearchParams(window.location.search);
   const ticket = urlParams.get('ticket');
   const inviteCodeFromUrl = urlParams.get('inviteCode') ?? '';
+  let shareInviteCode = inviteCodeFromUrl;
+
+  function trackShareClick(buttonName: string) {
+    void logAnalyticsEvent('button_click', {
+      page_name: PAGE_NAME,
+      button_name: buttonName,
+      ticket: ticket ?? '',
+      inviteCode: shareInviteCode,
+    });
+  }
+
+  function bindShareClick(element: Element | null, buttonName: string) {
+    if (!(element instanceof HTMLElement) || element.dataset.analyticsBound === '1') return;
+    element.dataset.analyticsBound = '1';
+    element.addEventListener('click', () => {
+      trackShareClick(buttonName);
+    });
+  }
 
   function flashCopyLabel(copyBtn: HTMLButtonElement) {
     const label = copyBtn.querySelector('#copyText') as HTMLElement | null;
@@ -677,12 +695,12 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     if (playStoreBadgeLink) playStoreBadgeLink.href = PLAY_STORE_URL;
     if (inviteCodeFromUrl) updateInviteCode(inviteCodeFromUrl);
 
-    bindTrackedClick(document.getElementById('joinLink'), PAGE_NAME, 'join');
-    bindTrackedClick(document.getElementById('installBtn'), PAGE_NAME, 'install');
-    bindTrackedClick(document.getElementById('redeemBtn'), PAGE_NAME, 'redeem');
-    bindTrackedClick(document.getElementById('copyBtn'), PAGE_NAME, 'copy_code');
-    bindTrackedClick(appStoreBadgeLink, PAGE_NAME, 'app_store');
-    bindTrackedClick(playStoreBadgeLink, PAGE_NAME, 'play_store');
+    bindShareClick(document.getElementById('joinLink'), 'join');
+    bindShareClick(document.getElementById('installBtn'), 'install');
+    bindShareClick(document.getElementById('redeemBtn'), 'redeem');
+    bindShareClick(document.getElementById('copyBtn'), 'copy_code');
+    bindShareClick(appStoreBadgeLink, 'app_store');
+    bindShareClick(playStoreBadgeLink, 'play_store');
   }
 
   function updateInviteCode(inviteCode: string) {
@@ -715,6 +733,7 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     if (!data) return;
     const d = (data as DecodeShareData)?.data as Record<string, unknown> | undefined;
     const inviteCode = data.metadataJson.inviteCode;
+    if (inviteCode) shareInviteCode = inviteCode;
 
     const fullName = data?.shareUser?.fullName ?? '';
     if (nameElement) nameElement.textContent = fullName;
