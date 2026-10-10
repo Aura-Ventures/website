@@ -552,6 +552,9 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
 
 <script>
   import { decodeShare } from '~/services';
+  import { bindTrackedClick } from '~/utils/analytics';
+
+  const PAGE_NAME = 'share_invitation';
 
   const APP_STORE_URL = 'https://apps.apple.com/us/app/aura-personal-bible-prayer/id6736381898';
   const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.letspray';
@@ -616,6 +619,12 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.aura.l
     if (playStoreBadgeLink) playStoreBadgeLink.href = PLAY_STORE_URL;
 
     if (inviteCodeFromUrl) updateInviteCode(inviteCodeFromUrl);
+
+    bindTrackedClick(document.getElementById('installBtn'), PAGE_NAME, 'install');
+    bindTrackedClick(document.getElementById('redeemBtn'), PAGE_NAME, 'redeem');
+    bindTrackedClick(document.getElementById('copyBtn'), PAGE_NAME, 'copy_code');
+    bindTrackedClick(appStoreBadgeLink, PAGE_NAME, 'app_store');
+    bindTrackedClick(playStoreBadgeLink, PAGE_NAME, 'play_store');
   }
 
   function updateInviteCode(inviteCode: string) {

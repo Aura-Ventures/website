@@ -44,5 +44,12 @@ const { language, textDirection } = I18N;
     <slot />
 
     <BasicScripts />
+    <script>
+      import { trackCurrentPageView } from '~/utils/analytics';
+
+      document.addEventListener('astro:page-load', () => {
+        void trackCurrentPageView();
+      });
+    </script>
   </body>
 </html>
