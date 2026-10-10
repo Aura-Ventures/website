@@ -24,6 +24,17 @@ const PROD_FIREBASE_CONFIG: FirebaseOptions = {
 let analyticsPromise: Promise<Analytics | null> | null = null;
 let lastPageViewKey = '';
 
+function readQueryParams(): Record<string, string> {
+  const params: Record<string, string> = {};
+  const search = new URLSearchParams(window.location.search);
+  search.forEach((value, key) => {
+    const name = key.replace(/[^a-zA-Z0-9_]/g, '_').replace(/^[^a-zA-Z]+/, '');
+    if (!name || !value) return;
+    params[name] = value;
+  });
+  return params;
+}
+
 export function getFirebaseConfig(): FirebaseOptions {
   const env = String(import.meta.env.PUBLIC_DEPLOY_ENV ?? 'qa').toLowerCase();
   if (env === 'prod' || env === 'production') return PROD_FIREBASE_CONFIG;
@@ -65,28 +76,16 @@ export async function trackPageView(pageName: string) {
   if (!analytics) return;
 
   logEvent(analytics, 'page_view', {
+    ...readQueryParams(),
     page_name: pageName,
     page_title: document.title,
     page_location: window.location.href,
-    page_path: `${window.location.pathname}${window.location.search}`,
+    page_path: window.location.pathname,
   });
 }
 
-export async function trackClick(pageName: string, buttonName: string) {
+export async function logAnalyticsEvent(eventName: string, params: Record<string, string>) {
   const analytics = await initAnalytics();
   if (!analytics) return;
-
-  logEvent(analytics, 'button_click', {
-    page_name: pageName,
-    button_name: buttonName,
-    page_path: `${window.location.pathname}${window.location.search}`,
-  });
-}
-
-export function bindTrackedClick(element: Element | null, pageName: string, buttonName: string) {
-  if (!(element instanceof HTMLElement) || element.dataset.analyticsBound === '1') return;
-  element.dataset.analyticsBound = '1';
-  element.addEventListener('click', () => {
-    void trackClick(pageName, buttonName);
-  });
+  logEvent(analytics, eventName, params);
 }
